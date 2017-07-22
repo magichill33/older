@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">北京养老</string>
+    <string name="top_bar_home_title">首都老龄</string>
+    <string name="bottom_bar_home_str">首页</string>
+    <string name="bottom_bar_consult_str">咨询</string>
+    <string name="bottom_bar_service_str">服务</string>
+    <string name="home_fragment_policy_str">政策解读</string>
+    <string name="home_fragment_query_str">办理查询</string>
+    <string name="home_fragment_maintain_str">维护权益</string>
+    <string name="home_fragment_notice_str">通知公告</string>
+    <string name="home_fragment_friendship_str">生活交友</string>
+    <string name="home_fragment_district_str">区级动态</string>
+</resources>
