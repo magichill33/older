@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.fcg.pension.MainActivity">
+    android:orientation="vertical">
     <RelativeLayout
+        android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/base_red_color"
@@ -36,7 +36,6 @@
             android:background="@color/transparent"
             android:layout_marginRight="15dp"/>
     </RelativeLayout>
-
     <FrameLayout
         android:id="@+id/activity_main_content_frameLayout"
         android:layout_width="match_parent"

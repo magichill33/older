@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 
 import com.nfu.old.R;
+import com.nfu.old.view.PointPagerIndicator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,12 +23,41 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.home_fragment_viewpager)
     ViewPager mViewPager;
 
+    @BindView(R.id.nfu_hot_list_ad_indicator)
+    PointPagerIndicator pointPagerIndicator;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        initPager();
+        loadData();
         return rootView;
+    }
+
+    private void initPager(){
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+
+    private void loadData(){
+
     }
 
     @Override

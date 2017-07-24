@@ -6,4 +6,5 @@
     <color name="base_red_color">#9d1818</color>
     <color name="transparent">#0000</color>
     <color name="white">#fff</color>
+    <color name="doc_color">#9d1818</color>
 </resources>
