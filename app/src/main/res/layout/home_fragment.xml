@@ -88,9 +88,11 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/ll_policy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="42.5dp"
+                        android:clickable="true"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -112,9 +114,11 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_transaction_query"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -140,10 +144,12 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/ll_rights"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="42.5dp"
+                        android:clickable="true"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -176,9 +182,11 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/ll_announcement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="42.5dp"
+                        android:clickable="true"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -200,9 +208,11 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_socialwork"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:clickable="true"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -228,8 +238,10 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/ll_dynamic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="42.5dp"
                         android:gravity="center_horizontal"
