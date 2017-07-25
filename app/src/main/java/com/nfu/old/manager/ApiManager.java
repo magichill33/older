@@ -1,6 +1,10 @@
 package com.nfu.old.manager;
 
 import com.nfu.old.config.ConnectUrl;
+import com.nfu.old.utils.LogUtil;
+import com.nfu.old.utils.NetUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
 
 /**
  * Created by wpp.
@@ -53,8 +57,10 @@ public class ApiManager {
      *                  {@link ApiConfig#dictionIdForNotice}{@link ApiConfig#dictionIdForPolicy}
      *                  {@link ApiConfig#dictionIdForDynamics}
      */
-    public void getTurnPic(String dictionID){
+    public void getTurnPic(String dictionID, Callback callback){
         String url = ConnectUrl.getTurnPic + "&dictionid=" + dictionID;
+        LogUtil.i("ApiManager--->getTurnPic--->url::"+url);
+        NetUtil.doGet(url,null,callback);
     }
 
     /**
