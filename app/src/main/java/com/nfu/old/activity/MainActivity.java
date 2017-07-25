@@ -9,7 +9,9 @@ import android.widget.FrameLayout;
 
 
 import com.nfu.old.R;
+import com.nfu.old.fragment.ConsultFragment;
 import com.nfu.old.fragment.HomeFragment;
+import com.nfu.old.fragment.ServiceFragment;
 import com.nfu.old.view.ButtonExtendM;
 
 import butterknife.BindView;
@@ -26,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     ButtonExtendM btnConsult;
     @BindView(R.id.btn_service)
     ButtonExtendM btnService;
-
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
     @BindView(R.id.activity_main_content_frameLayout)
     FrameLayout mContentView;
     @Override
@@ -40,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setHomeFragment(){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
         HomeFragment fragment = new HomeFragment();
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 clearSelected();
                 btnConsult.setNfuSeleted(true);
+                setConsultFragment();
             }
         });
 
@@ -70,8 +74,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 clearSelected();
                 btnService.setNfuSeleted(true);
+                setServiceFragment();
+                
             }
         });
+    }
+
+    private void setServiceFragment() {
+        ServiceFragment fragment = new ServiceFragment();
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
+        fragmentTransaction.commit();
+    }
+
+
+    private void setConsultFragment() {
+        ConsultFragment fragment = new ConsultFragment();
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
+        fragmentTransaction.commit();
     }
 
     private void clearSelected(){
