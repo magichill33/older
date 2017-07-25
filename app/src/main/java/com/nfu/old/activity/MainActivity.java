@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+
     private void clearSelected(){
         btnHome.setNfuSeleted(false);
         btnConsult.setNfuSeleted(false);
