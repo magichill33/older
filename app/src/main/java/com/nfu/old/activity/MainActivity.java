@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setServiceFragment() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
         ServiceFragment fragment = new ServiceFragment();
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setConsultFragment() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
         ConsultFragment fragment = new ConsultFragment();
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
