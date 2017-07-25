@@ -5,11 +5,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 
 import com.bumptech.glide.Glide;
@@ -35,17 +38,30 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import okhttp3.Call;
 
+import static android.R.attr.breadCrumbShortTitle;
 import static android.R.attr.data;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener{
 
     Unbinder unbinder;
 
     @BindView(R.id.home_fragment_viewpager)
     ViewPager mViewPager;
-
     @BindView(R.id.nfu_hot_list_ad_indicator)
     PointPagerIndicator pointPagerIndicator;
+
+    @BindView(R.id.ll_policy)
+    LinearLayout ll_policy;
+    @BindView(R.id.ll_transaction_query)
+    LinearLayout ll_transaction_query;
+    @BindView(R.id.ll_rights)
+    LinearLayout ll_rights;
+    @BindView(R.id.ll_announcement)
+    LinearLayout ll_announcement;
+    @BindView(R.id.ll_socialwork)
+    LinearLayout ll_socialwork;
+    @BindView(R.id.ll_dynamic)
+    LinearLayout ll_dynamic;
 
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -70,8 +86,18 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.home_fragment, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         initPager();
+        initEvents();
         loadData();
         return rootView;
+    }
+
+    private void initEvents(){
+        ll_policy.setOnClickListener(this);
+        ll_transaction_query.setOnClickListener(this);
+        ll_rights.setOnClickListener(this);
+        ll_announcement.setOnClickListener(this);
+        ll_socialwork.setOnClickListener(this);
+        ll_dynamic.setOnClickListener(this);
     }
 
     private void initPager(){
@@ -184,4 +210,30 @@ public class HomeFragment extends Fragment {
         stopAdTimer();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_policy:
+                PolicyFragment policyFragment = new PolicyFragment();
+                gotoFragment(policyFragment);
+                break;
+            case R.id.ll_transaction_query:
+                break;
+            case R.id.ll_rights:
+                break;
+            case R.id.ll_announcement:
+                break;
+            case R.id.ll_dynamic:
+                break;
+            case R.id.ll_socialwork:
+                break;
+        }
+    }
+
+    private void gotoFragment(Fragment fragment){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
+        fragmentTransaction.commit();
+    }
 }

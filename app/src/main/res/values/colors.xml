@@ -10,4 +10,6 @@
     <color name="content_color">#111a50</color>
 
     <color name="doc_color">#9d1818</color>
+    <color name="white_color">#ffffff</color>
+    <color name="color_666">#666666</color>
 </resources>
