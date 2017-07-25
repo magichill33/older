@@ -27,6 +27,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,9 @@ public class HomeFragment extends Fragment {
 
     @BindView(R.id.nfu_hot_list_ad_indicator)
     PointPagerIndicator pointPagerIndicator;
+
+    private Timer mTimer;
+    private TimerTask mTimerTask;
 
     int adIndex = 0;
     private Handler MyHandle = new Handler(){
@@ -129,6 +134,8 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
+
+
                 adPagerAdapter.setData(ads);
                 mViewPager.setAdapter(adPagerAdapter);
                 pointPagerIndicator.setViewPager(mViewPager);
@@ -137,14 +144,44 @@ public class HomeFragment extends Fragment {
                     pointPagerIndicator.setCurrentItem(mid - mid/pics.size(), false);
                 }
 
+                if (ads.size()<2){
+                    pointPagerIndicator.setVisibility(View.INVISIBLE);
+                }else {
+                    startAdTimer();
+                }
+
             }
         });
+    }
+
+    public void startAdTimer(){
+        if(mTimerTask == null){
+            mTimer = new Timer();
+            mTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    MyHandle.sendEmptyMessage(0);
+                }
+            };
+            mTimer.schedule(mTimerTask, 5000, 5000);
+        }
+    }
+    public void stopAdTimer(){
+        if(mTimer != null){
+            mTimer.cancel();
+            mTimer = null;
+        }
+        if(mTimerTask != null){
+            mTimerTask.cancel();
+            mTimerTask =null;
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        stopAdTimer();
     }
 
 }

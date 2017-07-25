@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:nfu="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="18sp"
+
             android:layout_centerHorizontal="true"
             android:text="@string/top_bar_home_title"/>
 
@@ -47,11 +49,64 @@
         android:layout_height="0.5dp"
         android:background="#950101"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="49.5dp"
-        android:orientation="horizontal">
-        <RelativeLayout
+        android:layout_height="49.5dp">
+        <com.nfu.old.view.ButtonExtendM
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="32.5dp"
+            android:layout_centerVertical="true"
+            nfu:imgHeight = "25dp"
+            nfu:scType = "CENTER"
+            nfu:iconDrawable="@drawable/bottom_bar_home_unselect"
+            nfu:iconDrawablePress="@drawable/bottom_bar_home_selected"
+            nfu:nfuTextColor = "@color/home_item_color"
+            nfu:textColorPress="@color/base_red_color"
+            nfu:nfuTextSize = "12sp"
+            nfu:buttonType="check"
+            nfu:spacing="2dp"
+            nfu:text="首页"
+            nfu:drec="iconUp"
+            />
+        <com.nfu.old.view.ButtonExtendM
+            android:id="@+id/btn_consult"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            nfu:imgHeight = "25dp"
+            nfu:scType = "CENTER"
+            nfu:iconDrawable="@drawable/bottom_bar_consult_unselect"
+            nfu:iconDrawablePress="@drawable/bottom_bar_consult_selected"
+            nfu:nfuTextColor = "@color/home_item_color"
+            nfu:textColorPress="@color/base_red_color"
+            nfu:nfuTextSize = "12sp"
+            nfu:buttonType="check"
+            nfu:spacing="2dp"
+            nfu:text="咨询"
+            nfu:drec="iconUp"
+            />
+        <com.nfu.old.view.ButtonExtendM
+            android:id="@+id/btn_service"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32.5dp"
+            android:layout_centerVertical="true"
+            nfu:imgHeight = "25dp"
+            nfu:scType = "CENTER"
+            nfu:iconDrawable="@drawable/bottom_bar_service_unselect"
+            nfu:iconDrawablePress="@drawable/bottom_bar_service_selected"
+            nfu:nfuTextColor = "@color/home_item_color"
+            nfu:textColorPress="@color/base_red_color"
+            nfu:nfuTextSize = "12sp"
+            nfu:buttonType="check"
+            nfu:spacing="2dp"
+            nfu:text="服务"
+            nfu:drec="iconUp"
+            />
+        <!--<RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -123,6 +178,6 @@
                     android:layout_marginTop="2dp"
                     android:textSize="12sp"/>
             </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
+        </RelativeLayout>-->
+    </RelativeLayout>
 </LinearLayout>
