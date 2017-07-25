@@ -9,7 +9,6 @@
         android:background="@color/base_red_color"
         android:gravity="center_vertical">
 
-
         <TextView
             android:id="@+id/fragment_service_title_tv"
             android:layout_width="wrap_content"
@@ -17,23 +16,56 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_centerHorizontal="true"
-            android:text="@string/top_bar_home_title"/>
+            android:layout_marginTop="3dp"
+            android:text="@string/top_bar_service_title"/>
 
         <ImageButton
             android:id="@+id/fragment_service_location_ib"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
+            android:layout_width="22dp"
+            android:layout_height="32dp"
+            android:layout_toLeftOf="@+id/fragment_service_location_tv"
             android:src="@drawable/service_top_bar_location_unselected"
             android:background="@color/transparent"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="5dp"/>
         <TextView
-            android:id="@+id/ragment_service_location_tv"
+            android:id="@+id/fragment_service_location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"
-            android:text="@string/top_bar_home_title"/>
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/top_bar_location_title"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:text="@string/top_bar_content_title"
+            android:textColor="@color/content_color"
+            android:textSize="14sp" />
+        <GridView
+            android:id="@+id/fragment_service_content_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:columnWidth="330dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="20dp" >
+
+        </GridView>
+
+    </LinearLayout>
 </LinearLayout>

@@ -9,5 +9,12 @@
     <string name="home_fragment_maintain_str">维护权益</string>
     <string name="home_fragment_notice_str">通知公告</string>
     <string name="home_fragment_friendship_str">生活交友</string>
+
     <string name="home_fragment_district_str">区级动态</string>
+
+    <string name="top_bar_service_title">服务查询</string>
+    <string name="top_bar_location_title">北京市</string>
+    <string name="top_bar_content_title">请选择服务：</string>
+
+
 </resources>

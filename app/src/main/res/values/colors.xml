@@ -7,5 +7,7 @@
     <color name="home_item_color">#172680</color>
     <color name="transparent">#0000</color>
     <color name="white">#fff</color>
+    <color name="content_color">#111a50</color>
+
     <color name="doc_color">#9d1818</color>
 </resources>
