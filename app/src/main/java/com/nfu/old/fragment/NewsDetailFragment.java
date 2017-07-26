@@ -76,15 +76,17 @@ public class NewsDetailFragment extends BaseFragment {
             tv_title.setText(newsModel.getTitle());
             tv_creatdate.setText(newsModel.getCreatedate());
             wv_content.loadDataWithBaseURL(null,newsModel.getContent(),"text/html","utf-8",null);
-
         }
     }
 
     @Override
     protected void initView() {
+        wv_content.getSettings().setJavaScriptEnabled(true);
         wv_content.getSettings().setUseWideViewPort(true);
-       // wv_content.getSettings().setLoadWithOverviewMode(true);
-        wv_content.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        wv_content.getSettings().setLoadWithOverviewMode(true);
+        wv_content.getSettings().setBuiltInZoomControls(true);
+       // wv_content.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        wv_content.getSettings().setSupportZoom(true);
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {

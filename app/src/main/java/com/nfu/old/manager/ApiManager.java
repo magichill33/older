@@ -3,7 +3,6 @@ package com.nfu.old.manager;
 import com.nfu.old.config.ConnectUrl;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.NetUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
 /**
@@ -42,6 +41,13 @@ public class ApiManager {
         String url = ConnectUrl.getNewsList + "&dictionid=" + dictionID + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage
                 + "&iRecordCount=" + iRecordCount + "&strOrderBy=createdate&strSortBy=" + sortBy;
         LogUtil.i("ApiManager--->getNewsList--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
+    public void getNewsListByKey(String dictionID,String keyword,int pageSize, int currentPage, int iRecordCount,String strOrderBy,String sortBy,Callback callback){
+        String url = ConnectUrl.getNewsListByKey + "&dictionid=" + dictionID + "&keyword=" + keyword + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage
+                + "&iRecordCount=" + iRecordCount + "&strOrderBy=" + strOrderBy + "&strSortBy=" + sortBy;
+        LogUtil.i("ApiManager--->getNewsListByKey--->url::"+url);
         NetUtil.doGet(url,null,callback);
     }
 

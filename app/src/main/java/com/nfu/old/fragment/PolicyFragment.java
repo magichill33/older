@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.nfu.old.R;
 import com.nfu.old.adapter.PolicyListAdapter;
+import com.nfu.old.adapter.SearchAndContributionActivityViewPagerAdapter;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
@@ -31,6 +32,8 @@ import com.nfu.old.utils.LogUtil;
 import com.nfu.old.view.ButtonExtendM;
 import com.nfu.old.view.PagerIndicator;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,9 +63,17 @@ public class PolicyFragment extends BaseFragment {
     @BindView(R.id.policy_recyclerview)
     RecyclerView policy_recyclerview;
 
-
+    private String searchStr;
     private static final int TEXTCHANGE = 99;
     private PolicyListAdapter policyListAdapter;
+    private PolicyListAdapter date_listAdapter;
+    private PolicyListAdapter ctr_listAdapter;
+    private RecyclerView dateRecyclerView;
+    private RecyclerView ctrRecyclerView;
+    private int d_currentPage = 0;
+    private int d_iRecordCount = 0;
+    private int ctr_currentPage = 0;
+    private int ctr_iRecordCount = 0;
 
     @Nullable
     @Override
@@ -79,6 +90,11 @@ public class PolicyFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case TEXTCHANGE:
+                    if (ll_search.getVisibility()!=View.VISIBLE){
+                        policy_recyclerview.setVisibility(View.GONE);
+                        ll_search.setVisibility(View.VISIBLE);
+                    }
+                    getNewsListByKey(searchStr,d_currentPage,d_iRecordCount,"createdate");
                     break;
             }
         }
@@ -90,6 +106,9 @@ public class PolicyFragment extends BaseFragment {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onError::"+e);
+                if (ll_search.getVisibility() == View.VISIBLE){
+
+                }
             }
 
             @Override
@@ -106,6 +125,28 @@ public class PolicyFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        dateRecyclerView = new RecyclerView(getContext());
+       // dateRecyclerView.setLayoutParams();
+        dateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        date_listAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
+            @Override
+            public void onDetailListener(NewsModel model) {
+
+            }
+        });
+        dateRecyclerView.setAdapter(date_listAdapter);
+
+        ctrRecyclerView = new RecyclerView(getContext());
+        // dateRecyclerView.setLayoutParams();
+        ctrRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ctr_listAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
+            @Override
+            public void onDetailListener(NewsModel model) {
+
+            }
+        });
+        ctrRecyclerView.setAdapter(ctr_listAdapter);
+
         policy_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         policyListAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
             @Override
@@ -137,6 +178,13 @@ public class PolicyFragment extends BaseFragment {
             }
         });
 
+        mCleanTextIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edQuery.setText("");
+            }
+        });
+
         edQuery.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -148,9 +196,15 @@ public class PolicyFragment extends BaseFragment {
                 msgHandler.removeMessages(TEXTCHANGE);
                 if ("".equals(s.toString())) {
                     mCleanTextIv.setVisibility(View.INVISIBLE);
-
+                    searchStr = "";
+                    date_listAdapter.setNewsData(null);
+                    ctr_listAdapter.setNewsData(null);
                 } else {
-                    //searchStr = s.toString();
+                    searchStr = s.toString();
+                    d_iRecordCount = 0;
+                    d_currentPage = 0;
+                    ctr_currentPage = 0;
+                    ctr_iRecordCount = 0;
                     mCleanTextIv.setVisibility(View.VISIBLE);
                     Message message = msgHandler.obtainMessage();
                     message.what = TEXTCHANGE;
@@ -172,6 +226,13 @@ public class PolicyFragment extends BaseFragment {
                 getFragmentManager().popBackStack();
             }
         });
+
+        ArrayList<View> views = new ArrayList<>();
+        views.add(dateRecyclerView);
+        views.add(ctrRecyclerView);
+        SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views,new String[]{"按日期排序","点击率"});
+        mViewPager.setAdapter(viewPagerAdapter);
+        mPagerIndicator.setViewPager(mViewPager,0);
     }
 
     private void gotoDetailFragment(NewsModel newsModel){
@@ -185,5 +246,37 @@ public class PolicyFragment extends BaseFragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, newsDetailFragment);
         fragmentTransaction.commit();
+    }
+
+    private void getNewsListByKey(String keyword, int currentPage, int iRecordCount, final String strOrderBy ){
+        ApiManager.getInstance().getNewsListByKey("1002", keyword, 8, currentPage, iRecordCount, strOrderBy, "desc", new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("PolicyFragment--->initView--->getNewsListByKey--->onError::"+e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("PolicyFragment--->initView--->getNewsListByKey--->onResponse::"+response);
+                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
+                LogUtil.i("PolicyFragment--->loadData--->getNewsListByKey--->newsListModel::"+newsListModel);
+                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
+                LogUtil.i("PolicyFragment--->loadData--->getNewsListByKey--->NewsModels::"+newsModels);
+                if (strOrderBy.equalsIgnoreCase("createdate")){
+                    date_listAdapter.setNewsData(newsModels.getData());
+                    if (newsModels!=null){
+                        d_currentPage = newsModels.getCurrentPage();
+                        d_iRecordCount = newsModels.getRecordCount();
+                    }
+                }else {
+                    ctr_listAdapter.setNewsData(newsModels.getData());
+                    if (newsModels!=null){
+                        ctr_currentPage = newsModels.getCurrentPage();
+                        ctr_iRecordCount = newsModels.getRecordCount();
+                    }
+                }
+
+            }
+        });
     }
 }

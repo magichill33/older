@@ -182,7 +182,7 @@ public class PointPagerIndicator extends HorizontalScrollView {
         });
     }
 
-    @Override
+/*    @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SaveState saveState = new SaveState(superState);
@@ -190,7 +190,7 @@ public class PointPagerIndicator extends HorizontalScrollView {
         return saveState;
     }
 
-    static class SaveState extends View.BaseSavedState {
+    static class SaveState extends Parcelable {
         int position;
 
         @Override
@@ -224,7 +224,7 @@ public class PointPagerIndicator extends HorizontalScrollView {
                 return new SaveState[size];
             }
         };
-    }
+    }*/
 
     private void scrollToChild(int position, int offset) {
 

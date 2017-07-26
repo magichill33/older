@@ -38,8 +38,6 @@
         android:layout_height="match_parent" >
         <WebView
             android:id="@+id/wv_news_content"
-            android:textColor="@color/color_666"
-            android:textSize="16sp"
             android:scrollbars="vertical"
             android:background="@color/white_color"
             android:layout_width="match_parent"

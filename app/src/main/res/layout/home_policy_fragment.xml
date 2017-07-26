@@ -63,7 +63,7 @@
                 app:unselect_tab_text_color="@color/content_color"
                 app:should_tab_expand="true"
                 app:underline_color="@color/base_red_color"
-                app:underline_height="3dp"
+                app:underline_height="2dp"
                 app:tab_text_size="18sp"
                 app:underline_padding="45dp"/>
             <android.support.v4.view.ViewPager
