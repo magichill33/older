@@ -49,8 +49,10 @@ public class ApiManager {
      * 获取新闻内容
      * @param newsId 新闻id
      */
-    public void getNewsDetail(int newsId){
+    public void getNewsDetail(String newsId,Callback callback){
         String url = ConnectUrl.getNewsDetail + "&newsid=" + newsId;
+        LogUtil.i("ApiManager--->getNewsDetail--->url::"+url);
+        NetUtil.doGet(url,null,callback);
     }
 
     /**

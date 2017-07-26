@@ -1,10 +1,12 @@
 package com.nfu.old.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017-7-26.
  */
 
-public class NewsModel {
+public class NewsModel implements Serializable{
 
     /**
      * id : 新闻记录ID
