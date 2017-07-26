@@ -4,8 +4,9 @@
     <color name="colorPrimaryDark">#830f0f</color>
     <color name="colorAccent">#FF4081</color>
     <color name="base_red_color">#9d1818</color>
+    <color name="black">#000000</color>
     <color name="home_item_color">#172680</color>
-    <color name="transparent">#0000</color>
+    <color name="transparent">#60000000</color>
     <color name="white">#fff</color>
     <color name="content_color">#111a50</color>
     <color name="color_9d">#9d1010</color>

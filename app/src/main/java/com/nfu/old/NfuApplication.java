@@ -3,6 +3,7 @@ package com.nfu.old;
 import android.app.Application;
 import android.content.Context;
 
+import com.nfu.old.utils.SharedPreferencesManager;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -28,5 +29,7 @@ public class NfuApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
+
+        SharedPreferencesManager.createInstance(this);
     }
 }

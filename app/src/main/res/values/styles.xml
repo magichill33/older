@@ -7,5 +7,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <!-- PopupWindow弹出/隐藏动画 -->
+    <style name="contactMsgAnim">
+        <item name="android:windowEnterAnimation">@anim/popupview_enter</item>
+        <item name="android:windowExitAnimation">@anim/popupview_exit</item>
+    </style>
 </resources>

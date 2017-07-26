@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.home_fragment_viewpager)
     ViewPager mViewPager;
-    @BindView(R.id.nfu_hot_list_ad_indicator)
+    //@BindView(R.id.nfu_hot_list_ad_indicator)
     PointPagerIndicator pointPagerIndicator;
 
     @BindView(R.id.ll_policy)
@@ -91,6 +91,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         View rootView = inflater.inflate(R.layout.home_fragment, container, false);
         LogUtil.i("HomeFragment--->onCreateView");
         unbinder = ButterKnife.bind(this, rootView);
+        pointPagerIndicator = (PointPagerIndicator) rootView.findViewById(R.id.nfu_hot_list_ad_indicator);
         initPager();
         initEvents();
         loadData();
