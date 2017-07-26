@@ -5,7 +5,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,8 +22,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.nfu.old.R;
+import com.nfu.old.adapter.PolicyListAdapter;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
+import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.NewsModels;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.view.ButtonExtendM;
@@ -55,7 +60,9 @@ public class PolicyFragment extends BaseFragment {
     @BindView(R.id.policy_recyclerview)
     RecyclerView policy_recyclerview;
 
+
     private static final int TEXTCHANGE = 99;
+    private PolicyListAdapter policyListAdapter;
 
     @Nullable
     @Override
@@ -92,12 +99,37 @@ public class PolicyFragment extends BaseFragment {
                 LogUtil.i("PolicyFragment--->loadData--->getNewsList--->newsListModel::"+newsListModel);
                 NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
                 LogUtil.i("PolicyFragment--->loadData--->getNewsList--->NewsModels::"+newsModels);
+                policyListAdapter.setNewsData(newsModels.getData());
             }
         });
     }
 
     @Override
     protected void initView() {
+        policy_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        policyListAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
+            @Override
+            public void onDetailListener(NewsModel model) {
+                ApiManager.getInstance().getNewsDetail(model.getId(), new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onResponse::"+response);
+                        NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
+                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
+                        NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
+                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
+                        gotoDetailFragment(model1);
+                    }
+                });
+            }
+        });
+        policy_recyclerview.setAdapter(policyListAdapter);
+
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,5 +165,25 @@ public class PolicyFragment extends BaseFragment {
 
             }
         });
+
+        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+    }
+
+    private void gotoDetailFragment(NewsModel newsModel){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title","政策解读");
+        bundle.putSerializable("news",newsModel);
+        newsDetailFragment.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, newsDetailFragment);
+        fragmentTransaction.commit();
     }
 }

@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.home_fragment_viewpager)
     ViewPager mViewPager;
-    @BindView(R.id.nfu_hot_list_ad_indicator)
+    //@BindView(R.id.nfu_hot_list_ad_indicator)
     PointPagerIndicator pointPagerIndicator;
 
     @BindView(R.id.ll_policy)
@@ -80,11 +80,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         }
     };
 
-    @Nullable
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        LogUtil.i("HomeFragment--->onCreate");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment, container, false);
+        LogUtil.i("HomeFragment--->onCreateView");
         unbinder = ButterKnife.bind(this, rootView);
+        pointPagerIndicator = (PointPagerIndicator) rootView.findViewById(R.id.nfu_hot_list_ad_indicator);
         initPager();
         initEvents();
         loadData();
@@ -101,6 +108,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initPager(){
+
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -233,6 +241,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private void gotoFragment(Fragment fragment){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
     }
