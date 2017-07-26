@@ -41,4 +41,15 @@
         <attr name="unselect_point_color" format="color|reference" />
         <attr name="point_spacing" format="dimension|reference" />
     </declare-styleable>
+    <declare-styleable name="PagerIndicator">
+        <!--for tab-->
+        <attr name="unselect_tab_text_color" format="color|reference" />
+        <attr name="select_tab_text_color" format="color|reference" />
+        <attr name="underline_height" format="dimension|reference" />
+        <attr name="underline_padding" format="dimension|reference" />
+        <attr name="underline_color" format="color|reference" />
+        <attr name="tab_padding" format="dimension|reference" />
+        <attr name="should_tab_expand" format="boolean" />
+        <attr name="tab_text_size" format="dimension|reference"/>
+    </declare-styleable>
 </resources>

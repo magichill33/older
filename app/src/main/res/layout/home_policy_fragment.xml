@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
     <include
         android:id="@+id/title_bar"
@@ -43,5 +44,39 @@
             android:background="@drawable/nfu_search_activity_search_clean_icon"
             android:visibility="invisible"/>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <com.nfu.old.view.PagerIndicator
+                android:id="@+id/nfu_activity_search_layout_tab"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#fff"
+                app:select_tab_text_color="@color/base_red_color"
+                app:unselect_tab_text_color="@color/content_color"
+                app:should_tab_expand="true"
+                app:underline_color="@color/base_red_color"
+                app:underline_height="3dp"
+                app:tab_text_size="18sp"
+                app:underline_padding="45dp"/>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/nfu_activity_search_layout_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/policy_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
 
 </LinearLayout>
