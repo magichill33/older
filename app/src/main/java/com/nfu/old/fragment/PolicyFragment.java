@@ -151,7 +151,7 @@ public class PolicyFragment extends BaseFragment {
         policyListAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
-                ApiManager.getInstance().getNewsDetail(model.getId(), new StringCallback() {
+                /*ApiManager.getInstance().getNewsDetail(model.getId(), new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
@@ -166,7 +166,8 @@ public class PolicyFragment extends BaseFragment {
                         LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
                         gotoDetailFragment(model1);
                     }
-                });
+                });*/
+                gotoDetailFragment(model.getId());
             }
         });
         policy_recyclerview.setAdapter(policyListAdapter);
@@ -235,6 +236,25 @@ public class PolicyFragment extends BaseFragment {
         mPagerIndicator.setViewPager(mViewPager,0);
     }
 
+    private void gotoDetailFragment(String id){
+        ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onResponse::"+response);
+                NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
+                NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
+                gotoDetailFragment(model1);
+            }
+        });
+    }
+
     private void gotoDetailFragment(NewsModel newsModel){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -247,6 +267,8 @@ public class PolicyFragment extends BaseFragment {
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, newsDetailFragment);
         fragmentTransaction.commit();
     }
+
+
 
     private void getNewsListByKey(String keyword, int currentPage, int iRecordCount, final String strOrderBy ){
         ApiManager.getInstance().getNewsListByKey("1002", keyword, 8, currentPage, iRecordCount, strOrderBy, "desc", new StringCallback() {

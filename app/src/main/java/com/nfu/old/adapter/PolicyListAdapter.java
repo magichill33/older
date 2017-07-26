@@ -67,8 +67,8 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
             holder1.content.setText(content);
 
             String title = newsModel.getTitle();
-            if (title.length()>15){
-                title = title.substring(0,15) + "...";
+            if (title.length()>10){
+                title = title.substring(0,10) + "...";
             }
             holder1.title.setText(title);
             if (!NfuResource.getInstance().isUseDefPic()){
@@ -126,7 +126,7 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){
-                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()-1));
+                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()));
                     }
                 }
             });
