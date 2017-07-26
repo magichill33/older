@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
@@ -24,7 +26,8 @@ import com.nfu.old.config.NfuResource;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.TurnPicModel;
 import com.nfu.old.utils.LogUtil;
-import com.nfu.old.utils.NetUtil;
+import com.nfu.old.utils.SharedPreferencesManager;
+import com.nfu.old.view.ContactMsgWindow;
 import com.nfu.old.view.PointPagerIndicator;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -38,16 +41,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import okhttp3.Call;
 
-import static android.R.attr.breadCrumbShortTitle;
-import static android.R.attr.data;
-
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     Unbinder unbinder;
 
     @BindView(R.id.home_fragment_viewpager)
     ViewPager mViewPager;
-    //@BindView(R.id.nfu_hot_list_ad_indicator)
+    @BindView(R.id.nfu_hot_list_ad_indicator)
     PointPagerIndicator pointPagerIndicator;
 
     @BindView(R.id.ll_policy)
@@ -62,6 +62,50 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     LinearLayout ll_socialwork;
     @BindView(R.id.ll_dynamic)
     LinearLayout ll_dynamic;
+    /**
+     * 修改电话信息
+     */
+    @BindView(R.id.ll_msg_first)
+    LinearLayout ll_msg_first;
+    @BindView(R.id.ll_msg_second)
+    LinearLayout ll_msg_second;
+    @BindView(R.id.ll_msg_third)
+    LinearLayout ll_msg_third;
+    @BindView(R.id.ll_msg_fourth)
+    LinearLayout ll_msg_fourth;
+
+    @BindView(R.id.contact_msg_first_name_tv)
+    TextView contact_msg_first_name_tv;
+    @BindView(R.id.contact_msg_second_name_tv)
+    TextView contact_msg_second_name_tv;
+    @BindView(R.id.contact_msg_third_name_tv)
+    TextView contact_msg_third_name_tv;
+    @BindView(R.id.contact_msg_fourth_name_tv)
+    TextView contact_msg_fourth_name_tv;
+
+    @BindView(R.id.contact_msg_first_number_tv)
+    TextView contact_msg_first_number_tv;
+    @BindView(R.id.contact_msg_second_number_tv)
+    TextView contact_msg_second_number_tv;
+    @BindView(R.id.contact_msg_third_number_tv)
+    TextView contact_msg_third_number_tv;
+    @BindView(R.id.contact_msg_fourth_number_tv)
+    TextView contact_msg_fourth_number_tv;
+
+    /**
+     * 拨打电话
+     */
+    @BindView(R.id.iv_call_first)
+    ImageView iv_call_first;
+    @BindView(R.id.iv_call_second)
+    ImageView iv_call_second;
+    @BindView(R.id.iv_call_third)
+    ImageView iv_call_third;
+    @BindView(R.id.iv_call_fourth)
+    ImageView iv_call_fourth;
+    @BindView(R.id.root)
+    ScrollView rootView;
+
 
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -80,22 +124,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         }
     };
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        LogUtil.i("HomeFragment--->onCreate");
-    }
-
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-        LogUtil.i("HomeFragment--->onCreateView");
         unbinder = ButterKnife.bind(this, rootView);
-        pointPagerIndicator = (PointPagerIndicator) rootView.findViewById(R.id.nfu_hot_list_ad_indicator);
+        initData();
         initPager();
         initEvents();
         loadData();
         return rootView;
+    }
+
+    private void initData() {
+        chageMsg(1);
+        chageMsg(2);
+        chageMsg(3);
+        chageMsg(4);
+
     }
 
     private void initEvents(){
@@ -105,10 +151,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         ll_announcement.setOnClickListener(this);
         ll_socialwork.setOnClickListener(this);
         ll_dynamic.setOnClickListener(this);
+
+        ll_msg_first.setOnClickListener(this);
+        ll_msg_second.setOnClickListener(this);
+        ll_msg_third.setOnClickListener(this);
+        ll_msg_fourth.setOnClickListener(this);
+
     }
 
     private void initPager(){
-
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -186,6 +237,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
             }
         });
+
     }
 
     public void startAdTimer(){
@@ -235,6 +287,83 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.ll_socialwork:
                 break;
+            case R.id.ll_msg_first:
+                ContactMsgWindow msgWindow = new ContactMsgWindow(getContext(),1);
+                msgWindow.show(rootView);
+                msgWindow.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
+                    @Override
+                    public void onCommit() {
+
+                        chageMsg(1);
+                    }
+                });
+
+                break;
+            case R.id.ll_msg_second:
+                ContactMsgWindow msgWindowSecond = new ContactMsgWindow(getContext(),2);
+                msgWindowSecond.show(rootView);
+                msgWindowSecond.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
+                    @Override
+                    public void onCommit() {
+                        chageMsg(2);
+                    }
+                });
+                break;
+            case R.id.ll_msg_third:
+                ContactMsgWindow msgWindowThird = new ContactMsgWindow(getContext(),3);
+                msgWindowThird.show(rootView);
+                msgWindowThird.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
+                    @Override
+                    public void onCommit() {
+                        chageMsg(3);
+
+
+                    }
+                });
+                break;
+            case R.id.ll_msg_fourth:
+                ContactMsgWindow msgWindowfourrth = new ContactMsgWindow(getContext(),4);
+                msgWindowfourrth.show(rootView);
+                msgWindowfourrth.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
+                    @Override
+                    public void onCommit() {
+                        chageMsg(4);
+
+                    }
+                });
+
+                break;
+
+        }
+    }
+
+    private void chageMsg(int code) {
+        switch (code) {
+            case 1:
+                String name = SharedPreferencesManager.getString("contacts_msg_first", "name", "儿子");
+                String number = SharedPreferencesManager.getString("contacts_msg_first", "number", "13688888888");
+                contact_msg_first_name_tv.setText(name);
+                contact_msg_first_number_tv.setText(number);
+                break;
+            case 2:
+                String nameSecond = SharedPreferencesManager.getString("contacts_msg_second", "name", "警察");
+                contact_msg_second_name_tv.setText(nameSecond);
+                String numberSecond = SharedPreferencesManager.getString("contacts_msg_second", "number", "13688888888");
+                contact_msg_second_number_tv.setText(numberSecond);
+                break;
+            case 3:
+                String nameThird = SharedPreferencesManager.getString("contacts_msg_third", "name", "女儿");
+                contact_msg_third_name_tv.setText(nameThird);
+                String numberThird = SharedPreferencesManager.getString("contacts_msg_third", "number", "13688888888");
+                contact_msg_third_number_tv.setText(numberThird);
+                break;
+            case 4:
+                String nameFourth = SharedPreferencesManager.getString("contacts_msg_fourth", "name", "医生");
+                contact_msg_fourth_name_tv.setText(nameFourth);
+                String numberFourth = SharedPreferencesManager.getString("contacts_msg_fourth", "number", "13688888888");
+                contact_msg_fourth_number_tv.setText(numberFourth);
+                break;
+
         }
     }
 
