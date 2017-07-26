@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.nfu.old.R;
@@ -39,12 +41,12 @@ public class ServiceFragment extends Fragment {
     private int[] to = { R.id.item_pic, R.id.item_pic_title};
     String[] titles = new String[] { "超级商场", "餐饮", "家政服务", "社区便利店"
             , "医药医疗" ,"日间照料","养老机构","生活照料","文化娱乐","幸福彩虹"};
-    Integer[] images = { R.drawable.service_item_pic_chaojishichang_unselected, R.drawable.service_item_pic_canyin_unselected,
+    Integer[] images = { R.drawable.service_item_pic_chaojishichang_selected, R.drawable.service_item_pic_canyin_unselected,
             R.drawable.service_item_pic_jiazhengfuwu_unselected, R.drawable.service_item_pic_shequ_unselected,
             R.drawable.service_item_pic_yiyaoyiliao_unselected ,R.drawable.service_item_pic_rijian_unselected,
             R.drawable.service_item_pic_yanglaojigou_unselected,R.drawable.service_item_pic_shenghuo_selected,
             R.drawable.service_item_pic_wenhua_unselected,R.drawable.service_item_pic_xingfu_unselected};
-    Integer[] imagesPress = { R.drawable.service_item_pic_chaojishichang_selected, R.drawable.service_item_pic_canyin_selected,
+    Integer[] imagesPress = { R.drawable.service_item_pic_chaojishichang_unselected, R.drawable.service_item_pic_canyin_selected,
             R.drawable.service_item_pic_jiazhengfuwu_selected, R.drawable.service_item_pic_shequ_selected,
             R.drawable.service_item_pic_yiyaoyiliao_selected ,R.drawable.service_item_pic_rijian_selected,
             R.drawable.service_item_pic_yanglaojigou_selected,R.drawable.service_item_pic_shenghuo_unselected,
@@ -64,11 +66,11 @@ public class ServiceFragment extends Fragment {
    /*     SimpleAdapter pictureAdapter = new SimpleAdapter(getContext(), getList(),
                 R.layout.gridview_item, from, to);*/
 
-        PictureAdapter pictureAdapter=new PictureAdapter(titles, images, getContext());
+        PictureAdapter pictureAdapter=new PictureAdapter(titles, images,imagesPress, getContext());
 
         mGridView.setAdapter(pictureAdapter);
-        mGridView.setSelection(0);
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        mGridView.setSelection(0);
+       /* mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -77,6 +79,7 @@ public class ServiceFragment extends Fragment {
 
                 ImageView itemBtn = (ImageView) view.findViewById(R.id.item_pic);
                 TextView itemTv = (TextView) view.findViewById(R.id.item_pic_title);
+
                 if (view.isSelected() == false) {
                     itemTv.setTextColor(Color.WHITE);
 
@@ -88,8 +91,10 @@ public class ServiceFragment extends Fragment {
             }
 //              adapter.setSelection(position);
 //             adapter.notifyDataSetChanged();
-        });
+        });*/
     }
+
+
 
    /* public List<Map<String, Object>> getList() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
