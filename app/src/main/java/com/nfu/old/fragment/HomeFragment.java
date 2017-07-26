@@ -1,5 +1,8 @@
 package com.nfu.old.fragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -27,6 +31,7 @@ import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.TurnPicModel;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.SharedPreferencesManager;
+import com.nfu.old.view.ContactCallDailog;
 import com.nfu.old.view.ContactMsgWindow;
 import com.nfu.old.view.PointPagerIndicator;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -41,7 +46,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import okhttp3.Call;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     Unbinder unbinder;
 
@@ -111,14 +116,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private TimerTask mTimerTask;
 
     int adIndex = 0;
-    private Handler MyHandle = new Handler(){
+    private Handler MyHandle = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if(mViewPager != null && mViewPager.getAdapter() != null && mViewPager.getAdapter().getCount() != 0){
+            if (mViewPager != null && mViewPager.getAdapter() != null && mViewPager.getAdapter().getCount() != 0) {
                 mViewPager.setCurrentItem(adIndex);
             }
             adIndex++;
-            if(adIndex == mViewPager.getAdapter().getCount() - 1){
+            if (adIndex == mViewPager.getAdapter().getCount() - 1) {
                 adIndex = 0;
             }
         }
@@ -144,7 +149,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private void initEvents(){
+    private void initEvents() {
         ll_policy.setOnClickListener(this);
         ll_transaction_query.setOnClickListener(this);
         ll_rights.setOnClickListener(this);
@@ -157,9 +162,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         ll_msg_third.setOnClickListener(this);
         ll_msg_fourth.setOnClickListener(this);
 
+        iv_call_first.setOnClickListener(this);
+        iv_call_second.setOnClickListener(this);
+        iv_call_third.setOnClickListener(this);
+        iv_call_fourth.setOnClickListener(this);
+
     }
 
-    private void initPager(){
+    private void initPager() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -181,32 +191,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     RequestOptions options = new RequestOptions()
             .centerCrop().placeholder(R.drawable.def_turn);
 
-    private void loadData(){
+    private void loadData() {
         ApiManager.getInstance().getTurnPic("1008", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("HomeFragment--->loadData--->onError--->"+e);
+                LogUtil.i("HomeFragment--->loadData--->onError--->" + e);
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("HomeFragment--->loadData--->onResponse--->"+response);
-                TurnPicModel turnPicModel = new Gson().fromJson(response,TurnPicModel.class);
-                LogUtil.i("HomeFragment--->loadData--->TurnPicModel--->"+turnPicModel);
+                LogUtil.i("HomeFragment--->loadData--->onResponse--->" + response);
+                TurnPicModel turnPicModel = new Gson().fromJson(response, TurnPicModel.class);
+                LogUtil.i("HomeFragment--->loadData--->TurnPicModel--->" + turnPicModel);
                 List<TurnPicModel.StrResultBean> pics = turnPicModel.getStrResult();
                 ArrayList<ImageView> ads = new ArrayList<ImageView>();
-                if (pics!=null&&pics.size()>0&& !NfuResource.getInstance().isUseDefPic()){
+                if (pics != null && pics.size() > 0 && !NfuResource.getInstance().isUseDefPic()) {
                     for (int i = 0; i < pics.size(); i++) {
                         ImageView imageView = new ImageView(getContext());
                         Glide.with(HomeFragment.this).load(pics.get(i).getPicurl()).apply(options).into(imageView);
                         ads.add(imageView);
                     }
-                    if(ads.size() == 2){
+                    if (ads.size() == 2) {
                         pointPagerIndicator.setIsTwoPage(true);
                     } else {
                         pointPagerIndicator.setIsTwoPage(false);
                     }
-                }else {
+                } else {
                     ImageView imageView = new ImageView(getContext());
                     Glide.with(getContext()).load(R.drawable.def_turn).into(imageView);
                     ads.add(imageView);
@@ -215,7 +225,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 HotAdPagerAdapter adPagerAdapter = new HotAdPagerAdapter(new HotAdPagerAdapter.AdItemOnClickListener() {
                     @Override
                     public void viewPagerItemOnClickListener(int position) {
-                        LogUtil.d("viewPagerItemOnClickListener:position:"+position);
+                        LogUtil.d("viewPagerItemOnClickListener:position:" + position);
 
                     }
                 });
@@ -224,14 +234,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 adPagerAdapter.setData(ads);
                 mViewPager.setAdapter(adPagerAdapter);
                 pointPagerIndicator.setViewPager(mViewPager);
-                if(pics != null && pics.size() != 0){
+                if (pics != null && pics.size() != 0) {
                     int mid = adPagerAdapter.getCount() / 2;
-                    pointPagerIndicator.setCurrentItem(mid - mid/pics.size(), false);
+                    pointPagerIndicator.setCurrentItem(mid - mid / pics.size(), false);
                 }
 
-                if (ads.size()<2){
+                if (ads.size() < 2) {
                     pointPagerIndicator.setVisibility(View.INVISIBLE);
-                }else {
+                } else {
                     startAdTimer();
                 }
 
@@ -240,8 +250,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    public void startAdTimer(){
-        if(mTimerTask == null){
+    public void startAdTimer() {
+        if (mTimerTask == null) {
             mTimer = new Timer();
             mTimerTask = new TimerTask() {
                 @Override
@@ -252,14 +262,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             mTimer.schedule(mTimerTask, 5000, 5000);
         }
     }
-    public void stopAdTimer(){
-        if(mTimer != null){
+
+    public void stopAdTimer() {
+        if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
         }
-        if(mTimerTask != null){
+        if (mTimerTask != null) {
             mTimerTask.cancel();
-            mTimerTask =null;
+            mTimerTask = null;
         }
     }
 
@@ -272,7 +283,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_policy:
                 PolicyFragment policyFragment = new PolicyFragment();
                 gotoFragment(policyFragment);
@@ -288,19 +299,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.ll_socialwork:
                 break;
             case R.id.ll_msg_first:
-                ContactMsgWindow msgWindow = new ContactMsgWindow(getContext(),1);
+                ContactMsgWindow msgWindow = new ContactMsgWindow(getContext(), 1);
                 msgWindow.show(rootView);
                 msgWindow.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
                     @Override
                     public void onCommit() {
-
                         chageMsg(1);
                     }
                 });
 
                 break;
             case R.id.ll_msg_second:
-                ContactMsgWindow msgWindowSecond = new ContactMsgWindow(getContext(),2);
+                ContactMsgWindow msgWindowSecond = new ContactMsgWindow(getContext(), 2);
                 msgWindowSecond.show(rootView);
                 msgWindowSecond.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
                     @Override
@@ -310,19 +320,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 });
                 break;
             case R.id.ll_msg_third:
-                ContactMsgWindow msgWindowThird = new ContactMsgWindow(getContext(),3);
+                ContactMsgWindow msgWindowThird = new ContactMsgWindow(getContext(), 3);
                 msgWindowThird.show(rootView);
                 msgWindowThird.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
                     @Override
                     public void onCommit() {
                         chageMsg(3);
-
-
                     }
                 });
                 break;
             case R.id.ll_msg_fourth:
-                ContactMsgWindow msgWindowfourrth = new ContactMsgWindow(getContext(),4);
+                ContactMsgWindow msgWindowfourrth = new ContactMsgWindow(getContext(), 4);
                 msgWindowfourrth.show(rootView);
                 msgWindowfourrth.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
                     @Override
@@ -333,8 +341,104 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 });
 
                 break;
+            case R.id.iv_call_first:
+                showDialog(1, getCurrNumber(1));
+
+                break;
+            case R.id.iv_call_second:
+                showDialog(2, getCurrNumber(2));
+
+                break;
+            case R.id.iv_call_third:
+                showDialog(3, getCurrNumber(3));
+
+                break;
+            case R.id.iv_call_fourth:
+                showDialog(4, getCurrNumber(4));
+                break;
 
         }
+    }
+
+    private String getCurrNumber(int code) {
+        String number = "";
+        switch (code) {
+            case 1:
+                number = SharedPreferencesManager.getString("contacts_msg_first", "number", "13688888888");
+                break;
+            case 2:
+                number = SharedPreferencesManager.getString("contacts_msg_second", "number", "13688888888");
+                break;
+            case 3:
+                number = SharedPreferencesManager.getString("contacts_msg_third", "number", "13688888888");
+                break;
+            case 4:
+                number = SharedPreferencesManager.getString("contacts_msg_fourth", "number", "13688888888");
+                break;
+        }
+        return number;
+    }
+
+    private void showDialog(int code, final String currNumber) {
+        // Builder builder = new AlertDialog.Builder(context);
+        // builder.setTitle("下载").setMessage("你想要下载:"+appName+"?");
+        //
+        // builder.setPositiveButton("确认", new OnClickListener() {
+        //
+        // @Override
+        // public void onClick(DialogInterface dialog, int which) {
+        // dialog.dismiss();
+        // startDownload();
+        // }
+        // });
+        //
+        // builder.setNegativeButton("取消", new OnClickListener() {
+        //
+        // @Override
+        // public void onClick(DialogInterface dialog, int which) {
+        // dialog.dismiss();
+        // }
+        // });
+        //
+        // builder.create().show();
+        final String number;
+
+
+        ContactCallDailog.Builder builder = new ContactCallDailog.Builder(getContext());
+        builder.setContent(currNumber);
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                //TODO 调用打掉话界面
+                call(currNumber);
+            }
+        });
+        ContactCallDailog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
+        dialog.show();
+    }
+
+    /**
+     * 调用拨号界面
+     *
+     * @param phone 电话号码
+     */
+    private void call(String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void chageMsg(int code) {
@@ -367,7 +471,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void gotoFragment(Fragment fragment){
+    private void gotoFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
