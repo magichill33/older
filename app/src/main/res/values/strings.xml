@@ -9,6 +9,15 @@
     <string name="home_fragment_maintain_str">维护权益</string>
     <string name="home_fragment_notice_str">通知公告</string>
     <string name="home_fragment_friendship_str">生活交友</string>
+    <string name="home_fragment_modify_call_msg">修改紧急呼救电话</string>
+    <string name="home_fragment_modify_call_msg_name">对方名字</string>
+    <string name="home_fragment_modify_call_msg_phone">联系电话</string>
+    <string name="home_fragment_modify_call_commit">确定</string>
+    <string name="home_fragment_modify_call_cacle">取消</string>
+   <string name="home_fragment_modify_call_title">确定拨打</string>
+
+
+
 
     <string name="home_fragment_district_str">区级动态</string>
 
@@ -18,4 +27,5 @@
 
 
     <string name="back_str">返回</string>
+
 </resources>

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -313,30 +314,36 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/ll_msg_first"
+                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="12dp"
-                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/contact_msg_first_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="儿子"
                             android:textColor="#010101"
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/contact_msg_first_number_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
+                            android:layout_gravity="center"
                             android:text="13688888888"
                             android:textColor="#010101"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/iv_call_first"
                         android:layout_width="32.5dp"
                         android:layout_height="32.5dp"
                         android:layout_alignParentRight="true"
@@ -357,23 +364,28 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/ll_msg_second"
+                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="12dp"
-                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/contact_msg_second_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="警察"
                             android:textColor="#010101"
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/contact_msg_second_number_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginTop="2dp"
                             android:text="13688888888"
                             android:textColor="#010101"
@@ -381,6 +393,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/iv_call_second"
                         android:layout_width="32.5dp"
                         android:layout_height="32.5dp"
                         android:layout_alignParentRight="true"
@@ -407,23 +420,28 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/ll_msg_third"
+                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="12dp"
-                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/contact_msg_third_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="女儿"
                             android:textColor="#010101"
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/contact_msg_third_number_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginTop="2dp"
                             android:text="13688888888"
                             android:textColor="#010101"
@@ -431,6 +449,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/iv_call_third"
                         android:layout_width="32.5dp"
                         android:layout_height="32.5dp"
                         android:layout_alignParentRight="true"
@@ -451,23 +470,28 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/ll_msg_fourth"
+                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="12dp"
-                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/contact_msg_fourth_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="医生"
                             android:textColor="#010101"
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/contact_msg_fourth_number_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginTop="2dp"
                             android:text="13688888888"
                             android:textColor="#010101"
@@ -475,6 +499,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/iv_call_fourth"
                         android:layout_width="32.5dp"
                         android:layout_height="32.5dp"
                         android:layout_alignParentRight="true"
