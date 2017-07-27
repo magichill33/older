@@ -15,13 +15,12 @@
             android:layout_height="40dp"
             android:background="@color/base_red_color"
             android:gravity="center_vertical">
-            <ImageButton
+            <ImageView
                 android:id="@+id/activity_main_call_ib"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/top_bar_call_bg"
-                android:layout_marginLeft="15dp"
-                android:background="@color/transparent"/>
+                android:layout_marginLeft="15dp" />
 
             <TextView
                 android:id="@+id/activity_main_title_tv"
@@ -33,13 +32,12 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/top_bar_home_title"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/activity_main_setting_ib"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/top_bar_setting_bg"
-                android:background="@color/transparent"
                 android:layout_marginRight="15dp"/>
         </RelativeLayout>
         <RelativeLayout

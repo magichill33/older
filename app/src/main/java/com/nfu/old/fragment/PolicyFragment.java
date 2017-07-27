@@ -30,6 +30,7 @@ import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.NewsModels;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.view.ButtonExtendM;
+import com.nfu.old.view.MyItemDecoration;
 import com.nfu.old.view.PagerIndicator;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -135,6 +136,7 @@ public class PolicyFragment extends BaseFragment {
             }
         });
         dateRecyclerView.setAdapter(date_listAdapter);
+        dateRecyclerView.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
 
         ctrRecyclerView = new RecyclerView(getContext());
         // dateRecyclerView.setLayoutParams();
@@ -146,6 +148,7 @@ public class PolicyFragment extends BaseFragment {
             }
         });
         ctrRecyclerView.setAdapter(ctr_listAdapter);
+        ctrRecyclerView.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
 
         policy_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         policyListAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
@@ -171,6 +174,7 @@ public class PolicyFragment extends BaseFragment {
             }
         });
         policy_recyclerview.setAdapter(policyListAdapter);
+        policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
 
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override

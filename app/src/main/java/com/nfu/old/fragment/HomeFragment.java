@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -289,11 +288,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 gotoFragment(policyFragment);
                 break;
             case R.id.ll_transaction_query:
+                TransactionFragment transactionFragment = new TransactionFragment();
+                gotoFragment(transactionFragment);
                 break;
             case R.id.ll_rights:
                 break;
             case R.id.ll_announcement:
-                Announcementragment announcementragment = new Announcementragment();
+                AnnouncementFragment announcementragment = new AnnouncementFragment();
                 gotoFragment(announcementragment);
                 break;
             case R.id.ll_dynamic:

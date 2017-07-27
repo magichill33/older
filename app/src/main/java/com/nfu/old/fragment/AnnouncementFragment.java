@@ -44,7 +44,7 @@ import okhttp3.Call;
  * 咨询页面
  */
 
-public class Announcementragment extends BaseFragment {
+public class AnnouncementFragment extends BaseFragment {
     @BindView(R.id.btn_back)
     ButtonExtendM btnBack;
     @BindView(R.id.top_title)
@@ -70,20 +70,20 @@ public class Announcementragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        ApiManager.getInstance().getNewsList("1002", 8, 0, 0, "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList("1001", 8, 0, 0, "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("Announcementragment--->loadData--->getNewsList--->onError::"+e);
+                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->onError::"+e);
 
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("Announcementragment--->loadData--->getNewsList--->onResponse::"+response);
+                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->onResponse::"+response);
                 NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("Announcementragment--->loadData--->getNewsList--->newsListModel::"+newsListModel);
+                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->newsListModel::"+newsListModel);
                 NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("Announcementragment--->loadData--->getNewsList--->NewsModels::"+newsModels);
+                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->NewsModels::"+newsModels);
                 newsListAdapter.setNewsData(newsModels.getData());
             }
         });
@@ -118,11 +118,11 @@ public class Announcementragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("Announcementragment--->initView--->getNewsDetail--->onResponse::"+response);
+                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->onResponse::"+response);
                 NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("Announcementragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
+                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
                 NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
-                LogUtil.i("Announcementragment--->initView--->getNewsDetail--->NewsModel::"+model1);
+                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
                 gotoDetailFragment(model1);
             }
         });
