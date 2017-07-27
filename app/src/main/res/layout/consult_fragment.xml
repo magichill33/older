@@ -10,13 +10,13 @@
         android:layout_height="40dp"
         android:background="@color/base_red_color"
         android:gravity="center_vertical">
-        <ImageButton
+        <ImageView
             android:id="@+id/fragment_consult_call_ib"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/top_bar_call_bg"
             android:layout_marginLeft="15dp"
-            android:background="@color/transparent"/>
+            />
 
         <TextView
             android:id="@+id/fragment_consult_title_tv"
@@ -29,13 +29,12 @@
             android:text="@string/consult_fragment_top_title"
             android:layout_alignTop="@+id/activity_main_call_ib" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/fragment_consult_setting_ib"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/top_bar_setting_bg"
-            android:background="@color/transparent"
             android:layout_marginRight="15dp"/>
     </RelativeLayout>
     <RelativeLayout
@@ -44,9 +43,12 @@
         >
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/fragment_consult_viewpager"
+            android:id="@+id/consult_fragment_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
         </android.support.v4.view.ViewPager>
         <com.nfu.old.view.PointPagerIndicator
@@ -61,23 +63,27 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
- <!--   <com.nfu.old.view.ConsultItemView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/policy_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+   <!-- <com.nfu.old.view.ConsultItemView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:image_bg="@drawable/consult_qujidongtai_bg"
-        app:text_content="@string/consult_item_qujidongtai"
+        app:imageBg="@drawable/consult_qujidongtai_bg"
+        app:textContent="@string/consult_item_qujidongtai"
         />
     <com.nfu.old.view.ConsultItemView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:image_bg="@drawable/consult_zhengcejiedu"
-        app:text_content="@string/consult_item_zhengcejiedu"
+        app:imageBg="@drawable/consult_zhengcejiedu"
+        app:textContent="@string/consult_item_zhengcejiedu"
         />
     <com.nfu.old.view.ConsultItemView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:image_bg="@drawable/consult_meitibaodao_bg"
-        app:text_content="@string/consult_item_meitibaodao"
+        app:imageBg="@drawable/consult_meitibaodao_bg"
+        app:textContent="@string/consult_item_meitibaodao"
         />-->
  <!--   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
