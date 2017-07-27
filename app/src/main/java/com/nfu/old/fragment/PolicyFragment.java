@@ -271,15 +271,6 @@ public class PolicyFragment extends BaseFragment {
             }
         });
 
-
-
-        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().popBackStack();
-            }
-        });
-
         ArrayList<View> views = new ArrayList<>();
         views.add(dateRecyclerView);
         views.add(ctrRecyclerView);
