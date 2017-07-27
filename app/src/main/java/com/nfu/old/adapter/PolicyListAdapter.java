@@ -126,7 +126,7 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){
-                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()));
+                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()-1));
                     }
                 }
             });
@@ -135,6 +135,16 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
 
     public void setNewsData(List<NewsModel> newsData){
         newsModelList = newsData;
+        notifyDataSetChanged();
+    }
+
+    public void addNewsData(List<NewsModel> newsData){
+        if (newsModelList!=null){
+            newsModelList.addAll(newsData);
+        }else {
+            newsModelList = newsData;
+        }
+
         notifyDataSetChanged();
     }
 
@@ -151,7 +161,7 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){
-                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()));
+                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()-1));
                     }
                 }
             });

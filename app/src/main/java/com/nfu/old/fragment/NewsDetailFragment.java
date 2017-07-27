@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class NewsDetailFragment extends BaseFragment {
         top_title.setText(title);
         if (newsModel!=null){
             tv_title.setText(newsModel.getTitle());
+            tv_title.setMovementMethod(ScrollingMovementMethod.getInstance());
             tv_creatdate.setText(newsModel.getCreatedate());
             wv_content.loadDataWithBaseURL(null,newsModel.getContent(),"text/html","utf-8",null);
         }
