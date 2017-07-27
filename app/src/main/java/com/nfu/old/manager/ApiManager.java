@@ -96,8 +96,10 @@ public class ApiManager {
     /**
      * 服务查询
      */
-    public void getXbsFws(String serviceTypeId, int pageSize, int currentPage, int iRecordCount, String shopName){
+    public void getXbsFws(String serviceTypeId, int pageSize, int currentPage, int iRecordCount, String shopName,Callback callback){
         String url = ConnectUrl.getXbsFws + "&serviceTypeId=" + serviceTypeId + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount + "&shopName=" + shopName;
+        LogUtil.i("ApiManager--->getNewsDetail--->url::"+url);
+        NetUtil.doGet(url,null,callback);
     }
 
     public void getXbsFwsDetail(){
