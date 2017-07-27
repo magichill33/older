@@ -18,4 +18,5 @@ public interface ConnectUrl {
     String getXbsFwsDetail = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetXbsFwsDetail&signKey=" + ApiConfig.signKey;
     String getNewsListByKey = baseUrl + "/bjllapp/bjllXxfbQuery/bjllXxfbQueryAction.do?method=GetKeywordNewsList&signKey=" + ApiConfig.signKey;
 
+    String query_card = "https://fhzx.bjrcb.com/appoint/cardSchedulQuery.jhtml";
 }

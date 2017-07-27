@@ -18,7 +18,11 @@
         android:layout_centerVertical="true"
         android:background="@drawable/nfu_search_bg"
         android:gravity="center_vertical">
-
+        <ImageView
+            android:layout_width="16.5dp"
+            android:layout_height="16.5dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/sousou" />
         <EditText
             android:id="@+id/nfu_activity_search_layout_et"
             android:layout_width="263dp"
@@ -31,13 +35,6 @@
             android:inputType="text"
             android:textColor="@color/color_666"
             android:textSize="18sp" />
-
-        <ImageView
-            android:layout_width="16.5dp"
-            android:layout_height="16.5dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/sousou" />
-
         <ImageView
             android:id="@+id/nfu_activity_search_layout_et_clean"
             android:layout_width="14dp"

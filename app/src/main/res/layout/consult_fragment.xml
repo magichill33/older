@@ -61,7 +61,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-    <com.nfu.old.view.ConsultItemView
+    <!--<com.nfu.old.view.ConsultItemView
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:image_bg="@drawable/consult_qujidongtai_bg"
@@ -78,7 +78,7 @@
         android:layout_height="100dp"
         app:image_bg="@drawable/consult_meitibaodao_bg"
         app:text_content="@string/consult_item_meitibaodao"
-        />
+        />-->
  <!--   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
