@@ -141,6 +141,8 @@ public class PolicyFragment extends BaseFragment {
         dateRecyclerView = new XRecyclerView(getContext());
        // dateRecyclerView.setLayoutParams();
         dateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        dateRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        dateRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         date_listAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
@@ -165,6 +167,8 @@ public class PolicyFragment extends BaseFragment {
 
 
         ctrRecyclerView = new XRecyclerView(getContext());
+        ctrRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        ctrRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         // dateRecyclerView.setLayoutParams();
         ctrRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ctr_listAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
@@ -250,6 +254,8 @@ public class PolicyFragment extends BaseFragment {
                     d_currentPage = 0;
                     ctr_currentPage = 0;
                     ctr_iRecordCount = 0;
+                    date_listAdapter.setNewsData(null);
+                    ctr_listAdapter.setNewsData(null);
                     mCleanTextIv.setVisibility(View.VISIBLE);
                     Message message = msgHandler.obtainMessage();
                     message.what = TEXTCHANGE;
@@ -331,39 +337,52 @@ public class PolicyFragment extends BaseFragment {
                 NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
                 LogUtil.i("PolicyFragment--->loadData--->getNewsListByKey--->NewsModels::"+newsModels);
                 if (strOrderBy.equalsIgnoreCase("createdate")){
+
                     if (type == REFRESH_TYPE){
                         if (newsModels!=null){
-                            d_currentPage = 0;
-                            d_iRecordCount = 0;
-                        }
-                        dateRecyclerView.refreshComplete();
-                        date_listAdapter.setNewsData(newsModels.getData());
-                    }else {
-                        if (newsModels!=null){
                             d_currentPage = newsModels.getCurrentPage();
+                            d_currentPage++;
                             d_iRecordCount = newsModels.getRecordCount();
                         }
+                        date_listAdapter.setNewsData(newsModels.getData());
+                        dateRecyclerView.refreshComplete();
+                    }else {
+                        if (newsModels!=null){
+                            if (d_currentPage <= newsModels.getCurrentPage()){
+                                d_currentPage = newsModels.getCurrentPage();
+                                d_currentPage++;
+                                d_iRecordCount = newsModels.getRecordCount();
+                                date_listAdapter.addNewsData(newsModels.getData());
+                            }
+
+                        }
                         dateRecyclerView.loadMoreComplete();
-                        date_listAdapter.addNewsData(newsModels.getData());
+
                     }
                 }else {
 
-
                     if (type == REFRESH_TYPE){
                         if (newsModels!=null){
-                            ctr_currentPage = 0;
-                            ctr_iRecordCount = 0;
+                            ctr_currentPage = newsModels.getCurrentPage();
+                            ctr_currentPage++;
+                            ctr_iRecordCount = newsModels.getRecordCount();
                         }
                         ctr_listAdapter.setNewsData(newsModels.getData());
                         ctrRecyclerView.refreshComplete();
                     }else {
                         if (newsModels!=null){
-                            ctr_currentPage = newsModels.getCurrentPage();
-                            ctr_iRecordCount = newsModels.getRecordCount();
+                            if (ctr_currentPage <= newsModels.getCurrentPage()){
+                                ctr_currentPage = newsModels.getCurrentPage();
+                                ctr_currentPage++;
+                                ctr_iRecordCount = newsModels.getRecordCount();
+                                ctr_listAdapter.addNewsData(newsModels.getData());
+                            }
+
                         }
                         ctrRecyclerView.loadMoreComplete();
-                        ctr_listAdapter.addNewsData(newsModels.getData());
+
                     }
+
                 }
 
             }
