@@ -48,7 +48,7 @@ import static com.nfu.old.R.id.top_title;
 public class ServiceListFragment extends BaseFragment {
     @BindView(R.id.btn_back)
     ButtonExtendM btnBack;
-    @BindView(top_title)
+    @BindView(R.id.top_title)
     TextView tv_title;
     @BindView(R.id.nfu_activity_search_layout_et)
     EditText edQuery;

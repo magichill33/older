@@ -28,6 +28,7 @@ import com.nfu.old.adapter.HotAdPagerAdapter;
 import com.nfu.old.config.NfuResource;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.TurnPicModel;
+import com.nfu.old.utils.AppUtils;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.SharedPreferencesManager;
 import com.nfu.old.view.ContactCallDailog;
@@ -110,6 +111,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.root)
     ScrollView rootView;
 
+    @BindView(R.id.activity_main_call_ib)
+    ImageView activity_main_call_ib;
+
+
 
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -165,6 +170,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         iv_call_second.setOnClickListener(this);
         iv_call_third.setOnClickListener(this);
         iv_call_fourth.setOnClickListener(this);
+
+        activity_main_call_ib.setOnClickListener(this);
 
     }
 
@@ -356,10 +363,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 showDialog(3, getCurrNumber(3));
 
                 break;
+
             case R.id.iv_call_fourth:
                 showDialog(4, getCurrNumber(4));
                 break;
-
+            case R.id.activity_main_call_ib:
+                HotLineFragment hotLineFragment = new HotLineFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("title","首都老龄");
+                hotLineFragment.setArguments(bundle);
+                gotoFragment(hotLineFragment);
+                break;
         }
     }
 
@@ -424,8 +438,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int which) {
 
                 dialog.dismiss();
-                //TODO 调用打掉话界面
-                call(currNumber);
+                // 调用打掉话界面
+                AppUtils.call(getContext(),currNumber);
             }
         });
         ContactCallDailog dialog = builder.create();
@@ -433,16 +447,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dialog.show();
     }
 
-    /**
-     * 调用拨号界面
-     *
-     * @param phone 电话号码
-     */
-    private void call(String phone) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
     private void chageMsg(int code) {
         switch (code) {

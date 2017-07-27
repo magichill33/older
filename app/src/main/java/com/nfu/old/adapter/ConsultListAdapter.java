@@ -54,6 +54,7 @@ public class ConsultListAdapter extends RecyclerView.Adapter {
         MyViewHolder1 holder1 = (MyViewHolder1) holder;
         holder1.consult_title_tv.setText(mTitles[position]);
         holder1.consult_item_icon_iv.setBackgroundResource(mIconId[position]);
+
     }
 
     @Override
@@ -92,8 +93,14 @@ public class ConsultListAdapter extends RecyclerView.Adapter {
             });*/
             consult_item_icon_iv = (ImageView) itemView.findViewById(R.id.consult_item_icon_iv);
             consult_go_ib = (ImageView) itemView.findViewById(R.id.consult_go_ib);
-
-
+            consult_go_ib.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (iOnDetailListener!=null){
+                        iOnDetailListener.onDetailListener();
+                    }
+                }
+            });
             consult_title_tv = (TextView) itemView.findViewById(R.id.consult_title_tv);
 
         }
@@ -106,6 +113,6 @@ public class ConsultListAdapter extends RecyclerView.Adapter {
     }
 
     public interface IOnDetailListener {
-        void onDetailListener( );
+        void onDetailListener();
     }
 }

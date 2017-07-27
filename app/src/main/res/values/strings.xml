@@ -29,6 +29,9 @@
     <string name="top_bar_location_title">北京市</string>
     <string name="top_bar_content_title">请选择服务：</string>
 
+    <string name="hotline_title">热线电话：</string>
+    <string name="hotline_center_title">常见问题</string>
+
 
     <string name="back_str">返回</string>
 

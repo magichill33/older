@@ -19,8 +19,7 @@
                 android:id="@+id/activity_main_call_ib"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/top_bar_call_bg"
-                android:layout_marginLeft="15dp" />
+                android:src="@drawable/top_bar_call_bg" />
 
             <TextView
                 android:id="@+id/activity_main_title_tv"
