@@ -10,12 +10,13 @@
         android:layout_height="40dp"
         android:background="@color/base_red_color"
         android:gravity="center_vertical">
-        <ImageView
+        <ImageButton
             android:id="@+id/fragment_consult_call_ib"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/top_bar_call_bg"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginLeft="15dp"
+            android:background="@color/transparent"/>
 
         <TextView
             android:id="@+id/fragment_consult_title_tv"
@@ -28,12 +29,13 @@
             android:text="@string/consult_fragment_top_title"
             android:layout_alignTop="@+id/activity_main_call_ib" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/fragment_consult_setting_ib"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/top_bar_setting_bg"
+            android:background="@color/transparent"
             android:layout_marginRight="15dp"/>
     </RelativeLayout>
     <RelativeLayout
@@ -59,7 +61,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-    <!--<com.nfu.old.view.ConsultItemView
+ <!--   <com.nfu.old.view.ConsultItemView
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:image_bg="@drawable/consult_qujidongtai_bg"

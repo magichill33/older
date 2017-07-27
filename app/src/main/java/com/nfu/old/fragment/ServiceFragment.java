@@ -25,6 +25,8 @@ import com.nfu.old.adapter.PictureAdapter;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModels;
+import com.nfu.old.model.ServiceListModel;
+import com.nfu.old.model.ServiceModels;
 import com.nfu.old.utils.LogUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -81,10 +83,18 @@ public class ServiceFragment extends Fragment {
                 R.layout.gridview_item, from, to);*/
 
         PictureAdapter pictureAdapter=new PictureAdapter(titles, images,imagesPress, getContext());
+        pictureAdapter.setOnItemClickCallBack(new PictureAdapter.OnItemClickCallBack() {
+            @Override
+            public void onItemClickCallBack(int position) {
+                //先请求item对应的数据然后给服务二级页面
 
+                loadData(serviceTypeId[position]);
+                //gotoFragment();
+            }
+        });
         mGridView.setAdapter(pictureAdapter);
 //        mGridView.setSelection(0);
-       mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     /*  mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -94,7 +104,7 @@ public class ServiceFragment extends Fragment {
                 loadData(serviceTypeId[position]);
                 //gotoFragment();
             }
-        });
+        });*/
     }
 
     private void gotoFragment(Fragment fragment) {
@@ -142,19 +152,32 @@ public class ServiceFragment extends Fragment {
             @Override
             public void onResponse(String response, int id) {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::"+response);
-                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("PolicyFragment--->loadData--->getNewsList--->newsListModel::"+newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("PolicyFragment--->loadData--->getNewsList--->NewsModels::"+newsModels);
-//                policyListAdapter.setNewsData(newsModels.getData());
+                ServiceListModel servicesListModel =  new Gson().fromJson(response,ServiceListModel.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::"+servicesListModel);
+                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(),ServiceModels.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::"+serviceModels);
+                gotoServiceListFragment(serviceModels);
             }
         });
     }
+
+
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }private void gotoServiceListFragment(ServiceModels serviceModels) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ServiceListFragment serviceListFragment = new ServiceListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title","服务查询");
+        bundle.putSerializable("servicemodels",serviceModels);
+        serviceListFragment.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, serviceListFragment);
+        fragmentTransaction.commit();
     }
 }

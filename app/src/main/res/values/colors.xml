@@ -7,10 +7,12 @@
     <color name="black">#000000</color>
     <color name="home_item_color">#172680</color>
     <color name="transparent">#60000000</color>
+    <color name="list_tiem_bg">#EEEEEE</color>
     <color name="white">#fff</color>
     <color name="content_color">#111a50</color>
     <color name="color_9d">#9d1010</color>
     <color name="doc_color">#9d1818</color>
     <color name="white_color">#ffffff</color>
     <color name="color_666">#666666</color>
+    <color name="service_list_item_color">#111a50</color>
 </resources>

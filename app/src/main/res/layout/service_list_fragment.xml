@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/fragment_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/nfu_activity_search_layout_ll"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/nfu_search_bg"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/nfu_activity_search_layout_et"
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.5dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:hint="请输入用户昵称/房间标题"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textColor="@color/color_666"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="16.5dp"
+            android:layout_height="16.5dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/sousou" />
+
+        <ImageView
+            android:id="@+id/nfu_activity_search_layout_et_clean"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/nfu_search_activity_search_clean_icon"
+            android:visibility="invisible"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:orientation="vertical">
+            <com.nfu.old.view.PagerIndicator
+                android:id="@+id/nfu_activity_search_layout_tab"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#fff"
+                app:select_tab_text_color="@color/base_red_color"
+                app:unselect_tab_text_color="@color/content_color"
+                app:should_tab_expand="true"
+                app:underline_color="@color/base_red_color"
+                app:underline_height="2dp"
+                app:tab_text_size="18sp"
+                app:underline_padding="45dp"/>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/nfu_activity_search_layout_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/policy_recyclerview"
+            android:layout_below="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</LinearLayout>
