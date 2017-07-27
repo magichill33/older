@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -27,37 +28,43 @@ public class ConsultItemView extends RelativeLayout {
 
     public ConsultItemView(Context context) {
 
-        this(context,null,0);
+        this(context,null);
     }
 
     public ConsultItemView(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+
+        super(context, attrs);
+        View view = View.inflate(context, R.layout.fragment_consult_item, null);
+        //初始化控件
+//        ivIcon = (ImageView) findViewById(R.id.fragment_consult_item_imageview);
+//        tvContent = (TextView) findViewById(R.id.fragment_consult_title_textview);
+//        goIcon = (ImageButton) findViewById(R.id.fragment_consult_go_ib);
+        String  namespace ="http://schemas.android.com/apk/res-auto";
+        String textContent = attrs.getAttributeValue(namespace, "textContent");
+        int imageBg = attrs.getAttributeResourceValue(namespace, "imageBg", -1);
+        if(imageBg!= -1){
+            tvContent.setText(textContent);
+            ivIcon.setBackgroundResource(imageBg);
+        }
     }
 
-    public ConsultItemView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initData(context, attrs, defStyleAttr);
-    }
+
 
     private void initData(Context context, AttributeSet attrs, int defStyle) {
         ///加载布局
-       LayoutInflater.from(getContext()).inflate(R.layout.fragment_consult_item,this,true);
+       LayoutInflater.from(context).inflate(R.layout.fragment_consult_item,this,true);
         //  View view = View.inflate(context, R.layout.fragment_consult_item, this);
 
-        //初始化控件
-        ivIcon = (ImageView) findViewById(R.id.fragment_consult_item_imageview);
-        tvContent = (TextView) findViewById(R.id.fragment_consult_title_textview);
-        goIcon = (ImageButton) findViewById(R.id.fragment_consult_go_ib);
-        // 拿到布局文件中的数据
-        TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.ConsultItemView, defStyle, 0);
-        if(a!=null){
 
-            String des = a.getString(R.styleable.ConsultItemView_text_content);
-            int itemBg = a.getInt(R.styleable.ConsultItemView_image_bg,0);
-            tvContent.setText(des);
-            ivIcon.setBackgroundResource(itemBg);
-        }
+        // 拿到布局文件中的数据
+//        TypedArray a = getContext().obtainStyledAttributes(
+//                attrs, R.styleable.ConsultItemView, defStyle, 0);
+//        if(a!=null){
+//            String des = a.getString(R.styleable.ConsultItemView_textContent);
+//            int itemBg = a.getInt(R.styleable.ConsultItemView_imageBg,0);
+//            tvContent.setText(des);
+//            ivIcon.setBackgroundResource(itemBg);
+//        }
       //  this.addView(view);
     }
 }
