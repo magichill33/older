@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/fragment_title_bar" />
+    <Button
+        android:id="@+id/btn_complain"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/base_red_color"
+        android:textSize="18sp"
+        android:text="我要投诉"
+        android:textColor="@color/white"
+        />
+    <Button
+        android:id="@+id/btn_help"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/base_red_color"
+        android:textSize="18sp"
+        android:text="需要帮助"
+        android:textColor="@color/white"
+        />
+</LinearLayout>

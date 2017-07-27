@@ -89,7 +89,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){
-                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()));
+                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()-1));
                     }
                 }
             });
@@ -101,7 +101,15 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void addNewsData(List<NewsModel> newsData){
+        if (newsModelList!=null){
+            newsModelList.addAll(newsData);
+        }else {
+            newsModelList = newsData;
+        }
 
+        notifyDataSetChanged();
+    }
 
     public interface IOnDetailListener{
         void onDetailListener(NewsModel model);
