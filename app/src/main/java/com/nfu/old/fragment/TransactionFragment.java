@@ -16,13 +16,20 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.nfu.old.R;
+import com.nfu.old.manager.ApiManager;
+import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
+import com.nfu.old.model.Transaction;
 import com.nfu.old.utils.DensityUtil;
+import com.nfu.old.utils.LogUtil;
 import com.nfu.old.view.ButtonExtendM;
 import com.nfu.old.view.NfuCustomDialog;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
+import okhttp3.Call;
 
 /**
  * Created by Administrator on 2017-7-27.
@@ -80,6 +87,26 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.card_item:
+                ApiManager.getInstance().getBusinessConditions("6654", new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        LogUtil.i("TransactionFragment--->getBusinessConditions--->onError::"+e);
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        LogUtil.i("TransactionFragment--->getBusinessConditions--->onResponse::"+response);
+                        NewsListModel models = new Gson().fromJson(response,NewsListModel.class);
+                        LogUtil.i("TransactionFragment--->getBusinessConditions--->NewsListModel::"+models);
+                        Transaction transaction = new Gson().fromJson(models.getStrResult(),Transaction.class);
+                        LogUtil.i("TransactionFragment--->getBusinessConditions--->Transaction::"+transaction);
+                        TransactionDetailFragment detailFragment = new TransactionDetailFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("model",transaction);
+                        detailFragment.setArguments(bundle);
+                        gotoDetailFragment(detailFragment);
+                    }
+                });
                 break;
             case R.id.btn_transact:
                 showTipDialog();

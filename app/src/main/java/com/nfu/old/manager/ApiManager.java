@@ -89,8 +89,10 @@ public class ApiManager {
      *                  {@link ApiConfig#businessForMedicalAid}{@link ApiConfig#businessForYouDaiKa}
      *                  {@link ApiConfig#businessForYouDaiZheng}{@link ApiConfig#businessForZhuCanKa}
      */
-    public void getBusinessConditions(String businessId){
+    public void getBusinessConditions(String businessId,Callback callback){
         String url = ConnectUrl.getBusinessConditions + "&businessid=" + businessId;
+        LogUtil.i("ApiManager--->getBusinessConditions--->url::"+url);
+        NetUtil.doGet(url,null,callback);
     }
 
     /**
