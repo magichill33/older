@@ -292,12 +292,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 gotoFragment(transactionFragment);
                 break;
             case R.id.ll_rights:
+                SafeguardFragment safeguardFragment = new SafeguardFragment();
+                gotoFragment(safeguardFragment);
                 break;
             case R.id.ll_announcement:
                 AnnouncementFragment announcementragment = new AnnouncementFragment();
                 gotoFragment(announcementragment);
                 break;
             case R.id.ll_dynamic:
+                DistrictFragment districtFragment = new DistrictFragment();
+                gotoFragment(districtFragment);
                 break;
             case R.id.ll_socialwork:
                 break;
