@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     @BindView(R.id.activity_main_content_frameLayout)
     FrameLayout mContentView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,41 +43,53 @@ public class MainActivity extends AppCompatActivity {
         initView();
     }
 
-    private void setHomeFragment(){
+    private void setHomeFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         HomeFragment fragment = new HomeFragment();
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
+
     }
 
-    private void initView(){
+    boolean isHomeClick = false;
+    boolean isServiceClick = false;
+    boolean isConsultClick = false;
+
+    private void initView() {
         btnHome.setNfuSeleted(true);
+
         btnHome.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearSelected();
-                btnHome.setNfuSeleted(true);
-                setHomeFragment();
+                    clearSelected();
+                    btnHome.setNfuSeleted(true);
+                    setHomeFragment();
+
             }
         });
+
 
         btnConsult.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearSelected();
-                btnConsult.setNfuSeleted(true);
-                setConsultFragment();
+                    clearSelected();
+                    btnConsult.setNfuSeleted(true);
+                    setConsultFragment();
+
             }
         });
 
-        btnService.setOnClickListener(new ButtonExtendM.OnClickListener() {
+        btnService.setOnClickListener(new ButtonExtendM.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
-                clearSelected();
-                btnService.setNfuSeleted(true);
-                setServiceFragment();
-                
+
+                    clearSelected();
+                    btnService.setNfuSeleted(true);
+                    setServiceFragment();
+
             }
         });
     }
@@ -99,10 +112,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void clearSelected(){
+    private void clearSelected() {
         btnHome.setNfuSeleted(false);
         btnConsult.setNfuSeleted(false);
         btnService.setNfuSeleted(false);
+//        isClick = false;
     }
 
     @Override

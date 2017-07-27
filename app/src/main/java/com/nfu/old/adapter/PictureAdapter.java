@@ -179,11 +179,12 @@ public class PictureAdapter extends BaseAdapter {
                             changeUp(9);
                             break;
                     }
-                    return true;
+                    return false;
                 }
                 return false;
             }
         });
+
         return convertView;
     }
     private void changeDown(int position) {
@@ -199,6 +200,15 @@ public class PictureAdapter extends BaseAdapter {
         itemBtn.setImageDrawable(context.getResources().getDrawable(mImages[position]));
         view.setBackgroundColor(context.getResources().getColor(R.color.white));
         itemTv.setTextColor(context.getResources().getColor(R.color.base_red_color));
+        //跳转对应详情页面
+        mCallBack.onItemClickCallBack(position);
+    }
+    OnItemClickCallBack mCallBack;
+    public void setOnItemClickCallBack(OnItemClickCallBack callBack) {
+        this.mCallBack = callBack;
+    }
+    public interface  OnItemClickCallBack  {
+       void onItemClickCallBack(int position);
     }
     class ViewHolder {
         public TextView title;

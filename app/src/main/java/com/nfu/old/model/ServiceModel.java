@@ -15,16 +15,19 @@ public class ServiceModel implements Serializable {
      * shopStreetId : 服务商所属街道CODE
      * shopCommunityName : 服务商所属社区
      * shopcommunityId : 服务商所属社区CODE
+     *
      * shopName : 服务商名称
      * shopType : 服务类型
      * shopManager : 联系人
      * shopTelephone : 联系人电话
      * servicePhone : 服务电话
      * businessAddress : 商户地址
+     * shopPic : 商户图片
+     *
      * shopNumber : 商户编号
      * infoSource : 渠道发展来源
      * shopId : 服务商编号
-     * shopPic : 商户图片
+     *
      * shopOther : 其他字段
      */
 
