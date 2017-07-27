@@ -3,12 +3,15 @@ package com.nfu.old.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.nfu.old.R;
+import com.nfu.old.view.PointPagerIndicator;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -19,7 +22,10 @@ import butterknife.Unbinder;
 
 public class ConsultFragment extends Fragment {
     Unbinder unbinder;
-
+    @BindView(R.id.fragment_consult_viewpager)
+    ViewPager mViewPager;
+    @BindView(R.id.nfu_hot_list_ad_indicator)
+    PointPagerIndicator pointPagerIndicator;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

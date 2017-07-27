@@ -52,4 +52,8 @@
         <attr name="should_tab_expand" format="boolean" />
         <attr name="tab_text_size" format="dimension|reference"/>
     </declare-styleable>
+    <declare-styleable name="ConsultItemView">
+        <attr name="text_content" format="string" />
+        <attr name="image_bg" format="reference" />
+    </declare-styleable>
 </resources>

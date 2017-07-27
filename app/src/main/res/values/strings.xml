@@ -20,6 +20,10 @@
 
 
     <string name="home_fragment_district_str">区级动态</string>
+    <string name="consult_fragment_top_title">资讯</string>
+    <string name="consult_item_qujidongtai">区级动态</string>
+    <string name="consult_item_zhengcejiedu">政策解读</string>
+    <string name="consult_item_meitibaodao">媒体报道</string>
 
     <string name="top_bar_service_title">服务查询</string>
     <string name="top_bar_location_title">北京市</string>
