@@ -1,6 +1,7 @@
 package com.nfu.old.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,9 @@ import com.nfu.old.fragment.ConsultFragment;
 import com.nfu.old.fragment.HomeFragment;
 import com.nfu.old.fragment.ServiceFragment;
 import com.nfu.old.view.ButtonExtendM;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,9 +66,14 @@ public class MainActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    clearSelected();
-                    btnHome.setNfuSeleted(true);
+                clearSelected();
+                btnHome.setNfuSeleted(true);
+                Fragment fragment = getVisibleFragment();
+                if (fragment==null||!(fragment instanceof HomeFragment)){
                     setHomeFragment();
+                }
+
+
 
             }
         });
@@ -73,10 +82,12 @@ public class MainActivity extends AppCompatActivity {
         btnConsult.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    clearSelected();
-                    btnConsult.setNfuSeleted(true);
+                clearSelected();
+                btnConsult.setNfuSeleted(true);
+                Fragment fragment = getVisibleFragment();
+                if (fragment==null||!(fragment instanceof ConsultFragment)){
                     setConsultFragment();
-
+                }
             }
         });
 
@@ -86,12 +97,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    clearSelected();
-                    btnService.setNfuSeleted(true);
+                clearSelected();
+                btnService.setNfuSeleted(true);
+                Fragment fragment = getVisibleFragment();
+                if (fragment==null||!(fragment instanceof ServiceFragment)){
                     setServiceFragment();
-
+                }
             }
         });
+    }
+
+    private Fragment getVisibleFragment(){
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment f:fragments){
+            if (f!=null && f.isVisible()){
+               return f;
+            }
+        }
+        return null;
     }
 
     private void setServiceFragment() {

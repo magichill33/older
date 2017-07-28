@@ -1,6 +1,7 @@
 package com.nfu.old.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,7 @@ public class ConsultListAdapter extends RecyclerView.Adapter {
     private class MyViewHolder1 extends RecyclerView.ViewHolder {
         ImageView consult_item_icon_iv, consult_go_ib;
         TextView consult_title_tv;
+        CardView card_view;
 
         public MyViewHolder1(View itemView) {
             super(itemView);
@@ -91,13 +93,15 @@ public class ConsultListAdapter extends RecyclerView.Adapter {
                     }
                 }
             });*/
+            card_view = (CardView) itemView.findViewById(R.id.card_view);
             consult_item_icon_iv = (ImageView) itemView.findViewById(R.id.consult_item_icon_iv);
             consult_go_ib = (ImageView) itemView.findViewById(R.id.consult_go_ib);
-            consult_go_ib.setOnClickListener(new View.OnClickListener() {
+            card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){
-                        iOnDetailListener.onDetailListener();
+                        String title = mTitles[getAdapterPosition()];
+                        iOnDetailListener.onDetailListener(title);
                     }
                 }
             });
@@ -113,6 +117,6 @@ public class ConsultListAdapter extends RecyclerView.Adapter {
     }
 
     public interface IOnDetailListener {
-        void onDetailListener();
+        void onDetailListener(String title);
     }
 }

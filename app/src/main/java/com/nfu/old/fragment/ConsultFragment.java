@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +44,7 @@ import okhttp3.Call;
  * 咨询页面
  */
 
-public class ConsultFragment extends Fragment {
+public class ConsultFragment extends Fragment  implements View.OnClickListener {
     Unbinder unbinder;
     @BindView(R.id.consult_fragment_viewpager)
     ViewPager mViewPager;
@@ -50,6 +52,11 @@ public class ConsultFragment extends Fragment {
     PointPagerIndicator pointPagerIndicator;
     @BindView(R.id.policy_recyclerview)
     RecyclerView policy_recyclerview;
+
+    @BindView(R.id.fragment_consult_call_ib)
+    ImageView activity_main_call_ib;
+    @BindView(R.id.fragment_consult_setting_ib)
+    ImageView activity_main_setting_ib;
 
     private ConsultListAdapter policyListAdapter;
     private Timer mTimer;
@@ -86,14 +93,34 @@ public class ConsultFragment extends Fragment {
         int[] mIconId = {R.drawable.consult_qujidongtai_bg,R.drawable.consult_zhengcejiedu,R.drawable.consult_meitibaodao_bg};
         policy_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         policyListAdapter = new ConsultListAdapter(getContext(), mTitles, mIconId,new ConsultListAdapter.IOnDetailListener() {
-            @Override
-            public void onDetailListener() {
 
+            @Override
+            public void onDetailListener(String title) {
+                if ("区级动态".equals(title)){
+                    DistrictFragment districtFragment = new DistrictFragment();
+                    gotoFragment(districtFragment);
+                }else if ("政策解读".equals(title)){
+                    PolicyFragment policyFragment = new PolicyFragment();
+                    gotoFragment(policyFragment);
+                }else if ("媒体报道".equals(title)){
+                    MediaFragment mediaFragment = new MediaFragment();
+                    gotoFragment(mediaFragment);
+                }
             }
         });
         policy_recyclerview.setAdapter(policyListAdapter);
+
+        activity_main_call_ib.setOnClickListener(this);
+        activity_main_setting_ib.setOnClickListener(this);
     }
 
+    private void gotoFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
+        fragmentTransaction.commit();
+    }
 
     private void initPager() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -201,5 +228,20 @@ public class ConsultFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
         stopAdTimer();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fragment_consult_call_ib:
+                HotLineFragment hotLineFragment = new HotLineFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("title",getString(R.string.consult_fragment_top_title));
+                hotLineFragment.setArguments(bundle);
+                gotoFragment(hotLineFragment);
+                break;
+            case R.id.fragment_consult_setting_ib:
+                break;
+        }
     }
 }

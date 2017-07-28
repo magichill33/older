@@ -1,11 +1,15 @@
 package com.nfu.old.fragment;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,9 +20,11 @@ import com.nfu.old.R;
 import com.nfu.old.config.ApiConfig;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.Feedback;
+import com.nfu.old.utils.DensityUtil;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.ToastUtil;
 import com.nfu.old.view.ButtonExtendM;
+import com.nfu.old.view.NfuCustomDialog;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
@@ -97,7 +103,8 @@ public class SafeguardDetailFragment extends BaseFragment {
                         @Override
                         public void onResponse(String response, int id) {
                             LogUtil.i("SafeguardDetailFragment--->postOpinionFeedBack--->onResponse--->"+response);
-                            ToastUtil.showShortToast(getContext(),R.string.feedback_str_ok);
+                            //ToastUtil.showShortToast(getContext(),R.string.feedback_str_ok);
+                            showTipDialog();
                             btn_submit.setClickable(true);
                         }
                     });
@@ -107,4 +114,25 @@ public class SafeguardDetailFragment extends BaseFragment {
         });
     }
 
+    private void showTipDialog(){
+        NfuCustomDialog.Builder builder = new NfuCustomDialog.Builder(getContext());
+        builder.setMessage(getString(R.string.submit_ok));
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.setCancelable(false);
+        Window window = dialog.getWindow();
+        // 获得代表当前window属性的对象
+        WindowManager.LayoutParams params = window.getAttributes();
+
+        params.width = DensityUtil.dip2px(getContext(),276.8f);
+        params.height = DensityUtil.dip2px(getContext(),160.5f);
+        // 方式一：设置属性
+        window.setAttributes(params);
+        dialog.show();
+    }
 }

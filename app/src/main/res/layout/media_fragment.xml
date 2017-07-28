@@ -7,11 +7,8 @@
     <include
         android:id="@+id/title_bar"
         layout="@layout/fragment_title_bar" />
-
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/policy_recyclerview"
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/policy_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </LinearLayout>

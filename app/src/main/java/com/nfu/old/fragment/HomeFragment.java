@@ -113,7 +113,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.activity_main_call_ib)
     ImageView activity_main_call_ib;
-
+    @BindView(R.id.activity_main_setting_ib)
+    ImageView activity_main_setting_ib;
 
 
     private Timer mTimer;
@@ -172,6 +173,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         iv_call_fourth.setOnClickListener(this);
 
         activity_main_call_ib.setOnClickListener(this);
+        activity_main_setting_ib.setOnClickListener(this);
 
     }
 

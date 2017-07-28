@@ -110,7 +110,7 @@ public class DistrictFragment extends BaseFragment {
         policy_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         policy_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         policy_recyclerview.setAdapter(policyListAdapter);
-        policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
+       // policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
         policy_recyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {

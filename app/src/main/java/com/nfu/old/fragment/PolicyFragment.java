@@ -139,7 +139,6 @@ public class PolicyFragment extends BaseFragment {
     @Override
     protected void initView() {
         dateRecyclerView = new XRecyclerView(getContext());
-       // dateRecyclerView.setLayoutParams();
         dateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dateRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         dateRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
@@ -150,7 +149,7 @@ public class PolicyFragment extends BaseFragment {
             }
         });
         dateRecyclerView.setAdapter(date_listAdapter);
-        dateRecyclerView.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
+       // dateRecyclerView.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
         dateRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -169,7 +168,6 @@ public class PolicyFragment extends BaseFragment {
         ctrRecyclerView = new XRecyclerView(getContext());
         ctrRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         ctrRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        // dateRecyclerView.setLayoutParams();
         ctrRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ctr_listAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
             @Override
@@ -178,7 +176,7 @@ public class PolicyFragment extends BaseFragment {
             }
         });
         ctrRecyclerView.setAdapter(ctr_listAdapter);
-        ctrRecyclerView.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
+        //ctrRecyclerView.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
         ctrRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -204,7 +202,7 @@ public class PolicyFragment extends BaseFragment {
         policy_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         policy_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         policy_recyclerview.setAdapter(policyListAdapter);
-        policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
+        //policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
         policy_recyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
