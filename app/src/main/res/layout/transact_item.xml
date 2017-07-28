@@ -11,7 +11,7 @@
         android:layout_height="65dp"
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"
-        android:src="@drawable/qujidongtai"/>
+        android:src="@drawable/nfu_card"/>
     <TextView
         android:id="@+id/tv_card_name"
         android:layout_width="wrap_content"
