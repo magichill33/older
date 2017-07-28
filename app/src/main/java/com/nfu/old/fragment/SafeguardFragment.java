@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -32,12 +33,15 @@ import okhttp3.Call;
  * 咨询页面
  */
 
-public class SafeguardFragment extends BaseFragment {
+public class SafeguardFragment extends BaseFragment implements View.OnClickListener{
     @BindView(R.id.btn_back)
     ButtonExtendM btnBack;
     @BindView(R.id.top_title)
     TextView tv_title;
-
+    @BindView(R.id.btn_complain)
+    Button btn_complain;
+    @BindView(R.id.btn_help)
+    Button btn_help;
 
     @Nullable
     @Override
@@ -58,8 +62,8 @@ public class SafeguardFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
-
+        btn_complain.setOnClickListener(this);
+        btn_help.setOnClickListener(this);
 
         tv_title.setText(R.string.home_fragment_maintain_str);
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
@@ -72,4 +76,28 @@ public class SafeguardFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_help:
+                gotoDetailFragment(2);
+                break;
+            case R.id.btn_complain:
+                gotoDetailFragment(1);
+                break;
+        }
+    }
+
+    private void gotoDetailFragment(int type){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        SafeguardDetailFragment safeguardDetailFragment = new SafeguardDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title",getString(R.string.home_fragment_maintain_str));
+        bundle.putInt("type",type);
+        safeguardDetailFragment.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, safeguardDetailFragment);
+        fragmentTransaction.commit();
+    }
 }

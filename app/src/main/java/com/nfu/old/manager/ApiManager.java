@@ -80,8 +80,10 @@ public class ApiManager {
      * @param name 反馈者姓名
      * @param mobile 反馈者电话
      */
-    public void getOpinionFeedBack(String content, String name, String mobile){
-        String url = ConnectUrl.getOpinionFeedback + "&feedbackContent=" + content + "&contacterName=" + name + "&contacterMobile=" + mobile;
+    public void postOpinionFeedBack(String jsonStr,Callback callback){
+        String url = ConnectUrl.getOpinionFeedback;
+        LogUtil.i("ApiManager--->getOpinionFeedBack--->url::"+url + ",jsonStr::"+jsonStr);
+        NetUtil.doPost(url,jsonStr,callback);
     }
 
     /**

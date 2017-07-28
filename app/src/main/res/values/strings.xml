@@ -6,7 +6,7 @@
     <string name="bottom_bar_service_str">服务</string>
     <string name="home_fragment_policy_str">政策解读</string>
     <string name="home_fragment_query_str">办理查询</string>
-    <string name="home_fragment_maintain_str">权益保护</string>
+    <string name="home_fragment_maintain_str">权益维护</string>
     <string name="home_fragment_notice_str">通知公告</string>
     <string name="home_fragment_friendship_str">生活交友</string>
     <string name="home_fragment_modify_call_msg">修改紧急呼救电话</string>
@@ -34,5 +34,9 @@
 
 
     <string name="back_str">返回</string>
-
+    <string name="feedback_str">请填写完，完整的信息！</string>
+    <string name="feedback_str_error">提交反馈失败！</string>
+    <string name="feedback_str_ok">提交反馈成功！</string>
+    <string name="submit_ok">提交成功！请等候工作人员联系。</string>
+    <string name="setting_str">设置</string>
 </resources>

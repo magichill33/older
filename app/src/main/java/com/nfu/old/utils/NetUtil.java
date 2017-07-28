@@ -3,11 +3,14 @@ package com.nfu.old.utils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.builder.PostStringBuilder;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.request.RequestCall;
 
 import java.util.Map;
 import java.util.Set;
+
+import okhttp3.MediaType;
 
 /**
  * Created by Administrator on 2017-7-25.
@@ -46,6 +49,14 @@ public class NetUtil {
             }
         }
         RequestCall call = builder.build();
+        call.execute(callback);
+        return call;
+    }
+
+    public static RequestCall doPost(String url,String json,Callback callback){
+        PostStringBuilder builder = OkHttpUtils.postString().url(url);
+        RequestCall call = builder.content(json).mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .build();
         call.execute(callback);
         return call;
     }

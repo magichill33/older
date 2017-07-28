@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.nfu.old.NfuApplication;
+import com.nfu.old.utils.DeviceUtil;
 
 /**
  * Created by Administrator on 2017-7-3.
@@ -37,6 +38,10 @@ public class NfuResource {
     }
 
     public boolean isUseDefPic(){
-        return false;
+        if (DeviceUtil.isWifiConnected(context)){
+            return false;
+        }else {
+            return !isUse4G();
+        }
     }
 }

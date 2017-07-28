@@ -1,6 +1,7 @@
 package com.nfu.old.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -110,6 +111,7 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
     }
 
     private class MyViewHolder1 extends RecyclerView.ViewHolder{
+        CardView card_view;
         TextView title;
         ImageView arrow;
         TextView content;
@@ -117,12 +119,13 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
 
         public MyViewHolder1(View itemView) {
             super(itemView);
+            card_view = (CardView) itemView.findViewById(R.id.card_view);
             title = (TextView) itemView.findViewById(R.id.tv_title);
             content = (TextView) itemView.findViewById(R.id.tv_content);
             pic = (ImageView) itemView.findViewById(R.id.news_pic);
             arrow = (ImageView) itemView.findViewById(R.id.right_arrow);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){
@@ -151,13 +154,15 @@ public class PolicyListAdapter extends RecyclerView.Adapter {
     private class MyViewHolder2 extends RecyclerView.ViewHolder{
         TextView title;
         ImageView arrow;
+        CardView card_view;
 
         public MyViewHolder2(View itemView) {
             super(itemView);
+            card_view = (CardView) itemView.findViewById(R.id.card_view);
             title = (TextView) itemView.findViewById(R.id.tv_title);
             arrow = (ImageView) itemView.findViewById(R.id.right_arrow);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){

@@ -9,7 +9,7 @@ package com.nfu.old.config;
 public interface ApiConfig {
     String sortByDESC = "desc";
     String sortByASC = "asc";
-    String signKey = "8002";
+    int signKey = 8002;
     //栏目咨询
     String dictionIDForInformation = "1014";
     //政策解读
