@@ -380,6 +380,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 hotLineFragment.setArguments(bundle);
                 gotoFragment(hotLineFragment);
                 break;
+            case R.id.activity_main_setting_ib:
+                SettingFragment settingFragment = new SettingFragment();
+                gotoFragment(settingFragment);
+                break;
         }
     }
 

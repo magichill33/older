@@ -38,4 +38,5 @@
     <string name="feedback_str_error">提交反馈失败！</string>
     <string name="feedback_str_ok">提交反馈成功！</string>
     <string name="submit_ok">提交成功！请等候工作人员联系。</string>
+    <string name="setting_str">设置</string>
 </resources>

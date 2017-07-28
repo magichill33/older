@@ -241,6 +241,8 @@ public class ConsultFragment extends Fragment  implements View.OnClickListener {
                 gotoFragment(hotLineFragment);
                 break;
             case R.id.fragment_consult_setting_ib:
+                SettingFragment settingFragment = new SettingFragment();
+                gotoFragment(settingFragment);
                 break;
         }
     }
