@@ -4,32 +4,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.nfu.old.Constant;
 import com.nfu.old.R;
-import com.nfu.old.adapter.PolicyListAdapter;
 import com.nfu.old.adapter.SearchAndContributionActivityViewPagerAdapter;
 import com.nfu.old.adapter.ServiceListAdapter;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
+import com.nfu.old.model.ServiceListModel;
 import com.nfu.old.model.ServiceModel;
 import com.nfu.old.model.ServiceModels;
 import com.nfu.old.utils.LogUtil;
+import com.nfu.old.utils.ToastUtil;
 import com.nfu.old.view.ButtonExtendM;
 import com.nfu.old.view.PagerIndicator;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -38,8 +37,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import okhttp3.Call;
-
-import static com.nfu.old.R.id.top_title;
 
 /**
  * Created by Administrator on 2017/7/27.
@@ -52,8 +49,8 @@ public class ServiceListFragment extends BaseFragment {
     TextView tv_title;
     @BindView(R.id.nfu_activity_search_layout_et)
     EditText edQuery;
-    @BindView(R.id.nfu_activity_search_layout_et_clean)
-    ImageView mCleanTextIv;
+    @BindView(R.id.query_cardview)
+    CardView cardViewQuery;
     @BindView(R.id.ll_search)
     LinearLayout ll_search;
     @BindView(R.id.nfu_activity_search_layout_tab)
@@ -79,20 +76,21 @@ public class ServiceListFragment extends BaseFragment {
     private int ctr_iRecordCount = 0;
 
     private String title = "服务查询";
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bindView(inflater, R.layout.service_list_fragment,container);
+        bindView(inflater, R.layout.service_list_fragment, container);
         initView();
         loadData();
         return rootView;
     }
 
-    private Handler msgHandler = new Handler(){
+    private Handler msgHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case TEXTCHANGE:
-                    if (ll_search.getVisibility()!=View.VISIBLE){
+                    if (ll_search.getVisibility() != View.VISIBLE) {
 //                        policy_recyclerview.setVisibility(View.GONE);
                         ll_search.setVisibility(View.VISIBLE);
                     }
@@ -101,19 +99,36 @@ public class ServiceListFragment extends BaseFragment {
             }
         }
     };
-
+    int serviceTypeId;
     @Override
     protected void loadData() {
         Bundle bundle = getArguments();
-        ServiceModels serviceModels= null;
-        if(bundle != null){
-            serviceModels = (ServiceModels) bundle.getSerializable("servicemodels");
+
+        if (bundle != null) {
+            serviceTypeId = bundle.getInt("serviceTypeId");
             title = bundle.getString("title");
         }
 
         tv_title.setText(title);
-        date_listAdapter.setNewsData(serviceModels.getData());
-        ctr_listAdapter.setNewsData(serviceModels.getData());
+
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), 5, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude),"",new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::"+e);
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::"+response);
+                ServiceListModel servicesListModel =  new Gson().fromJson(response,ServiceListModel.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::"+servicesListModel);
+                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(),ServiceModels.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::"+serviceModels);
+                date_listAdapter.setNewsData(serviceModels.getData());
+                ctr_listAdapter.setNewsData(serviceModels.getData());
+            }
+        });
 
 
     }
@@ -183,79 +198,58 @@ public class ServiceListFragment extends BaseFragment {
 
             }
         });
-        mCleanTextIv.setOnClickListener(new View.OnClickListener() {
+        cardViewQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edQuery.setText("");
-            }
-        });
-
-        edQuery.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                msgHandler.removeMessages(TEXTCHANGE);
-                if ("".equals(s.toString())) {
-                    mCleanTextIv.setVisibility(View.INVISIBLE);
-                    searchStr = "";
-                    date_listAdapter.setNewsData(null);
-                    ctr_listAdapter.setNewsData(null);
-                } else {
-                    searchStr = s.toString();
-                    d_iRecordCount = 0;
-                    d_currentPage = 0;
-                    ctr_currentPage = 0;
-                    ctr_iRecordCount = 0;
-                    mCleanTextIv.setVisibility(View.VISIBLE);
-                    Message message = msgHandler.obtainMessage();
-                    message.what = TEXTCHANGE;
-                    message.obj = s.toString();
-                    msgHandler.sendMessageDelayed(message, 500);
-
+                //TODO 点击查询
+                date_listAdapter.setNewsData(null);
+                ctr_listAdapter.setNewsData(null);
+                String equeryStr = edQuery.getText().toString().trim();
+                if (!TextUtils.isEmpty(equeryStr)) {
+                    fetchQueryDate(equeryStr);
+                }else {
+                    ToastUtil.showShortToast(getActivity(),"查询内容不能为空");
                 }
             }
+            });
 
-            @Override
-            public void afterTextChanged(Editable s) {
 
-            }
-        });
+        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener()
 
-        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            {
+                @Override
+                public void onClick (View v){
                 getFragmentManager().popBackStack();
             }
-        });
+            });
 
-        ArrayList<View> views = new ArrayList<>();
+            ArrayList<View> views = new ArrayList<>();
         views.add(dateRecyclerView);
         views.add(ctrRecyclerView);
-        SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views,new String[]{"附近服务机构","全部服务机构"});
+            SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views, new String[]{"附近服务机构", "全部服务机构"});
         mViewPager.setAdapter(viewPagerAdapter);
         mPagerIndicator.setViewPager(mViewPager,0);
-    }
+        }
 
-    private void gotoDetailFragment(String id){
-        ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
+    private void fetchQueryDate(String equeryStr) {
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), 5, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
+
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onResponse::"+response);
-                NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
-                NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
-//                gotoDetailFragment(model1);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::" + response);
+                ServiceListModel servicesListModel = new Gson().fromJson(response, ServiceListModel.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::" + servicesListModel);
+                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(), ServiceModels.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::" + serviceModels);
+                date_listAdapter.setNewsData(serviceModels.getData());
+                ctr_listAdapter.setNewsData(serviceModels.getData());
             }
         });
     }
+
 }

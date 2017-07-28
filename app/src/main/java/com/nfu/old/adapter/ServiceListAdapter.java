@@ -17,6 +17,7 @@ import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.ServiceModel;
 import com.nfu.old.utils.DensityUtil;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.nfu.old.R.id.loction_tv;
@@ -43,7 +44,6 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder viewHolder = null;
         View view = LayoutInflater.from(mContext).inflate(R.layout.service_list_item,parent,false);
         viewHolder = new MyViewHolder1(view);
-
         return viewHolder;
     }
 
@@ -52,9 +52,9 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//list_item_shopname,list_item_shoptype_tv,list_item_shoptelephone_tv,list_item_shopmanager_tv,list_item_businessaddress,loction_tv;
-            ServiceModel newsModel = newsModelList.get(position);
-          MyViewHolder1 holder1 = (MyViewHolder1) holder;
+        //list_item_shopname,list_item_shoptype_tv,list_item_shoptelephone_tv,list_item_shopmanager_tv,list_item_businessaddress,loction_tv;
+        ServiceModel newsModel = newsModelList.get(position);
+        MyViewHolder1 holder1 = (MyViewHolder1) holder;
         String shopName = newsModel.getShopName();
         holder1.list_item_shopname.setText(shopName);
 
@@ -77,8 +77,9 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
             int dist = Integer.valueOf(distance);
             if(dist >=1000) {
                 double dist1 = Double.valueOf(dist);
-                distance =String.valueOf(dist1 / 1000);
-                holder1.loction_tv.setText("距您"+distance+"km");
+                DecimalFormat df2  = new DecimalFormat("###.0");
+                distance =String.valueOf( df2.format(dist1 / 1000));
+                holder1.loction_tv.setText("距您"+ distance +"km");
             }else if(dist > 0 && dist <1000){
                 holder1.loction_tv.setText("距您"+dist+"m");
             }

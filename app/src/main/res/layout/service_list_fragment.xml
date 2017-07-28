@@ -1,83 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <include
         android:id="@+id/title_bar"
         layout="@layout/fragment_title_bar" />
 
     <LinearLayout
-        android:id="@+id/nfu_activity_search_layout_ll"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_centerVertical="true"
-        android:background="@drawable/nfu_search_bg"
-        android:gravity="center_vertical">
+        android:layout_height="45dp"
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/nfu_activity_search_layout_et"
-            android:layout_width="263dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3.5dp"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:hint="请输入用户昵称/房间标题"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:textColor="@color/color_666"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:id="@+id/nfu_activity_search_layout_ll"
+            android:layout_width="252dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/nfu_search_bg"
+            android:gravity="center_vertical">
 
-        <ImageView
-            android:layout_width="16.5dp"
-            android:layout_height="16.5dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/sousou" />
+            <ImageView
+                android:layout_width="16.5dp"
+                android:layout_height="16.5dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/sousou" />
 
-        <ImageView
-            android:id="@+id/nfu_activity_search_layout_et_clean"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginRight="9dp"
-            android:background="@drawable/nfu_search_activity_search_clean_icon"
-            android:visibility="invisible"/>
+            <EditText
+                android:id="@+id/nfu_activity_search_layout_et"
+                android:layout_width="211dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3.5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white_color"
+                android:hint="请输入商店名称"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColor="@color/color_666"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/query_cardview"
+            android:layout_width="65dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/base_red_color"
+            app:cardCornerRadius="10dp"
+            app:contentPaddingLeft="16dp"
+            app:contentPaddingTop="2dp">
+
+            <TextView
+                android:id="@+id/nfu_activity_query_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="@string/query_btn"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </android.support.v7.widget.CardView>
     </LinearLayout>
+
+
     <RelativeLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp">
+
         <LinearLayout
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
+
             <com.nfu.old.view.PagerIndicator
                 android:id="@+id/nfu_activity_search_layout_tab"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#fff"
                 app:select_tab_text_color="@color/base_red_color"
-                app:unselect_tab_text_color="@color/content_color"
                 app:should_tab_expand="true"
+                app:tab_text_size="18sp"
                 app:underline_color="@color/base_red_color"
                 app:underline_height="2dp"
-                app:tab_text_size="18sp"
-                app:underline_padding="45dp"/>
+                app:underline_padding="45dp"
+                app:unselect_tab_text_color="@color/content_color" />
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/nfu_activity_search_layout_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/policy_recyclerview"
-            android:layout_below="@+id/ll_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_search" />
     </RelativeLayout>
 </LinearLayout>

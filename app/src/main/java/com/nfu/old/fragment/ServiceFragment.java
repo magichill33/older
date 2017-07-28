@@ -203,6 +203,16 @@ public class ServiceFragment extends Fragment {
 
     }
     private void loadData(Integer serviceTypeId) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ServiceListFragment serviceListFragment = new ServiceListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title","服务查询");
+         bundle.putInt("serviceTypeId",serviceTypeId);
+        serviceListFragment.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, serviceListFragment);
+        fragmentTransaction.commit();
 /*        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), 5, 0, 0, "", "","",new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -220,23 +230,7 @@ public class ServiceFragment extends Fragment {
                 gotoServiceListFragment(serviceModels);
             }
         });*/
-        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), 5, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude),"",new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::"+e);
 
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::"+response);
-                ServiceListModel servicesListModel =  new Gson().fromJson(response,ServiceListModel.class);
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::"+servicesListModel);
-                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(),ServiceModels.class);
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::"+serviceModels);
-                gotoServiceListFragment(serviceModels);
-            }
-        });
     }
     public void getLocate() {
         mLocationClient = new LocationClient(getContext().getApplicationContext());     //声明LocationClient类
