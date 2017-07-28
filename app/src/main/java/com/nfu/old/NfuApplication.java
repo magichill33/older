@@ -31,5 +31,6 @@ public class NfuApplication extends Application {
         OkHttpUtils.initClient(okHttpClient);
 
         SharedPreferencesManager.createInstance(this);
+
     }
 }

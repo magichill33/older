@@ -1,5 +1,6 @@
 package com.nfu.old.manager;
 
+import com.nfu.old.config.ApiConfig;
 import com.nfu.old.config.ConnectUrl;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.NetUtil;
@@ -98,8 +99,8 @@ public class ApiManager {
     /**
      * 服务查询
      */
-    public void getXbsFws(String serviceTypeId, int pageSize, int currentPage, int iRecordCount, String shopName,Callback callback){
-        String url = ConnectUrl.getXbsFws + "&serviceTypeId=" + serviceTypeId + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount + "&shopName=" + shopName;
+    public void getXbsFws(String serviceTypeId, int pageSize, int currentPage, int iRecordCount, String longitude ,String latitude,String shopName,Callback callback){
+        String url = ConnectUrl.getXbsFws + "&serviceTypeId=" + serviceTypeId + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount +"&longitude="+longitude+"&latitude=" +latitude+ "&shopName=" + shopName;
         LogUtil.i("ApiManager--->getNewsDetail--->url::"+url);
         NetUtil.doGet(url,null,callback);
     }

@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:nfu="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/base_red_color"
-        android:gravity="center_vertical">
+        android:background="@color/base_red_color">
 
         <TextView
             android:id="@+id/fragment_service_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="122dp"
+            android:layout_marginStart="122dp"
+            android:text="@string/top_bar_service_title"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp"
-            android:text="@string/top_bar_service_title"/>
+            android:textSize="18sp" />
 
-        <ImageButton
+        <com.nfu.old.view.ButtonExtendM
             android:id="@+id/fragment_service_location_ib"
-            android:layout_width="22dp"
-            android:layout_height="32dp"
-            android:layout_toLeftOf="@+id/fragment_service_location_tv"
-            android:src="@drawable/service_top_bar_location_unselected"
-            android:background="@color/transparent"
-            android:layout_marginRight="5dp"/>
-        <TextView
-            android:id="@+id/fragment_service_location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:layout_marginRight="19dp"
+            android:gravity="center"
+            nfu:buttonType="normal"
+            nfu:drec="iconLeft"
+            nfu:iconDrawable="@drawable/service_top_bar_location_unselected"
+            nfu:imgHeight="20dp"
+            nfu:nfuTextColor="@color/white_color"
+            nfu:nfuTextSize="15sp"
+            nfu:scType="CENTER_INSIDE"
+            nfu:spacing="2dp"
+            nfu:text="@string/top_bar_location_title"
+            nfu:textColorPress="@color/location_color"
+            android:layout_marginEnd="15dp"
+            android:layout_alignTop="@+id/fragment_service_title_tv"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="6dp"
-            android:text="@string/top_bar_location_title"/>
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
 
     <LinearLayout

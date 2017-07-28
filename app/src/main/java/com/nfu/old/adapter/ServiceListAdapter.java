@@ -19,6 +19,8 @@ import com.nfu.old.utils.DensityUtil;
 
 import java.util.List;
 
+import static com.nfu.old.R.id.loction_tv;
+
 /**
  * Created by Administrator on 2017-7-26.
  */
@@ -68,6 +70,21 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
         String businessAddress = newsModel.getBusinessAddress();
         holder1.list_item_businessaddress.setText(businessAddress);
+
+        String distance = newsModel.getDistance();
+      //  距您266m
+        if(!TextUtils.isEmpty(distance)) {
+            int dist = Integer.valueOf(distance);
+            if(dist >=1000) {
+                double dist1 = Double.valueOf(dist);
+                distance =String.valueOf(dist1 / 1000);
+                holder1.loction_tv.setText("距您"+distance+"km");
+            }else if(dist > 0 && dist <1000){
+                holder1.loction_tv.setText("距您"+dist+"m");
+            }
+        }else {
+            holder1.loction_tv.setText("未知位置");
+        }
 
 //        holder1.loction_tv.setVisibility(View.INVISIBLE);
 

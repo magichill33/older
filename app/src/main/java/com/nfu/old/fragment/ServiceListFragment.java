@@ -63,6 +63,9 @@ public class ServiceListFragment extends BaseFragment {
     @BindView(R.id.policy_recyclerview)
     RecyclerView policy_recyclerview;
 
+    @BindView(R.id.fragment_service_location_ib)
+    ButtonExtendM loctionBtn;
+
     private String searchStr;
     private static final int TEXTCHANGE = 99;
     private ServiceListAdapter policyListAdapter;
@@ -171,6 +174,15 @@ public class ServiceListFragment extends BaseFragment {
             }
         });
 
+        loctionBtn.setVisibility(View.VISIBLE);
+        loctionBtn.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 调用刷新位置信息
+                loctionBtn.setText("河北省");
+
+            }
+        });
         mCleanTextIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

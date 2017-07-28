@@ -47,4 +47,26 @@
         android:textColor="@color/white_color"
         android:layout_centerInParent="true"
         android:text="政策解读"/>
+
+    <com.nfu.old.view.ButtonExtendM
+        android:id="@+id/fragment_service_location_ib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="19dp"
+        android:visibility="gone"
+        android:gravity="center"
+        nfu:buttonType="normal"
+        nfu:drec="iconLeft"
+        nfu:iconDrawable="@drawable/service_top_bar_location_unselected"
+        nfu:imgHeight="20dp"
+        nfu:nfuTextColor="@color/white_color"
+        nfu:nfuTextSize="15sp"
+        nfu:scType="CENTER_INSIDE"
+        nfu:spacing="2dp"
+        nfu:text="@string/top_bar_location_title"
+        nfu:textColorPress="@color/location_color"
+        android:layout_marginEnd="15dp"
+        android:layout_alignTop="@+id/top_title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -15,9 +15,38 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.debug
+        }
+    }
+    signingConfigs {
+        debug {
+          /*  storeFile file("E:\\ly\\old\\jks")
+            storePassword "tjyl1234"
+            keyAlias "taiji"
+            keyPassword "tjyl1234"*/
+        }
+        release {
+       /*     storeFile file("E:\\ly\\old\\jks")
+            storePassword "tjyl1234"
+            keyAlias "taiji"
+            keyPassword "tjyl1234"*/
+        }
+    }
+
+
+    //配置so使用
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

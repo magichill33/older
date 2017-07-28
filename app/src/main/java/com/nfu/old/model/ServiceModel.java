@@ -29,6 +29,7 @@ public class ServiceModel implements Serializable {
      * shopId : 服务商编号
      *
      * shopOther : 其他字段
+     *
      */
 
     private String shopCountryName;
@@ -48,6 +49,17 @@ public class ServiceModel implements Serializable {
     private String shopId;
     private String shopPic;
     private String shopOther;
+    private String distance;
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+
 
     public String getShopCountryName() {
         return shopCountryName;
