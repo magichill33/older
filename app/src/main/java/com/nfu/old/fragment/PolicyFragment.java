@@ -388,7 +388,6 @@ public class PolicyFragment extends BaseFragment {
                     policy_recyclerview.refreshComplete();
                 }else {
                     policy_recyclerview.loadMoreComplete();
-
                 }
             }
 

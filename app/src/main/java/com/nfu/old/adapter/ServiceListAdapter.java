@@ -118,6 +118,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
     }
 
+
     private class MyViewHolder1 extends RecyclerView.ViewHolder{
         TextView list_item_shopname,list_item_shoptype_tv,list_item_shoptelephone_tv,list_item_shopmanager_tv,list_item_businessaddress,loction_tv;
         ImageView shoppic,jinru,call,location;
@@ -154,6 +155,16 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
     public void setNewsData(List<ServiceModel> newsData){
         newsModelList = newsData;
+        notifyDataSetChanged();
+    }
+
+    public void addNewsData(List<ServiceModel> data) {
+        if (newsModelList!=null){
+            newsModelList.addAll(data);
+        }else {
+            newsModelList = data;
+        }
+
         notifyDataSetChanged();
     }
 

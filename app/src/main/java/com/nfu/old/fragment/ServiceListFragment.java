@@ -17,13 +17,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.nfu.old.Constant;
 import com.nfu.old.R;
 import com.nfu.old.adapter.SearchAndContributionActivityViewPagerAdapter;
 import com.nfu.old.adapter.ServiceListAdapter;
+import com.nfu.old.fragment.BaseFragment;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
+import com.nfu.old.model.NewsModels;
 import com.nfu.old.model.ServiceListModel;
 import com.nfu.old.model.ServiceModel;
 import com.nfu.old.model.ServiceModels;
@@ -57,8 +61,8 @@ public class ServiceListFragment extends BaseFragment {
     PagerIndicator mPagerIndicator;
     @BindView(R.id.nfu_activity_search_layout_viewpager)
     ViewPager mViewPager;
-    @BindView(R.id.policy_recyclerview)
-    RecyclerView policy_recyclerview;
+//    @BindView(R.id.policy_recyclerview)
+//    XRecyclerView policy_recyclerview;
 
     @BindView(R.id.fragment_service_location_ib)
     ButtonExtendM loctionBtn;
@@ -66,14 +70,23 @@ public class ServiceListFragment extends BaseFragment {
     private String searchStr;
     private static final int TEXTCHANGE = 99;
     private ServiceListAdapter policyListAdapter;
-    private ServiceListAdapter date_listAdapter;
-    private ServiceListAdapter ctr_listAdapter;
-    private RecyclerView dateRecyclerView;
-    private RecyclerView ctrRecyclerView;
-    private int d_currentPage = 0;
-    private int d_iRecordCount = 0;
-    private int ctr_currentPage = 0;
-    private int ctr_iRecordCount = 0;
+    private ServiceListAdapter nearbylistAdapter;
+
+    private ServiceListAdapter alllistAdapter;
+    private XRecyclerView nearbyRecyclerView;
+    private XRecyclerView allRecyclerView;
+    private int nearby_currentPage = 0;
+    private int nearby_iRecordCount = 0;
+    private int all_currentPage = 0;
+    private int all_iRecordCount = 0;
+    private int p_currentPage = 0;
+    private int p_iRecordCount = 0;
+
+    private final static int REFRESH_TYPE = 1001;
+    private final static int LOADMORE_TYPE = 1002;
+    private final static int LEFT_TYPE = 2001;
+    private final static int RIGHT_TYPE = 2002;
+    private static final int PAGESIZE = 7;
 
     private String title = "服务查询";
 
@@ -111,7 +124,7 @@ public class ServiceListFragment extends BaseFragment {
 
         tv_title.setText(title);
 
-        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), 5, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude),"",new StringCallback() {
+ /*       ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude),"",new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::"+e);
@@ -125,8 +138,36 @@ public class ServiceListFragment extends BaseFragment {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::"+servicesListModel);
                 ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(),ServiceModels.class);
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::"+serviceModels);
-                date_listAdapter.setNewsData(serviceModels.getData());
-                ctr_listAdapter.setNewsData(serviceModels.getData());
+                nearbylistAdapter.setNewsData(serviceModels.getData());
+                nearby_iRecordCount = serviceModels.getRecordCount();
+                nearby_currentPage= serviceModels.getCurrentPage();
+                alllistAdapter.setNewsData(serviceModels.getData());
+                all_iRecordCount = serviceModels.getRecordCount();
+                all_currentPage= serviceModels.getCurrentPage();
+            }
+        });*/
+
+
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, "", "","",new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::"+e);
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::"+response);
+                ServiceListModel servicesListModel =  new Gson().fromJson(response,ServiceListModel.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::"+servicesListModel);
+                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(),ServiceModels.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::"+serviceModels);
+                nearbylistAdapter.setNewsData(serviceModels.getData());
+                nearby_iRecordCount = serviceModels.getRecordCount();
+                nearby_currentPage= serviceModels.getCurrentPage();
+                alllistAdapter.setNewsData(serviceModels.getData());
+                all_iRecordCount = serviceModels.getRecordCount();
+                all_currentPage= serviceModels.getCurrentPage();
             }
         });
 
@@ -135,52 +176,58 @@ public class ServiceListFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        dateRecyclerView = new RecyclerView(getContext());
+        nearbyRecyclerView = new XRecyclerView(getContext());
         // dateRecyclerView.setLayoutParams();
-        dateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        date_listAdapter = new ServiceListAdapter(getContext(), null, new ServiceListAdapter.IOnDetailListener() {
+        nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        nearbyRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        nearbyRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        nearbylistAdapter = new ServiceListAdapter(getContext(), null, new ServiceListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(ServiceModel model) {
 
             }
         });
-        dateRecyclerView.setAdapter(date_listAdapter);
+        nearbyRecyclerView.setAdapter(nearbylistAdapter);
 
-        ctrRecyclerView = new RecyclerView(getContext());
+        nearbyRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                LogUtil.i("nearbyRecyclerView--->onRefresh");
+                getNormalList(nearby_currentPage,nearby_iRecordCount,REFRESH_TYPE,LEFT_TYPE);
+            }
+
+            @Override
+            public void onLoadMore() {
+                LogUtil.i("nearbyRecyclerView--->onLoadMore");
+                getNormalList(nearby_currentPage,nearby_iRecordCount,LOADMORE_TYPE,LEFT_TYPE);
+            }
+        });
+        allRecyclerView = new XRecyclerView(getContext());
         // dateRecyclerView.setLayoutParams();
-        ctrRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ctr_listAdapter = new ServiceListAdapter(getContext(), null, new ServiceListAdapter.IOnDetailListener() {
+        allRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        allRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        allRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        alllistAdapter = new ServiceListAdapter(getContext(), null, new ServiceListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(ServiceModel model) {
 
             }
         });
-        ctrRecyclerView.setAdapter(ctr_listAdapter);
+        allRecyclerView.setAdapter(alllistAdapter);
 
-      /*  policy_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        policyListAdapter = new ServiceListAdapter(getContext(), null, new ServiceListAdapter.IOnDetailListener() {
+        allRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
-            public void onDetailListener(ServiceModel model) {
-                *//*ApiManager.getInstance().getNewsDetail(model.getId(), new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
-                    }
+            public void onRefresh() {
+                LogUtil.i("allRecyclerView--->onRefresh");
+                getNormalList(all_currentPage,all_iRecordCount,REFRESH_TYPE,RIGHT_TYPE);
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onResponse::"+response);
-                        NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
-                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
-                        NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
-                        LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
-                        gotoDetailFragment(model1);
-                    }
-                });*//*
-//                gotoDetailFragment(model.getId());
+            @Override
+            public void onLoadMore() {
+                LogUtil.i("allRecyclerView--->onLoadMore");
+                getNormalList(all_currentPage,all_iRecordCount,LOADMORE_TYPE,RIGHT_TYPE);
             }
         });
-        policy_recyclerview.setAdapter(policyListAdapter);*/
 
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
@@ -202,8 +249,8 @@ public class ServiceListFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 //TODO 点击查询
-                date_listAdapter.setNewsData(null);
-                ctr_listAdapter.setNewsData(null);
+                nearbylistAdapter.setNewsData(null);
+                alllistAdapter.setNewsData(null);
                 String equeryStr = edQuery.getText().toString().trim();
                 if (!TextUtils.isEmpty(equeryStr)) {
                     fetchQueryDate(equeryStr);
@@ -223,16 +270,16 @@ public class ServiceListFragment extends BaseFragment {
             }
             });
 
-            ArrayList<View> views = new ArrayList<>();
-        views.add(dateRecyclerView);
-        views.add(ctrRecyclerView);
+        ArrayList<View> views = new ArrayList<>();
+        views.add(nearbyRecyclerView);
+        views.add(allRecyclerView);
             SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views, new String[]{"附近服务机构", "全部服务机构"});
         mViewPager.setAdapter(viewPagerAdapter);
         mPagerIndicator.setViewPager(mViewPager,0);
         }
 
     private void fetchQueryDate(String equeryStr) {
-        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), 5, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
@@ -246,10 +293,84 @@ public class ServiceListFragment extends BaseFragment {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::" + servicesListModel);
                 ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(), ServiceModels.class);
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::" + serviceModels);
-                date_listAdapter.setNewsData(serviceModels.getData());
-                ctr_listAdapter.setNewsData(serviceModels.getData());
+                nearbylistAdapter.setNewsData(serviceModels.getData());
+                nearby_iRecordCount = serviceModels.getRecordCount();
+                alllistAdapter.setNewsData(serviceModels.getData());
+                nearby_iRecordCount = serviceModels.getRecordCount();
             }
         });
     }
 
+    private void getNormalList(int currentPage, int iRecordCount,final int type,final int viewpagerIndex) {
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, currentPage, iRecordCount, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), "", new StringCallback() {
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
+                if (type == REFRESH_TYPE) {
+                    nearbyRecyclerView.refreshComplete();
+                } else {
+                    nearbyRecyclerView.loadMoreComplete();
+                }
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::" + response);
+                ServiceListModel servicesListModel = new Gson().fromJson(response, ServiceListModel.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::" + servicesListModel);
+                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(), ServiceModels.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::" + serviceModels);
+                if(viewpagerIndex == LEFT_TYPE){
+                    LogUtil.i("ServiceFragment---> nearbyPage");
+                    if (type == REFRESH_TYPE) {
+                        if (serviceModels != null) {
+                            nearby_currentPage = serviceModels.getCurrentPage();
+                            nearby_currentPage++;
+                            nearby_iRecordCount = serviceModels.getRecordCount();
+                        }
+                        nearbylistAdapter.setNewsData(serviceModels.getData());
+                        nearbyRecyclerView.refreshComplete();
+                    } else {
+                        if (serviceModels != null) {
+                            if (nearby_currentPage <= serviceModels.getCurrentPage()) {
+                                nearby_currentPage = serviceModels.getCurrentPage();
+                                nearby_currentPage++;
+                                nearby_iRecordCount = serviceModels.getRecordCount();
+                                nearbylistAdapter.addNewsData(serviceModels.getData());
+                            }
+
+                        }
+                        nearbyRecyclerView.loadMoreComplete();
+
+                    }
+                }else if(viewpagerIndex == RIGHT_TYPE) {
+
+                    LogUtil.i("ServiceFragment--->allPage");
+                    if (type == REFRESH_TYPE) {
+                        if (serviceModels != null) {
+                            all_currentPage = serviceModels.getCurrentPage();
+                            all_currentPage++;
+                            all_iRecordCount = serviceModels.getRecordCount();
+                        }
+                        alllistAdapter.setNewsData(serviceModels.getData());
+                        allRecyclerView.refreshComplete();
+                    } else {
+                        if (serviceModels != null) {
+                            if (all_currentPage <= serviceModels.getCurrentPage()) {
+                                all_currentPage = serviceModels.getCurrentPage();
+                                all_currentPage++;
+                                all_iRecordCount = serviceModels.getRecordCount();
+                                alllistAdapter.addNewsData(serviceModels.getData());
+                            }
+
+                        }
+                        allRecyclerView.loadMoreComplete();
+                    }
+                }
+
+
+            }
+        });
+    }
 }

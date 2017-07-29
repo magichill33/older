@@ -25,6 +25,10 @@
             android:id="@+id/fragment_service_location_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/fragment_service_title_tv"
+            android:layout_marginEnd="15dp"
             android:layout_marginRight="19dp"
             android:gravity="center"
             nfu:buttonType="normal"
@@ -36,23 +40,19 @@
             nfu:scType="CENTER_INSIDE"
             nfu:spacing="2dp"
             nfu:text="@string/top_bar_location_title"
-            nfu:textColorPress="@color/location_color"
-            android:layout_marginEnd="15dp"
-            android:layout_alignTop="@+id/fragment_service_title_tv"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            nfu:textColorPress="@color/location_color" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:background="@color/color_1111">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginLeft="30dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="15dp"
             android:gravity="center"
             android:text="@string/top_bar_content_title"
             android:textColor="@color/content_color"
@@ -61,16 +61,19 @@
             android:id="@+id/fragment_service_content_gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:columnWidth="330dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:columnWidth="155dp"
             android:gravity="center"
-            android:horizontalSpacing="5dp"
             android:numColumns="2"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="20dp" >
+          >
+            <!--  android:verticalSpacing="20dp"
+            android:horizontalSpacing="5dp"-->
 
         </GridView>
+
+
 
     </LinearLayout>
 </LinearLayout>

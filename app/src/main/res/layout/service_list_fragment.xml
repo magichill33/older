@@ -101,10 +101,10 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+       <!-- <android.support.v7.widget.RecyclerView
             android:id="@+id/policy_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_search" />
+            android:layout_below="@+id/ll_search" />-->
     </RelativeLayout>
 </LinearLayout>
