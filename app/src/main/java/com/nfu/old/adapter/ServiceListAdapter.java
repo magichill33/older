@@ -15,6 +15,7 @@ import com.nfu.old.R;
 import com.nfu.old.config.NfuResource;
 import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.ServiceModel;
+import com.nfu.old.utils.AppUtils;
 import com.nfu.old.utils.DensityUtil;
 
 import java.text.DecimalFormat;
@@ -142,7 +143,23 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
              jinru = (ImageView)itemView.findViewById(R.id.list_item_jinru);
              call = (ImageView)itemView.findViewById(R.id.list_item_call);
              location = (ImageView)itemView.findViewById(R.id.loction_icon);
+            call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 调用打掉话界面
+                    AppUtils.call(v.getContext(),newsModelList.get(getAdapterPosition()).getShopTelephone());
+                }
+            });
 
+            jinru.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (iOnDetailListener!=null){
+                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()));
+                    }
+                }
+            });
 
             loction_tv = (TextView)itemView.findViewById(R.id.loction_tv);
             list_item_shopname = (TextView)itemView.findViewById(R.id.list_item_shopname);

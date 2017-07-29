@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,7 @@ import com.nfu.old.Constant;
 import com.nfu.old.R;
 import com.nfu.old.adapter.SearchAndContributionActivityViewPagerAdapter;
 import com.nfu.old.adapter.ServiceListAdapter;
-import com.nfu.old.fragment.BaseFragment;
 import com.nfu.old.manager.ApiManager;
-import com.nfu.old.model.NewsListModel;
-import com.nfu.old.model.NewsModel;
-import com.nfu.old.model.NewsModels;
 import com.nfu.old.model.ServiceListModel;
 import com.nfu.old.model.ServiceModel;
 import com.nfu.old.model.ServiceModels;
@@ -51,6 +48,11 @@ public class ServiceListFragment extends BaseFragment {
     ButtonExtendM btnBack;
     @BindView(R.id.top_title)
     TextView tv_title;
+//    @BindView(R.id.list_item_call)
+//    ImageView list_item_call;
+//    @BindView(R.id.list_item_jinru)
+//    ImageView list_item_jinru;
+
     @BindView(R.id.nfu_activity_search_layout_et)
     EditText edQuery;
     @BindView(R.id.query_cardview)
@@ -184,7 +186,8 @@ public class ServiceListFragment extends BaseFragment {
         nearbylistAdapter = new ServiceListAdapter(getContext(), null, new ServiceListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(ServiceModel model) {
-
+                //进入服务详情页面
+                gotoServiceDetailFragment(model);
             }
         });
         nearbyRecyclerView.setAdapter(nearbylistAdapter);
@@ -210,7 +213,8 @@ public class ServiceListFragment extends BaseFragment {
         alllistAdapter = new ServiceListAdapter(getContext(), null, new ServiceListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(ServiceModel model) {
-
+                //进入服务详情页面
+                gotoServiceDetailFragment(model);
             }
         });
         allRecyclerView.setAdapter(alllistAdapter);
@@ -235,6 +239,8 @@ public class ServiceListFragment extends BaseFragment {
                 getFragmentManager().popBackStack();
             }
         });
+
+
 
         loctionBtn.setVisibility(View.VISIBLE);
         loctionBtn.setOnClickListener(new ButtonExtendM.OnClickListener() {
@@ -372,5 +378,18 @@ public class ServiceListFragment extends BaseFragment {
 
             }
         });
+    }
+
+    private void gotoServiceDetailFragment(ServiceModel serviceModel) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ServiceDetailFragment serviceDetailFragment= new ServiceDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title","商家信息");
+        bundle.putSerializable("servicemodel",serviceModel);
+        serviceDetailFragment.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, serviceDetailFragment);
+        fragmentTransaction.commit();
     }
 }

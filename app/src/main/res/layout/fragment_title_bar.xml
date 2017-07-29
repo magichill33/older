@@ -46,7 +46,7 @@
         android:textSize="18sp"
         android:textColor="@color/white_color"
         android:layout_centerInParent="true"
-        android:text="政策解读"/>
+        />
 
     <com.nfu.old.view.ButtonExtendM
         android:id="@+id/fragment_service_location_ib"
