@@ -150,7 +150,7 @@ public class ServiceListFragment extends BaseFragment {
         });*/
 
 
-        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, "", "","",new StringCallback() {
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude),"",new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::"+e);

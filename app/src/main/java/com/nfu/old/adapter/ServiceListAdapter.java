@@ -77,10 +77,19 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
         if(!TextUtils.isEmpty(distance)) {
             int dist = Integer.valueOf(distance);
             if(dist >=1000) {
-                double dist1 = Double.valueOf(dist);
+                float dist1 = ( (float)dist/ (float) 1000.0);
+
                 DecimalFormat df2  = new DecimalFormat("###.0");
-                distance =String.valueOf( df2.format(dist1 / 1000));
-                holder1.loction_tv.setText("距您"+ distance +"km");
+                String distance1 =String.valueOf( df2.format(dist1));
+//                char c = distance.charAt(distance.length() - 1);
+//                if(distance1.charAt(distance1.length()-1)==48 ){
+//
+//                    String distance2 = distance.substring(0, distance1.length() - 2);
+//                    holder1.loction_tv.setText("距您"+ distance2 +"km");
+//                }else {
+//                    holder1.loction_tv.setText("距您"+ distance1 +"km");
+//                }
+                holder1.loction_tv.setText("距您"+ distance1 +"km");
             }else if(dist > 0 && dist <1000){
                 holder1.loction_tv.setText("距您"+dist+"m");
             }

@@ -3,14 +3,17 @@ package com.nfu.old.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nfu.old.R;
 import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.ServiceModel;
+import com.nfu.old.utils.LogUtil;
 import com.nfu.old.view.ButtonExtendM;
 
 import butterknife.BindView;
@@ -45,12 +48,15 @@ public class ServiceDetailFragment extends BaseFragment {
     TextView shopStreetName;
     @BindView(R.id.shopCommunityName)
     TextView shopCommunityName;
+    @BindView(R.id.ll_shopCommunityName)
+    LinearLayout ll_shopCommunityName;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         bindView(inflater, R.layout.service_detail_fragment, container);
+        initView();
         loadData();
         return rootView;
     }
@@ -63,22 +69,33 @@ public class ServiceDetailFragment extends BaseFragment {
         if (bundle != null) {
             serviceModel = (ServiceModel) bundle.getSerializable("servicemodel");
         }
-
+        LogUtil.d("ServiceDetailFragment ====>  detailbean =" +serviceModel.toString());
+        tv_title.setText("商家信息");
 
         shopName.setText(serviceModel.getShopName());
         shopType.setText(serviceModel.getShopType());
         shopManager.setText(serviceModel.getShopManager());
-        shopTelephone.setText(serviceModel.getShopManager());
-        servicePhone.setText(serviceModel.getShopTelephone());
-        businessAddress.setText(serviceModel.getServicePhone());
+        shopTelephone.setText(serviceModel.getShopTelephone());
+        servicePhone.setText(serviceModel.getServicePhone());
+        businessAddress.setText(serviceModel.getBusinessAddress());
         shopNumber.setText(serviceModel.getShopNumber());
         shopCountryName.setText(serviceModel.getShopCountryName());
         shopStreetName.setText(serviceModel.getShopStreetName());
-        shopCommunityName.setText(serviceModel.getShopCommunityName());;
+        if(!TextUtils.isEmpty(serviceModel.getShopCommunityName())){
+            shopCommunityName.setText(serviceModel.getShopCommunityName());
+        }else {
+            ll_shopCommunityName.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
     protected void initView() {
-
+        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
     }
 }

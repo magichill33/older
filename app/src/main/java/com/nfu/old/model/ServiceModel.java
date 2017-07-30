@@ -196,4 +196,28 @@ public class ServiceModel implements Serializable {
     public void setShopOther(String shopOther) {
         this.shopOther = shopOther;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceModel{" +
+                "shopCountryName='" + shopCountryName + '\'' +
+                ", shopCountryId='" + shopCountryId + '\'' +
+                ", shopStreetName='" + shopStreetName + '\'' +
+                ", shopStreetId='" + shopStreetId + '\'' +
+                ", shopCommunityName='" + shopCommunityName + '\'' +
+                ", shopcommunityId='" + shopcommunityId + '\'' +
+                ", shopName='" + shopName + '\'' +
+                ", shopType='" + shopType + '\'' +
+                ", shopManager='" + shopManager + '\'' +
+                ", shopTelephone='" + shopTelephone + '\'' +
+                ", servicePhone='" + servicePhone + '\'' +
+                ", businessAddress='" + businessAddress + '\'' +
+                ", shopNumber='" + shopNumber + '\'' +
+                ", infoSource='" + infoSource + '\'' +
+                ", shopId='" + shopId + '\'' +
+                ", shopPic='" + shopPic + '\'' +
+                ", shopOther='" + shopOther + '\'' +
+                ", distance='" + distance + '\'' +
+                '}';
+    }
 }

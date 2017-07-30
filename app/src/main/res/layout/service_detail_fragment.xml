@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/fragment_title_bar" />
     <LinearLayout
         android:id="@+id/live_setting_groupname_ll"
         android:layout_width="match_parent"
@@ -23,8 +25,10 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/textView"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
+
                 android:text="服务商名称"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
@@ -33,10 +37,12 @@
                 android:id="@+id/shopName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,10 +64,12 @@
                 android:id="@+id/shopType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/home_item_color"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,7 +88,7 @@
                 android:id="@+id/shopManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
@@ -102,7 +110,7 @@
                 android:id="@+id/shopTelephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
@@ -124,7 +132,7 @@
                 android:id="@+id/servicePhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
@@ -146,10 +154,12 @@
                 android:id="@+id/businessAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/home_item_color"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -168,7 +178,7 @@
                 android:id="@+id/shopNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
@@ -191,7 +201,7 @@
                 android:id="@+id/shopCountryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
@@ -213,13 +223,14 @@
                 android:id="@+id/shopStreetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_shopCommunityName"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical">
@@ -235,7 +246,7 @@
                 android:id="@+id/shopCommunityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:text="XXXXXX"
                 android:textColor="@color/home_item_color"
                 android:textSize="18sp" />
@@ -243,9 +254,7 @@
 
     </LinearLayout>
 
-    <include
-        android:id="@+id/title_bar"
-        layout="@layout/fragment_title_bar" />
+
 
 </LinearLayout>
 
