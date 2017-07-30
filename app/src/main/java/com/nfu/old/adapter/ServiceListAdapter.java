@@ -78,7 +78,6 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
             int dist = Integer.valueOf(distance);
             if(dist >=1000) {
                 float dist1 = ( (float)dist/ (float) 1000.0);
-
                 DecimalFormat df2  = new DecimalFormat("###.0");
                 String distance1 =String.valueOf( df2.format(dist1));
 //                char c = distance.charAt(distance.length() - 1);
