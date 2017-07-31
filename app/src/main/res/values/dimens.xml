@@ -1,0 +1,64 @@
+<resources>
+    <!-- 公共-->
+    <dimen name="magin_3">3.5dp</dimen>
+    <dimen name="magin_5">5dp</dimen>
+    <dimen name="magin_8">8dp</dimen>
+    <dimen name="magin_10">10dp</dimen>
+    <dimen name="magin_12">12dp</dimen>
+    <dimen name="magin_15">15dp</dimen>
+    <dimen name="magin_20">20dp</dimen>
+    <dimen name="magin_30">30dp</dimen>
+    <dimen name="padding_top_2">2dp</dimen>
+    <dimen name="titile_bar_height">40dp</dimen>
+
+    <!--   sp-->
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <!--服务页面相关-->
+    <!--dp-->
+    <dimen name="gridview_item_width">155dp</dimen>
+    <dimen name="gridview_item_height">90dp</dimen>
+    <dimen name="gridview_item_pic_width">36dp</dimen>
+    <dimen name="gridview_item_pic_height">36dp</dimen>
+    <dimen name="edit_text_left_padding">100dp</dimen>
+
+    <!--    服务详情页面-->
+    <dimen name="service_text_width">130dp</dimen>
+    <dimen name="service_ll_height">40dp</dimen>
+
+    <!--服务列表页面-->
+    <dimen name="service_list_middle_text">55dp</dimen>
+    <dimen name="service_list_item_width">131dp</dimen>
+    <dimen name="service_list_item_shoppic">75dp</dimen>
+    <dimen name="service_list_item_rl">100dp</dimen>
+    <dimen name="service_list_loction_icon_width">11dp</dimen>
+    <dimen name="service_list_loction_icon_height">16dp</dimen>
+    <dimen name="service_list_right_height">50dp</dimen>
+    <dimen name="service_list_jinru__icon">15dp</dimen>
+    <dimen name="service_list_call_icon_width">35dp</dimen>
+    <dimen name="service_list_call_icon_height">32dp</dimen>
+
+    <dimen name="service_list_search_height">45dp</dimen>
+    <dimen name="service_list_search_layout_ll_width">252dp</dimen>
+    <dimen name="service_list_search_layout_ll_height">25dp</dimen>
+    <dimen name="service_list_search_left_icon">16.5dp</dimen>
+    <dimen name="service_list_search_layout_et">211dp</dimen>
+    <dimen name="service_list_search_layout_cardview_width">65dp</dimen>
+    <dimen name="service_list_search_layout_cardview_height">25dp</dimen>
+    <dimen name="service_list_search_layout_pageind_height">48dp</dimen>
+    <dimen name="service_list_search_layout_pageind_padding">45dp</dimen>
+
+    <dimen name="service_text_titile">35dp</dimen>
+    <dimen name="service_gridview_columnWidth">155dp</dimen>
+
+
+   <!-- 热线电话页面-->
+    <dimen name="hotline_top_height">150dp</dimen>
+
+
+
+</resources>

@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/titile_bar_height"
         android:background="@color/base_red_color">
 
         <TextView
@@ -15,11 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="122dp"
-            android:layout_marginStart="122dp"
             android:text="@string/top_bar_service_title"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_size_18" />
 
         <com.nfu.old.view.ButtonExtendM
             android:id="@+id/fragment_service_location_ib"
@@ -28,17 +26,17 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/fragment_service_title_tv"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="19dp"
+            android:layout_marginEnd="@dimen/magin_15"
+            android:layout_marginRight="@dimen/magin_20"
             android:gravity="center"
             nfu:buttonType="normal"
             nfu:drec="iconLeft"
             nfu:iconDrawable="@drawable/service_top_bar_location_unselected"
-            nfu:imgHeight="20dp"
+            nfu:imgHeight="@dimen/magin_20"
             nfu:nfuTextColor="@color/white_color"
-            nfu:nfuTextSize="15sp"
+            nfu:nfuTextSize="@dimen/text_size_15"
             nfu:scType="CENTER_INSIDE"
-            nfu:spacing="2dp"
+            nfu:spacing="@dimen/padding_top_2"
             nfu:text="@string/top_bar_location_title"
             nfu:textColorPress="@color/location_color" />
 
@@ -51,19 +49,19 @@
         android:background="@color/color_1111">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginLeft="15dp"
+            android:layout_height="@dimen/service_text_titile"
+            android:layout_marginLeft="@dimen/magin_15"
             android:gravity="center"
             android:text="@string/top_bar_content_title"
             android:textColor="@color/content_color"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_14" />
         <GridView
             android:id="@+id/fragment_service_content_gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:columnWidth="155dp"
+            android:layout_marginLeft="@dimen/magin_15"
+            android:layout_marginRight="@dimen/magin_15"
+            android:columnWidth="@dimen/service_gridview_columnWidth"
             android:gravity="center"
             android:numColumns="2"
             android:stretchMode="columnWidth"

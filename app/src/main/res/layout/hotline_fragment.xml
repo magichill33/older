@@ -11,15 +11,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/hotline_top_height"
         android:background="@color/white"
         android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_height="@dimen/magin_30"
+            android:layout_marginLeft="@dimen/magin_15"
+            android:layout_marginRight="@dimen/magin_15"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -41,8 +41,8 @@
             <ImageView
                 android:id="@+id/hotline_call"
                 android:clickable="true"
-                android:layout_width="35dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/service_list_call_icon_width"
+                android:layout_height="@dimen/service_list_call_icon_height"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/home_telphone_bg" />
 
@@ -54,11 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="@dimen/magin_8"
+        android:layout_marginBottom="@dimen/magin_8"
         android:text="@string/hotline_center_title"
         android:textColor="@color/content_color"
-        android:textSize="24sp"/>
+        android:textSize="@dimen/text_size_24"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
+            android:layout_margin="@dimen/magin_15"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="10dp"
@@ -84,9 +84,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/content_color"
-                android:textSize="15sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
+                android:textSize="@dimen/text_size_15"
+                android:layout_marginTop="@dimen/magin_20"
+                android:layout_marginLeft="@dimen/magin_20"
                 android:text="1.XXXXXX \n 2.XXXXXXXX \n 3.XXXXXXXX \n 4.XXXXXXXXX"
                 />
             </RelativeLayout>

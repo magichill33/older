@@ -11,32 +11,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/service_list_search_height"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/nfu_activity_search_layout_ll"
-            android:layout_width="252dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/service_list_search_layout_ll_width"
+            android:layout_height="@dimen/service_list_search_layout_ll_height"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/magin_10"
+            android:layout_marginLeft="@dimen/magin_15"
+            android:layout_marginRight="@dimen/magin_15"
+            android:layout_marginTop="@dimen/magin_10"
             android:background="@drawable/nfu_search_bg"
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="16.5dp"
-                android:layout_height="16.5dp"
-                android:layout_marginLeft="8dp"
+                android:layout_width="@dimen/service_list_search_left_icon"
+                android:layout_height="@dimen/service_list_search_left_icon"
+                android:layout_marginLeft="@dimen/magin_8"
                 android:src="@drawable/sousou" />
 
             <EditText
                 android:id="@+id/nfu_activity_search_layout_et"
-                android:layout_width="211dp"
+                android:layout_width="@dimen/service_list_search_layout_et"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3.5dp"
+                android:layout_marginLeft="@dimen/magin_3"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
                 android:background="@color/white_color"
@@ -44,28 +44,28 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:textColor="@color/color_666"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_16" />
         </LinearLayout>
 
         <android.support.v7.widget.CardView
             android:id="@+id/query_cardview"
-            android:layout_width="65dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="@dimen/service_list_search_layout_cardview_width"
+            android:layout_height="@dimen/service_list_search_layout_cardview_height"
+            android:layout_marginLeft="@dimen/magin_5"
+            android:layout_marginTop="@dimen/magin_10"
             android:clickable="true"
             app:cardBackgroundColor="@color/base_red_color"
-            app:cardCornerRadius="10dp"
-            app:contentPaddingLeft="16dp"
-            app:contentPaddingTop="2dp">
+            app:cardCornerRadius="@dimen/magin_10"
+            app:contentPaddingLeft="@dimen/magin_15"
+            app:contentPaddingTop="@dimen/padding_top_2">
 
             <TextView
                 android:id="@+id/nfu_activity_query_btn"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="@dimen/service_list_search_layout_cardview_height"
                 android:text="@string/query_btn"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="@dimen/text_size_16" />
         </android.support.v7.widget.CardView>
     </LinearLayout>
 
@@ -73,7 +73,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="@dimen/magin_5">
 
         <LinearLayout
             android:id="@+id/ll_search"
@@ -85,14 +85,14 @@
             <com.nfu.old.view.PagerIndicator
                 android:id="@+id/nfu_activity_search_layout_tab"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/service_list_search_layout_pageind_height"
                 android:background="#fff"
                 app:select_tab_text_color="@color/base_red_color"
                 app:should_tab_expand="true"
-                app:tab_text_size="18sp"
+                app:tab_text_size="@dimen/text_size_16"
                 app:underline_color="@color/base_red_color"
-                app:underline_height="2dp"
-                app:underline_padding="45dp"
+                app:underline_height="@dimen/padding_top_2"
+                app:underline_padding="@dimen/service_list_search_layout_pageind_padding"
                 app:unselect_tab_text_color="@color/content_color" />
 
             <android.support.v4.view.ViewPager
