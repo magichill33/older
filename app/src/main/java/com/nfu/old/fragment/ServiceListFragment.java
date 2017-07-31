@@ -89,6 +89,7 @@ public class ServiceListFragment extends BaseFragment {
     private final static int LEFT_TYPE = 2001;
     private final static int RIGHT_TYPE = 2002;
     private static final int PAGESIZE = 7;
+    private String equeryStr = "";
 
     private String title = "服务查询";
 
@@ -247,7 +248,7 @@ public class ServiceListFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 //TODO 调用刷新位置信息
-                loctionBtn.setText("河北省");
+//                loctionBtn.setText("河北省");
 
             }
         });
@@ -257,7 +258,7 @@ public class ServiceListFragment extends BaseFragment {
                 //TODO 点击查询
                 nearbylistAdapter.setNewsData(null);
                 alllistAdapter.setNewsData(null);
-                String equeryStr = edQuery.getText().toString().trim();
+                equeryStr = edQuery.getText().toString().trim();
                 if (!TextUtils.isEmpty(equeryStr)) {
                     fetchQueryDate(equeryStr);
                 }else {
@@ -301,22 +302,27 @@ public class ServiceListFragment extends BaseFragment {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::" + serviceModels);
                 nearbylistAdapter.setNewsData(serviceModels.getData());
                 nearby_iRecordCount = serviceModels.getRecordCount();
+                nearby_currentPage = serviceModels.getCurrentPage();
                 alllistAdapter.setNewsData(serviceModels.getData());
-                nearby_iRecordCount = serviceModels.getRecordCount();
+                all_iRecordCount = serviceModels.getRecordCount();
+                all_currentPage = serviceModels.getCurrentPage();
             }
         });
     }
 
     private void getNormalList(int currentPage, int iRecordCount,final int type,final int viewpagerIndex) {
-        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, currentPage, iRecordCount, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), "", new StringCallback() {
+
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, currentPage, iRecordCount, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
 
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
                 if (type == REFRESH_TYPE) {
                     nearbyRecyclerView.refreshComplete();
+                    allRecyclerView.refreshComplete();
                 } else {
                     nearbyRecyclerView.loadMoreComplete();
+                    allRecyclerView.loadMoreComplete();
                 }
             }
 
