@@ -1,5 +1,6 @@
 package com.nfu.old.fragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,9 +12,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -133,19 +136,78 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
+    @Override
+    public void onAttach(Activity activity) {
+        // TODO Auto-generated method stub
+        Log.e("HomeFragment", "HomeFragment **** onAttach...");
+        super.onAttach(activity);
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.e("HomeFragment", "HomeFragment **** onCreate...");
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-        unbinder = ButterKnife.bind(this, rootView);
+        Log.e("HomeFragment", "HomeFragment **** onCreateView...");
+        if(rootView== null) {
+            View rootView = inflater.inflate(R.layout.home_fragment, container, false);
+            unbinder = ButterKnife.bind(this, rootView);
+        }
+
         initData();
         initPager();
         initEvents();
         loadData();
         return rootView;
     }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.e("HomeFragment", "HomeFragment **** onActivityCreated...");
+    }
+    @Override
+    public void onStart() {
+        // TODO Auto-generated method stub
+        Log.e("HomeFragment", "HomeFragment **** onStart...");
+        super.onStart();
+    }
 
+    @Override
+    public void onResume() {
+        Log.e("HomeFragment", "HomeFragment **** onResume...");
+        // TODO Auto-generated method stub
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.e("HomeFragment", "HomeFragment **** onPause...");
+        // TODO Auto-generated method stub
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.e("HomeFragment", "HomeFragment **** onStop...");
+        // TODO Auto-generated method stub
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        // TODO Auto-generated method stub
+        Log.e("HomeFragment", "HomeFragment **** onDestroy...");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        Log.e("HomeFragment", "HomeFragment **** onDetach...");
+        super.onDetach();
+    }
     private void initData() {
         chageMsg(1);
         chageMsg(2);
@@ -219,9 +281,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         Glide.with(HomeFragment.this).load(pics.get(i).getPicurl()).apply(options).into(imageView);
                         ads.add(imageView);
                     }
+
                     if (ads.size() == 2) {
                         pointPagerIndicator.setIsTwoPage(true);
                     } else {
+                        Log.e("HomeFragment", "pointPagerIndicator **** pointPagerIndicator..." +pointPagerIndicator);
                         pointPagerIndicator.setIsTwoPage(false);
                     }
                 } else {
@@ -284,6 +348,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
+        Log.e("HomeFragment", "HomeFragment **** onDestroyView...");
         super.onDestroyView();
         unbinder.unbind();
         stopAdTimer();
@@ -491,8 +556,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void gotoFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(this);
+        fragmentTransaction.add(R.id.activity_main_content_frameLayout , fragment);
+//        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
     }
 }

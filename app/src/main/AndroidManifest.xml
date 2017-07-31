@@ -47,6 +47,7 @@
             android:value="xseR6PcWO1uq8m9hjR6dKbGgceqAyBvf" />
 
         <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
