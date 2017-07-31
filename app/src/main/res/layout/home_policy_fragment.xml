@@ -32,7 +32,7 @@
             android:layout_marginLeft="3.5dp"
             android:layout_weight="1"
             android:background="@color/white_color"
-            android:hint="请输入用户昵称/房间标题"
+            android:hint="政策搜索，请输入政策关键词"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:textColor="@color/color_666"

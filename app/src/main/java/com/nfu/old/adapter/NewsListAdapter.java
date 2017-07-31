@@ -1,6 +1,7 @@
 package com.nfu.old.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<NewsModel> newsModelList;
     private IOnDetailListener iOnDetailListener;
+    CardView card_view;
     /*private final int WITH_PIC = 10;
     private final int NORMAL = 20;*/
 
@@ -78,14 +80,16 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         TextView title;
         ImageView arrow;
         TextView content;
+        CardView card_view;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.tv_title);
             content = (TextView) itemView.findViewById(R.id.tv_content);
             arrow = (ImageView) itemView.findViewById(R.id.right_arrow);
+            card_view = (CardView) itemView.findViewById(R.id.card_view);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (iOnDetailListener!=null){
