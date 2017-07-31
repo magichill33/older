@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:clickable="true"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:layout_height="100dp">
+    android:paddingLeft="@dimen/magin_15"
+    android:paddingRight="@dimen/magin_15"
+    android:layout_height="@dimen/magin_100">
     <ImageView
         android:id="@+id/iv_card"
-        android:layout_width="100dp"
-        android:layout_height="65dp"
+        android:layout_width="@dimen/magin_100"
+        android:layout_height="@dimen/magin_65"
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"
         android:src="@drawable/nfu_card"/>
@@ -18,19 +18,19 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_card"
         android:layout_alignTop="@id/iv_card"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="@dimen/magin_15"
         android:text="养老助残卡"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_18"
         android:textColor="@color/color_9d"/>
     <TextView
         android:id="@+id/tv_card1"
         android:layout_below="@id/tv_card_name"
         android:layout_alignLeft="@id/tv_card_name"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/magin_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1、申报条件"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_12"
         android:textColor="@color/home_item_color"/>
     <TextView
         android:id="@+id/tv_card2"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2、协理流程"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_12"
         android:textColor="@color/home_item_color"/>
     <TextView
         android:id="@+id/tv_card3"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3、特别提醒"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_12"
         android:textColor="@color/home_item_color"/>
     <ImageView
         android:layout_alignParentRight="true"

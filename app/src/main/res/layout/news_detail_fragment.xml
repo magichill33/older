@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textColor="@color/base_red_color"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:layout_marginTop="@dimen/magin_10"
+        android:paddingLeft="@dimen/magin_15"
+        android:paddingRight="@dimen/magin_15"
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_18"
         android:text="养老产业"/>
 
     <TextView
@@ -24,15 +24,15 @@
         android:layout_height="wrap_content"
         android:textColor="@color/content_color"
         android:gravity="center"
-        android:textSize="14sp"
-        android:layout_marginTop="10dp"
+        android:textSize="@dimen/text_size_14"
+        android:layout_marginTop="@dimen/magin_10"
         android:text="2017-04-19"/>
     <LinearLayout
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
+        android:layout_marginLeft="@dimen/magin_15"
+        android:layout_marginRight="@dimen/magin_15"
+        android:layout_marginBottom="@dimen/magin_15"
+        android:layout_marginTop="@dimen/magin_20"
+        android:padding="@dimen/magin_5"
         android:background="@drawable/nfu_news_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >

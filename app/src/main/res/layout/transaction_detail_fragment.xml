@@ -9,14 +9,14 @@
         layout="@layout/fragment_title_bar" />
     <RelativeLayout
         android:id="@+id/rl_tj"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginRight="@dimen/magin_15"
+        android:layout_marginLeft="@dimen/magin_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/ll_tj"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/magin_40"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <ImageView
@@ -27,9 +27,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_18"
                 android:text="办理条件"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/magin_10"
                 android:textColor="@color/base_red_color"/>
         </LinearLayout>
         <TextView
@@ -37,21 +37,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/content_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_14"
             android:layout_below="@id/ll_tj"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_ff"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/magin_30"
+        android:layout_marginRight="@dimen/magin_15"
+        android:layout_marginLeft="@dimen/magin_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/ll_ff"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/magin_40"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <ImageView
@@ -62,9 +62,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_18"
                 android:text="办理方法"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/magin_10"
                 android:textColor="@color/base_red_color"/>
         </LinearLayout>
         <TextView
@@ -72,21 +72,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/content_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_14"
             android:layout_below="@id/ll_ff"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_sm"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginTop="@dimen/magin_30"
+        android:layout_marginRight="@dimen/magin_15"
+        android:layout_marginLeft="@dimen/magin_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/ll_sm"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/magin_40"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <ImageView
@@ -97,9 +97,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size_18"
                 android:text="特别说明"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/magin_10"
                 android:textColor="@color/base_red_color"/>
         </LinearLayout>
         <TextView
@@ -107,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/content_color"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_14"
             android:layout_below="@id/ll_sm"/>
     </RelativeLayout>
 </LinearLayout>

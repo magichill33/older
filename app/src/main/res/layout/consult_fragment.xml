@@ -13,10 +13,10 @@
         <ImageView
             android:id="@+id/fragment_consult_call_ib"
             android:clickable="true"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/consult_hotline_icon"
+            android:layout_height="@dimen/consult_hotline_icon"
             android:src="@drawable/top_bar_call_bg"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/magin_15"
             />
 
         <TextView
@@ -24,22 +24,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_18"
 
             android:layout_centerHorizontal="true"
             android:text="@string/consult_fragment_top_title" />
 
         <ImageView
             android:id="@+id/fragment_consult_setting_ib"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/consult_hotline_icon"
+            android:layout_height="@dimen/consult_hotline_icon"
             android:layout_alignParentRight="true"
             android:src="@drawable/top_bar_setting_bg"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="@dimen/magin_15"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="188dp"
+        android:layout_height="@dimen/consult_viewpager_heigth"
         >
 
         <android.support.v4.view.ViewPager
@@ -57,9 +57,9 @@
             android:layout_height="wrap_content"
             app:point_spacing="8dp"
             app:select_point_color="@color/doc_color"
-            app:select_point_size="10.7dp"
+            app:select_point_size="@dimen/consult_viewpager_point_width"
             app:unselect_point_color="@color/white"
-            app:unselect_point_size="10.7dp"
+            app:unselect_point_size="@dimen/consult_viewpager_point_width"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>

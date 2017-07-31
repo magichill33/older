@@ -10,7 +10,7 @@
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/policy_recyclerview"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/magin_15"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

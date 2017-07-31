@@ -19,19 +19,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的问题"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_18"
             android:textColor="@color/base_red_color"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/magin_15"
             />
         <EditText
             android:id="@+id/et_question"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginTop="@dimen/magin_10"
+            android:layout_marginLeft="@dimen/magin_15"
+            android:layout_marginRight="@dimen/magin_15"
             android:gravity="start"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_16"
             android:hint="问题描述"
             android:textColor="@color/color_666"
             android:padding="5dp"
@@ -39,7 +39,7 @@
 
         <LinearLayout
             android:id="@+id/live_setting_groupname_ll"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/magin_25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
@@ -48,20 +48,20 @@
                 android:id="@+id/live_setting_groupname_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="@dimen/magin_60"
                 android:text="联系人姓名"
                 android:textColor="@color/base_red_color"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_18" />
 
             <EditText
                 android:id="@+id/constacts_msg_name_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginLeft="@dimen/magin_5"
+                android:layout_marginRight="@dimen/magin_60"
                 android:textColor="@color/color_999"
                 android:ems="15"
-                android:textSize="15sp" />
+                android:textSize="@dimen/text_size_15" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,27 +69,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="@dimen/magin_15">
 
             <TextView
                 android:id="@+id/live_setting_noticeinfo_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="@dimen/magin_60"
                 android:text="联系号码    "
                 android:textColor="@color/base_red_color"
-                android:textSize="18sp" />
+                android:textSize="@dimen/text_size_18" />
 
             <EditText
                 android:id="@+id/constacts_msg_number_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginRight="@dimen/magin_60"
                 android:textColor="@color/color_999"
                 android:ems="16"
                 android:inputType="number"
-                android:textSize="15sp" />
+                android:textSize="@dimen/text_size_15" />
 
         </LinearLayout>
     </LinearLayout>

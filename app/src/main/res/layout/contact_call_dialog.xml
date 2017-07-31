@@ -19,7 +19,7 @@
             android:gravity="center"
             android:text="@string/home_fragment_modify_call_title"
             android:textColor="@color/base_red_color"
-            android:textSize="30sp" />
+            android:textSize="@dimen/text_size_30" />
 
         <TextView
             android:id="@+id/call_number"
@@ -28,11 +28,11 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="@dimen/magin_40"
             android:gravity="center"
             android:text="138888889"
             android:textColor="@color/base_red_color"
-            android:textSize="25sp" />
+            android:textSize="@dimen/text_size_24" />
 
     </RelativeLayout>
 
@@ -56,7 +56,7 @@
             android:gravity="center"
             android:text="@string/home_fragment_modify_call_cacle"
             android:textColor="@drawable/contact_dialog_text_selector"
-            android:textSize="25sp"
+            android:textSize="@dimen/text_size_24"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/dialog_center_view"
             android:layout_toStartOf="@+id/dialog_center_view" />
@@ -70,7 +70,7 @@
             android:gravity="center"
             android:text="@string/home_fragment_modify_call_commit"
             android:textColor="@drawable/contact_dialog_text_selector"
-            android:textSize="25sp"
+            android:textSize="@dimen/text_size_24"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />

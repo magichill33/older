@@ -11,44 +11,44 @@
     <LinearLayout
         android:id="@+id/nfu_activity_search_layout_ll"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/magin_30"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/magin_15"
+        android:layout_marginRight="@dimen/magin_15"
+        android:layout_marginTop="@dimen/magin_10"
         android:background="@drawable/nfu_search_bg"
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="16.5dp"
-            android:layout_height="16.5dp"
-            android:layout_marginLeft="8dp"
+            android:layout_width="@dimen/service_list_search_left_icon"
+            android:layout_height="@dimen/service_list_search_left_icon"
+            android:layout_marginLeft="@dimen/magin_8"
             android:src="@drawable/sousou" />
 
         <EditText
             android:id="@+id/nfu_activity_search_layout_et"
-            android:layout_width="260dp"
+            android:layout_width="@dimen/policy_search_layout_et"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3.5dp"
+            android:layout_marginLeft="@dimen/magin_3"
             android:layout_weight="1"
             android:background="@color/white_color"
             android:hint="政策搜索，请输入政策关键词"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:textColor="@color/color_666"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_size_16" />
 
         <ImageView
             android:id="@+id/nfu_activity_search_layout_et_clean"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginRight="9dp"
+            android:layout_width="@dimen/policy_search_layout_icon"
+            android:layout_height="@dimen/policy_search_layout_icon"
+            android:layout_marginRight="@dimen/magin_8"
             android:background="@drawable/nfu_search_activity_search_clean_icon"
             android:visibility="invisible" />
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/magin_5"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -60,14 +60,14 @@
             <com.nfu.old.view.PagerIndicator
                 android:id="@+id/nfu_activity_search_layout_tab"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/magin_48"
                 android:background="#fff"
                 app:select_tab_text_color="@color/base_red_color"
                 app:unselect_tab_text_color="@color/content_color"
                 app:should_tab_expand="true"
                 app:underline_color="@color/base_red_color"
-                app:underline_height="2dp"
-                app:tab_text_size="18sp"
+                app:underline_height="@dimen/padding_top_2"
+                app:tab_text_size="@dimen/text_size_18"
                 app:underline_padding="45dp"/>
             <android.support.v4.view.ViewPager
                 android:id="@+id/nfu_activity_search_layout_viewpager"
