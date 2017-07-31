@@ -159,8 +159,10 @@ public class ServiceFragment extends Fragment {
     private void gotoFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(this);
+        fragmentTransaction.add(R.id.activity_main_content_frameLayout , fragment);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
+//        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
     }
 

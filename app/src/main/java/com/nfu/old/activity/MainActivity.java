@@ -22,9 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static android.R.attr.fragment;
-import static com.baidu.location.d.j.P;
-
 public class MainActivity extends AppCompatActivity {
 
     Unbinder unbinder;
@@ -39,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     @BindView(R.id.activity_main_content_frameLayout)
     FrameLayout mContentView;
-    HomeFragment homeFragment;
-    ConsultFragment consultFragment;
-    ServiceFragment serviceFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private void setHomeFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        if(homeFragment == null){
-            homeFragment = new HomeFragment();
-        }
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, homeFragment);
+        HomeFragment fragment = new HomeFragment();
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
 
     }
@@ -128,10 +121,8 @@ public class MainActivity extends AppCompatActivity {
     private void setServiceFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        if(serviceFragment == null){
-            serviceFragment = new ServiceFragment();
-        }
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, serviceFragment);
+        ServiceFragment fragment = new ServiceFragment();
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
     }
 
@@ -139,10 +130,8 @@ public class MainActivity extends AppCompatActivity {
     private void setConsultFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        if(consultFragment == null){
-            consultFragment = new ConsultFragment();
-        }
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, consultFragment);
+        ConsultFragment fragment = new ConsultFragment();
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
     }
 
