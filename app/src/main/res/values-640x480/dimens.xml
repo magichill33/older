@@ -21,20 +21,20 @@
     <dimen name="titile_bar_height">40dp</dimen>
 
     <!--   sp-->
-    <dimen name="text_size_12">12sp</dimen>
-    <dimen name="text_size_14">14sp</dimen>
-    <dimen name="text_size_15">15sp</dimen>
-    <dimen name="text_size_20">20sp</dimen>
-    <dimen name="text_size_18">18sp</dimen>
-    <dimen name="text_size_16">16sp</dimen>
-    <dimen name="text_size_24">24sp</dimen>
-    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_12">10sp</dimen>
+    <dimen name="text_size_14">12sp</dimen>
+    <dimen name="text_size_15">13sp</dimen>
+    <dimen name="text_size_20">18sp</dimen>
+    <dimen name="text_size_18">16sp</dimen>
+    <dimen name="text_size_16">14sp</dimen>
+    <dimen name="text_size_24">22sp</dimen>
+    <dimen name="text_size_30">28sp</dimen>
     <!--服务页面相关-->
     <!--dp-->
-    <dimen name="gridview_item_width">155dp</dimen>
-    <dimen name="gridview_item_height">90dp</dimen>
-    <dimen name="gridview_item_pic_width">36dp</dimen>
-    <dimen name="gridview_item_pic_height">36dp</dimen>
+    <dimen name="gridview_item_width">140dp</dimen>
+    <dimen name="gridview_item_height">75dp</dimen>
+    <dimen name="gridview_item_pic_width">30dp</dimen>
+    <dimen name="gridview_item_pic_height">30dp</dimen>
     <dimen name="edit_text_left_padding">100dp</dimen>
 
     <!--    服务详情页面-->
@@ -57,8 +57,8 @@
     <dimen name="service_list_search_layout_ll_width">252dp</dimen>
     <dimen name="service_list_search_layout_ll_height">25dp</dimen>
     <dimen name="service_list_search_left_icon">16.5dp</dimen>
-    <dimen name="service_list_search_layout_et">211dp</dimen>
-    <dimen name="service_list_search_layout_cardview_width">65dp</dimen>
+    <dimen name="service_list_search_layout_et">196dp</dimen>
+    <dimen name="service_list_search_layout_cardview_width">60dp</dimen>
     <dimen name="service_list_search_layout_cardview_height">25dp</dimen>
     <dimen name="service_list_search_layout_pageind_height">48dp</dimen>
     <dimen name="service_list_search_layout_pageind_padding">45dp</dimen>

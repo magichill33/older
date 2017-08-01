@@ -25,7 +25,7 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file("D:\\hongwu\\key\\older.jks")
+            storeFile file("E:\\ly\\old\\jks\\older.jks")
             storePassword "tjyl1234"
             keyAlias "taiji"
             keyPassword "tjyl1234"

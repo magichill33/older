@@ -386,9 +386,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/padding_top_2"
-                            android:text="13688888888"
+                            android:text="1368888888"
                             android:textColor="#010101"
-                            android:textSize="@dimen/magin_15" />
+                            android:textSize="@dimen/text_size_15" />
                     </LinearLayout>
 
                     <ImageView
