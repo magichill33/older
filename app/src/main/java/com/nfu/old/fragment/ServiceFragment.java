@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.nfu.old.Constant;
 import com.nfu.old.R;
 import com.nfu.old.adapter.ServiceAdapter;
 import com.nfu.old.model.ServiceModels;
@@ -74,6 +75,7 @@ public class ServiceFragment extends Fragment {
 
     private void initView() {
         loctionBtn.setVisibility(View.VISIBLE);
+        loctionBtn.setText(Constant.CITYNAME);
         loctionBtn.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,7 @@
 package com.nfu.old.utils.map;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -10,6 +12,7 @@ import com.nfu.old.Constant;
 import com.nfu.old.model.MapInfo;
 import com.nfu.old.utils.LogUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -86,7 +89,13 @@ public class MyLocationListener implements BDLocationListener {
 
         Constant.latitude=location.getLatitude();
         Constant.lontitude=location.getLongitude();
-        LogUtil.d("MyLocationListener ======> current loction info latitude = "+location.getLatitude() + "  | lontitude =" +location.getLongitude());
+        Constant.CITYNAME = location.getCity();
+       /* try {
+            Constant.CITYNAME = MapUtil.getCoordinate(String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        LogUtil.d("MyLocationListener ======> current loction info latitude = "+location.getLatitude() + "  | lontitude =" +location.getLongitude() +" |cityname ="+Constant.CITYNAME);
         mLocationClient.stop();
     }
 

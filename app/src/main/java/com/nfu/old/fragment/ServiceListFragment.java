@@ -153,7 +153,7 @@ public class ServiceListFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 LogUtil.i("nearbyRecyclerView--->onRefresh");
-                geNearbylList(nearby_currentPage, nearby_iRecordCount, REFRESH_TYPE);
+                geNearbylList(0, 0, REFRESH_TYPE);
             }
 
             @Override
@@ -180,7 +180,7 @@ public class ServiceListFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 LogUtil.i("allRecyclerView--->onRefresh");
-                getAllList(all_currentPage, all_iRecordCount, REFRESH_TYPE);
+                getAllList(0, 0, REFRESH_TYPE);
             }
 
             @Override
@@ -199,6 +199,7 @@ public class ServiceListFragment extends BaseFragment {
 
 
         loctionBtn.setVisibility(View.VISIBLE);
+        loctionBtn.setText(Constant.CITYNAME);
         loctionBtn.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,10 +212,10 @@ public class ServiceListFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 //TODO 点击查询
-                nearbylistAdapter.setNewsData(null);
-                alllistAdapter.setNewsData(null);
                 equeryStr = edQuery.getText().toString().trim();
                 if (!TextUtils.isEmpty(equeryStr)) {
+                    nearbylistAdapter.setNewsData(null);
+                    alllistAdapter.setNewsData(null);
                     fetchQueryDate(equeryStr);
                 } else {
                     ToastUtil.showShortToast(getActivity(), "查询内容不能为空");
@@ -258,6 +259,9 @@ public class ServiceListFragment extends BaseFragment {
                 nearbylistAdapter.setNewsData(serviceModels.getData());
                 nearby_iRecordCount = serviceModels.getRecordCount();
                 nearby_currentPage = serviceModels.getCurrentPage();
+                nearby_currentPage++;
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->first:: nearby_iRecordCount = " + nearby_iRecordCount +" | nearby_currentPage=" +nearby_currentPage);
+                nearbylistAdapter.setNewsData(serviceModels.getData());
                /* alllistAdapter.setNewsData(serviceModels.getData());
                 all_iRecordCount = serviceModels.getRecordCount();
                 all_currentPage= serviceModels.getCurrentPage();*/
@@ -285,6 +289,7 @@ public class ServiceListFragment extends BaseFragment {
                 alllistAdapter.setNewsData(serviceModels.getData());
                 all_iRecordCount = serviceModels.getRecordCount();
                 all_currentPage = serviceModels.getCurrentPage();
+                all_currentPage++;
             }
         });
 
@@ -292,7 +297,7 @@ public class ServiceListFragment extends BaseFragment {
     }
 
     private void geNearbylList(int currentPage, int iRecordCount, final int type) {
-
+        LogUtil.i("ServiceFragment--->loadData--->getServiceList  --->loadmorebefore :: currentPage =" +currentPage +" | iRecordCount ="+iRecordCount  );
         ApiManager.getInstance().getNearXbsFws(String.valueOf(serviceTypeId), PAGESIZE, currentPage, iRecordCount, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
 
             @Override
@@ -317,7 +322,7 @@ public class ServiceListFragment extends BaseFragment {
                 if (type == REFRESH_TYPE) {
                     if (serviceModels != null) {
                         nearby_currentPage = serviceModels.getCurrentPage();
-                        nearby_currentPage++;
+//                        nearby_currentPage++;
                         nearby_iRecordCount = serviceModels.getRecordCount();
                     }
                     nearbylistAdapter.setNewsData(serviceModels.getData());
@@ -329,6 +334,7 @@ public class ServiceListFragment extends BaseFragment {
                             nearby_currentPage++;
                             nearby_iRecordCount = serviceModels.getRecordCount();
                             nearbylistAdapter.addNewsData(serviceModels.getData());
+                            LogUtil.i("ServiceFragment--->loadData--->getServiceList--->loadmore---->:: nearby_iRecordCount = " + nearby_iRecordCount +" | nearby_currentPage=" +nearby_currentPage);
                         }
 
                     }

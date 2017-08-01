@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     ACCESS_COARSE_LOCATION_REQUEST_CODE);
         }else {
             getLocate();
+
         }
     }
     public void getLocate() {

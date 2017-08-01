@@ -9,6 +9,8 @@ import java.util.TimeZone;
  */
 public class Constant {
 
+    public static  String CITYNAME ="";
+    public static String BAIDU_AK = "";
     public static double latitude = 0;
     public static double lontitude = 0;
 
