@@ -23,13 +23,13 @@ import static com.nfu.old.R.attr.iconDrawablePress;
  * Created by Administrator on 2017/7/25.
  */
 
-public class PictureAdapter extends BaseAdapter {
+public class ServiceAdapter extends BaseAdapter {
     private Context context;
     Integer[] mImagesPress;
     Integer[] mImages;
     private List<Picture> pictures=new ArrayList<Picture>();
 
-    public PictureAdapter(String[] titles, Integer[] images, Integer[] imagesPress ,Context context) {
+    public ServiceAdapter(String[] titles, Integer[] images, Integer[] imagesPress , Context context) {
         super();
         this.context = context;
         this.mImagesPress = imagesPress;
@@ -102,7 +102,7 @@ public class PictureAdapter extends BaseAdapter {
                 itemTv = (TextView) v.findViewById(R.id.item_pic_title);
                 int  position = (int)itemBtn.getTag();
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    Log.d("PictureAdapter","ACTION_DOWN  position = " +position );
+                    Log.d("ServiceAdapter","ACTION_DOWN  position = " +position );
                     switch (position) {
                         case 0:
                             changeDown(0);
@@ -138,13 +138,13 @@ public class PictureAdapter extends BaseAdapter {
                     }
                     return true;
                 }else if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    Log.d("PictureAdapter","ACTION_MOVE position = " +position );
+                    Log.d("ServiceAdapter","ACTION_MOVE position = " +position );
                     return false;
                 } else if(event.getAction() == MotionEvent.ACTION_UP||event.getAction() == MotionEvent.ACTION_CANCEL){
                     if(event.getAction() == MotionEvent.ACTION_UP){
-                        Log.d("PictureAdapter","ACTION_UP  position = " +position);
+                        Log.d("ServiceAdapter","ACTION_UP  position = " +position);
                     }else if(event.getAction() == MotionEvent.ACTION_CANCEL) {
-                        Log.d("PictureAdapter","ACTION_CANCEL position = " +position );
+                        Log.d("ServiceAdapter","ACTION_CANCEL position = " +position );
                     }
                     switch (position) {
                         case 0:

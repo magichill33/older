@@ -32,7 +32,7 @@
     <!--服务页面相关-->
     <!--dp-->
     <dimen name="gridview_item_width">140dp</dimen>
-    <dimen name="gridview_item_height">75dp</dimen>
+    <dimen name="gridview_item_height">60dp</dimen>
     <dimen name="gridview_item_pic_width">30dp</dimen>
     <dimen name="gridview_item_pic_height">30dp</dimen>
     <dimen name="edit_text_left_padding">100dp</dimen>
@@ -54,17 +54,17 @@
     <dimen name="service_list_call_icon_height">32dp</dimen>
 
     <dimen name="service_list_search_height">45dp</dimen>
-    <dimen name="service_list_search_layout_ll_width">252dp</dimen>
+    <dimen name="service_list_search_layout_ll_width">212dp</dimen>
     <dimen name="service_list_search_layout_ll_height">25dp</dimen>
     <dimen name="service_list_search_left_icon">16.5dp</dimen>
-    <dimen name="service_list_search_layout_et">196dp</dimen>
+    <dimen name="service_list_search_layout_et">166dp</dimen>
     <dimen name="service_list_search_layout_cardview_width">60dp</dimen>
     <dimen name="service_list_search_layout_cardview_height">25dp</dimen>
     <dimen name="service_list_search_layout_pageind_height">48dp</dimen>
     <dimen name="service_list_search_layout_pageind_padding">45dp</dimen>
 
     <dimen name="service_text_titile">35dp</dimen>
-    <dimen name="service_gridview_columnWidth">155dp</dimen>
+    <dimen name="service_gridview_columnWidth">140dp</dimen>
 
 
    <!-- 热线电话页面-->

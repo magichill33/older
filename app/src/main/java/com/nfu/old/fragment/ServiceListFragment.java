@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import okhttp3.Call;
 
+import static android.R.attr.fragment;
+
 /**
  * Created by Administrator on 2017/7/27.
  */
@@ -116,6 +118,7 @@ public class ServiceListFragment extends BaseFragment {
         }
     };
     int serviceTypeId;
+
     @Override
     protected void loadData() {
         Bundle bundle = getArguments();
@@ -127,54 +130,7 @@ public class ServiceListFragment extends BaseFragment {
 
         tv_title.setText(title);
 
- /*       ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude),"",new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::"+e);
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::"+response);
-                ServiceListModel servicesListModel =  new Gson().fromJson(response,ServiceListModel.class);
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::"+servicesListModel);
-                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(),ServiceModels.class);
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::"+serviceModels);
-                nearbylistAdapter.setNewsData(serviceModels.getData());
-                nearby_iRecordCount = serviceModels.getRecordCount();
-                nearby_currentPage= serviceModels.getCurrentPage();
-                alllistAdapter.setNewsData(serviceModels.getData());
-                all_iRecordCount = serviceModels.getRecordCount();
-                all_currentPage= serviceModels.getCurrentPage();
-            }
-        });*/
-
-
-        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude),"",new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::"+e);
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::"+response);
-                ServiceListModel servicesListModel =  new Gson().fromJson(response,ServiceListModel.class);
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::"+servicesListModel);
-                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(),ServiceModels.class);
-                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::"+serviceModels);
-                nearbylistAdapter.setNewsData(serviceModels.getData());
-                nearby_iRecordCount = serviceModels.getRecordCount();
-                nearby_currentPage= serviceModels.getCurrentPage();
-                alllistAdapter.setNewsData(serviceModels.getData());
-                all_iRecordCount = serviceModels.getRecordCount();
-                all_currentPage= serviceModels.getCurrentPage();
-            }
-        });
-
-
+        fetchQueryDate(equeryStr);
     }
 
     @Override
@@ -197,13 +153,13 @@ public class ServiceListFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 LogUtil.i("nearbyRecyclerView--->onRefresh");
-                getNormalList(nearby_currentPage,nearby_iRecordCount,REFRESH_TYPE,LEFT_TYPE);
+                geNearbylList(nearby_currentPage, nearby_iRecordCount, REFRESH_TYPE);
             }
 
             @Override
             public void onLoadMore() {
                 LogUtil.i("nearbyRecyclerView--->onLoadMore");
-                getNormalList(nearby_currentPage,nearby_iRecordCount,LOADMORE_TYPE,LEFT_TYPE);
+                geNearbylList(nearby_currentPage, nearby_iRecordCount, LOADMORE_TYPE);
             }
         });
         allRecyclerView = new XRecyclerView(getContext());
@@ -224,13 +180,13 @@ public class ServiceListFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 LogUtil.i("allRecyclerView--->onRefresh");
-                getNormalList(all_currentPage,all_iRecordCount,REFRESH_TYPE,RIGHT_TYPE);
+                getAllList(all_currentPage, all_iRecordCount, REFRESH_TYPE);
             }
 
             @Override
             public void onLoadMore() {
                 LogUtil.i("allRecyclerView--->onLoadMore");
-                getNormalList(all_currentPage,all_iRecordCount,LOADMORE_TYPE,RIGHT_TYPE);
+                getAllList(all_currentPage, all_iRecordCount, LOADMORE_TYPE);
             }
         });
 
@@ -240,7 +196,6 @@ public class ServiceListFragment extends BaseFragment {
                 getFragmentManager().popBackStack();
             }
         });
-
 
 
         loctionBtn.setVisibility(View.VISIBLE);
@@ -261,32 +216,32 @@ public class ServiceListFragment extends BaseFragment {
                 equeryStr = edQuery.getText().toString().trim();
                 if (!TextUtils.isEmpty(equeryStr)) {
                     fetchQueryDate(equeryStr);
-                }else {
-                    ToastUtil.showShortToast(getActivity(),"查询内容不能为空");
+                } else {
+                    ToastUtil.showShortToast(getActivity(), "查询内容不能为空");
                 }
             }
-            });
+        });
 
 
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener()
 
-            {
-                @Override
-                public void onClick (View v){
+        {
+            @Override
+            public void onClick(View v) {
                 getFragmentManager().popBackStack();
             }
-            });
+        });
 
         ArrayList<View> views = new ArrayList<>();
         views.add(nearbyRecyclerView);
         views.add(allRecyclerView);
-            SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views, new String[]{"附近服务机构", "全部服务机构"});
+        SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views, new String[]{"附近服务机构", "全部服务机构"});
         mViewPager.setAdapter(viewPagerAdapter);
-        mPagerIndicator.setViewPager(mViewPager,0);
-        }
+        mPagerIndicator.setViewPager(mViewPager, 0);
+    }
 
     private void fetchQueryDate(String equeryStr) {
-        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
+        ApiManager.getInstance().getNearXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
@@ -303,14 +258,90 @@ public class ServiceListFragment extends BaseFragment {
                 nearbylistAdapter.setNewsData(serviceModels.getData());
                 nearby_iRecordCount = serviceModels.getRecordCount();
                 nearby_currentPage = serviceModels.getCurrentPage();
+               /* alllistAdapter.setNewsData(serviceModels.getData());
+                all_iRecordCount = serviceModels.getRecordCount();
+                all_currentPage= serviceModels.getCurrentPage();*/
+            }
+        });
+
+
+        ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, 0, 0, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::" + response);
+                ServiceListModel servicesListModel = new Gson().fromJson(response, ServiceListModel.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::" + servicesListModel);
+                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(), ServiceModels.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::" + serviceModels);
+              /*  nearbylistAdapter.setNewsData(serviceModels.getData());
+                nearby_iRecordCount = serviceModels.getRecordCount();
+                nearby_currentPage= serviceModels.getCurrentPage();*/
                 alllistAdapter.setNewsData(serviceModels.getData());
                 all_iRecordCount = serviceModels.getRecordCount();
                 all_currentPage = serviceModels.getCurrentPage();
             }
         });
+
+
     }
 
-    private void getNormalList(int currentPage, int iRecordCount,final int type,final int viewpagerIndex) {
+    private void geNearbylList(int currentPage, int iRecordCount, final int type) {
+
+        ApiManager.getInstance().getNearXbsFws(String.valueOf(serviceTypeId), PAGESIZE, currentPage, iRecordCount, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
+                if (type == REFRESH_TYPE) {
+                    nearbyRecyclerView.refreshComplete();
+                } else {
+                    nearbyRecyclerView.loadMoreComplete();
+                }
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onResponse::" + response);
+                ServiceListModel servicesListModel = new Gson().fromJson(response, ServiceListModel.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::" + servicesListModel);
+                ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(), ServiceModels.class);
+                LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::" + serviceModels);
+
+                LogUtil.i("ServiceFragment---> nearbyPage");
+                if (type == REFRESH_TYPE) {
+                    if (serviceModels != null) {
+                        nearby_currentPage = serviceModels.getCurrentPage();
+                        nearby_currentPage++;
+                        nearby_iRecordCount = serviceModels.getRecordCount();
+                    }
+                    nearbylistAdapter.setNewsData(serviceModels.getData());
+                    nearbyRecyclerView.refreshComplete();
+                } else {
+                    if (serviceModels != null) {
+                        if (nearby_currentPage <= serviceModels.getCurrentPage()) {
+                            nearby_currentPage = serviceModels.getCurrentPage();
+                            nearby_currentPage++;
+                            nearby_iRecordCount = serviceModels.getRecordCount();
+                            nearbylistAdapter.addNewsData(serviceModels.getData());
+                        }
+
+                    }
+                    nearbyRecyclerView.loadMoreComplete();
+
+                }
+
+
+            }
+        });
+    }
+
+    private void getAllList(int currentPage, int iRecordCount, final int type) {
 
         ApiManager.getInstance().getXbsFws(String.valueOf(serviceTypeId), PAGESIZE, currentPage, iRecordCount, String.valueOf(Constant.lontitude), String.valueOf(Constant.latitude), equeryStr, new StringCallback() {
 
@@ -318,10 +349,8 @@ public class ServiceListFragment extends BaseFragment {
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->onError::" + e);
                 if (type == REFRESH_TYPE) {
-                    nearbyRecyclerView.refreshComplete();
                     allRecyclerView.refreshComplete();
                 } else {
-                    nearbyRecyclerView.loadMoreComplete();
                     allRecyclerView.loadMoreComplete();
                 }
             }
@@ -333,69 +362,46 @@ public class ServiceListFragment extends BaseFragment {
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->servicesListModel::" + servicesListModel);
                 ServiceModels serviceModels = new Gson().fromJson(servicesListModel.getStrResult(), ServiceModels.class);
                 LogUtil.i("ServiceFragment--->loadData--->getServiceList--->ServiceModels::" + serviceModels);
-                if(viewpagerIndex == LEFT_TYPE){
-                    LogUtil.i("ServiceFragment---> nearbyPage");
-                    if (type == REFRESH_TYPE) {
-                        if (serviceModels != null) {
-                            nearby_currentPage = serviceModels.getCurrentPage();
-                            nearby_currentPage++;
-                            nearby_iRecordCount = serviceModels.getRecordCount();
-                        }
-                        nearbylistAdapter.setNewsData(serviceModels.getData());
-                        nearbyRecyclerView.refreshComplete();
-                    } else {
-                        if (serviceModels != null) {
-                            if (nearby_currentPage <= serviceModels.getCurrentPage()) {
-                                nearby_currentPage = serviceModels.getCurrentPage();
-                                nearby_currentPage++;
-                                nearby_iRecordCount = serviceModels.getRecordCount();
-                                nearbylistAdapter.addNewsData(serviceModels.getData());
-                            }
 
-                        }
-                        nearbyRecyclerView.loadMoreComplete();
-
+                LogUtil.i("ServiceFragment--->allPage");
+                if (type == REFRESH_TYPE) {
+                    if (serviceModels != null) {
+                        all_currentPage = serviceModels.getCurrentPage();
+                        all_currentPage++;
+                        all_iRecordCount = serviceModels.getRecordCount();
                     }
-                }else if(viewpagerIndex == RIGHT_TYPE) {
-
-                    LogUtil.i("ServiceFragment--->allPage");
-                    if (type == REFRESH_TYPE) {
-                        if (serviceModels != null) {
+                    alllistAdapter.setNewsData(serviceModels.getData());
+                    allRecyclerView.refreshComplete();
+                } else {
+                    if (serviceModels != null) {
+                        if (all_currentPage <= serviceModels.getCurrentPage()) {
                             all_currentPage = serviceModels.getCurrentPage();
                             all_currentPage++;
                             all_iRecordCount = serviceModels.getRecordCount();
+                            alllistAdapter.addNewsData(serviceModels.getData());
                         }
-                        alllistAdapter.setNewsData(serviceModels.getData());
-                        allRecyclerView.refreshComplete();
-                    } else {
-                        if (serviceModels != null) {
-                            if (all_currentPage <= serviceModels.getCurrentPage()) {
-                                all_currentPage = serviceModels.getCurrentPage();
-                                all_currentPage++;
-                                all_iRecordCount = serviceModels.getRecordCount();
-                                alllistAdapter.addNewsData(serviceModels.getData());
-                            }
 
-                        }
-                        allRecyclerView.loadMoreComplete();
                     }
+                    allRecyclerView.loadMoreComplete();
                 }
-
-
             }
+
+
         });
     }
 
     private void gotoServiceDetailFragment(ServiceModel serviceModel) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ServiceDetailFragment serviceDetailFragment= new ServiceDetailFragment();
+        ServiceDetailFragment serviceDetailFragment = new ServiceDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title","商家信息");
-        bundle.putSerializable("servicemodel",serviceModel);
+        bundle.putString("title", "商家信息");
+        bundle.putSerializable("servicemodel", serviceModel);
         serviceDetailFragment.setArguments(bundle);
+        fragmentTransaction.hide(this);
+        fragmentTransaction.add(R.id.activity_main_content_frameLayout , serviceDetailFragment);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, serviceDetailFragment);
+//        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, serviceDetailFragment);
         fragmentTransaction.commit();
     }
 }

@@ -106,7 +106,14 @@ public class ApiManager {
         LogUtil.i("ApiManager--->getNewsDetail--->url::"+url);
         NetUtil.doGet(url,null,callback);
     }
-
+    /**
+     * 附近服务商查询 GetNearXbsFws
+     */
+    public void getNearXbsFws(String serviceTypeId, int pageSize, int currentPage, int iRecordCount, String longitude ,String latitude,String shopName,Callback callback){
+        String url = ConnectUrl.getNearXbsFws + "&serviceTypeId=" + serviceTypeId + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount +"&longitude="+longitude+"&latitude=" +latitude+ "&shopName=" + shopName;
+        LogUtil.i("ApiManager--->getNewsDetail--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
     public void getXbsFwsDetail(){
 
     }

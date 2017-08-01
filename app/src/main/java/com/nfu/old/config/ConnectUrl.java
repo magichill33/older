@@ -15,6 +15,7 @@ public interface ConnectUrl {
     String getOpinionFeedback = baseUrl + "/bjllapp/opinionBackManage/opinionBackManageAction.do?method=GetOpinionFeedback";
     String getBusinessConditions = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetBusinessConditions&signKey=" + ApiConfig.signKey;
     String getXbsFws = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetXbsFws&signKey=" + ApiConfig.signKey;
+    String getNearXbsFws = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetNearXbsFws&signKey=" + ApiConfig.signKey;
     String getXbsFwsDetail = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetXbsFwsDetail&signKey=" + ApiConfig.signKey;
     String getNewsListByKey = baseUrl + "/bjllapp/bjllXxfbQuery/bjllXxfbQueryAction.do?method=GetKeywordNewsList&signKey=" + ApiConfig.signKey;
 

@@ -159,7 +159,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
                 }
             });
 
-            jinru.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
