@@ -270,53 +270,54 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("HomeFragment--->loadData--->onResponse--->" + response);
-                TurnPicModel turnPicModel = new Gson().fromJson(response, TurnPicModel.class);
-                LogUtil.i("HomeFragment--->loadData--->TurnPicModel--->" + turnPicModel);
-                List<TurnPicModel.StrResultBean> pics = turnPicModel.getStrResult();
-                ArrayList<ImageView> ads = new ArrayList<ImageView>();
-                if (pics != null && pics.size() > 0 && !NfuResource.getInstance().isUseDefPic()) {
-                    for (int i = 0; i < pics.size(); i++) {
+                if(getContext()!=null){
+                    LogUtil.i("HomeFragment--->loadData--->onResponse--->" + response);
+                    TurnPicModel turnPicModel = new Gson().fromJson(response, TurnPicModel.class);
+                    LogUtil.i("HomeFragment--->loadData--->TurnPicModel--->" + turnPicModel);
+                    List<TurnPicModel.StrResultBean> pics = turnPicModel.getStrResult();
+                    ArrayList<ImageView> ads = new ArrayList<ImageView>();
+                    if (pics != null && pics.size() > 0 && !NfuResource.getInstance().isUseDefPic()) {
+                        for (int i = 0; i < pics.size(); i++) {
+                            ImageView imageView = new ImageView(getContext());
+                            Glide.with(HomeFragment.this).load(pics.get(i).getPicurl()).apply(options).into(imageView);
+                            ads.add(imageView);
+                        }
+
+                        if (ads.size() == 2) {
+                            pointPagerIndicator.setIsTwoPage(true);
+                        } else {
+                            Log.e("HomeFragment", "pointPagerIndicator **** pointPagerIndicator..." +pointPagerIndicator);
+                            pointPagerIndicator.setIsTwoPage(false);
+                        }
+                    } else {
                         ImageView imageView = new ImageView(getContext());
-                        Glide.with(HomeFragment.this).load(pics.get(i).getPicurl()).apply(options).into(imageView);
+                        Glide.with(getContext()).load(R.drawable.def_turn).into(imageView);
                         ads.add(imageView);
                     }
 
-                    if (ads.size() == 2) {
-                        pointPagerIndicator.setIsTwoPage(true);
+                    HotAdPagerAdapter adPagerAdapter = new HotAdPagerAdapter(new HotAdPagerAdapter.AdItemOnClickListener() {
+                        @Override
+                        public void viewPagerItemOnClickListener(int position) {
+                            LogUtil.d("viewPagerItemOnClickListener:position:" + position);
+
+                        }
+                    });
+
+
+                    adPagerAdapter.setData(ads);
+                    mViewPager.setAdapter(adPagerAdapter);
+                    pointPagerIndicator.setViewPager(mViewPager);
+                    if (pics != null && pics.size() != 0) {
+                        int mid = adPagerAdapter.getCount() / 2;
+                        pointPagerIndicator.setCurrentItem(mid - mid / pics.size(), false);
+                    }
+
+                    if (ads.size() < 2) {
+                        pointPagerIndicator.setVisibility(View.INVISIBLE);
                     } else {
-                        Log.e("HomeFragment", "pointPagerIndicator **** pointPagerIndicator..." +pointPagerIndicator);
-                        pointPagerIndicator.setIsTwoPage(false);
+                        startAdTimer();
                     }
-                } else {
-                    ImageView imageView = new ImageView(getContext());
-                    Glide.with(getContext()).load(R.drawable.def_turn).into(imageView);
-                    ads.add(imageView);
                 }
-
-                HotAdPagerAdapter adPagerAdapter = new HotAdPagerAdapter(new HotAdPagerAdapter.AdItemOnClickListener() {
-                    @Override
-                    public void viewPagerItemOnClickListener(int position) {
-                        LogUtil.d("viewPagerItemOnClickListener:position:" + position);
-
-                    }
-                });
-
-
-                adPagerAdapter.setData(ads);
-                mViewPager.setAdapter(adPagerAdapter);
-                pointPagerIndicator.setViewPager(mViewPager);
-                if (pics != null && pics.size() != 0) {
-                    int mid = adPagerAdapter.getCount() / 2;
-                    pointPagerIndicator.setCurrentItem(mid - mid / pics.size(), false);
-                }
-
-                if (ads.size() < 2) {
-                    pointPagerIndicator.setVisibility(View.INVISIBLE);
-                } else {
-                    startAdTimer();
-                }
-
             }
         });
 
