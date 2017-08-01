@@ -11,18 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
-        }
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.debug
-        }
-    }
+
     signingConfigs {
         debug {
             storeFile file("D:\\hongwu\\key\\older.jks")
@@ -31,12 +20,26 @@ android {
             keyPassword "tjyl1234"
         }
         release {
-       /*     storeFile file("E:\\ly\\old\\jks")
-            storePassword "tjyl1234"
-            keyAlias "taiji"
-            keyPassword "tjyl1234"*/
+            /*     storeFile file("E:\\ly\\old\\jks")
+                 storePassword "tjyl1234"
+                 keyAlias "taiji"
+                 keyPassword "tjyl1234"*/
         }
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
 
 
     //配置so使用
