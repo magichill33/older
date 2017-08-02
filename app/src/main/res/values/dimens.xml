@@ -96,4 +96,7 @@
     <dimen name="policy_search_layout_icon">16dp</dimen>
 
 
+ <!--   升级页面-->
+    <dimen name="update_top_height">194dp</dimen>
+
 </resources>
