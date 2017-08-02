@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.activity_main_content_frameLayout)
     FrameLayout mContentView;
 
-    private static final int ACCESS_COARSE_LOCATION_REQUEST_CODE = 1;
+    private static final int ACCESS_COARSE_LOCATION_REQUEST_CODE = 0x1001;
+    private final int PERMS_REQUEST_CODE = 0x1002;
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener;
     @Override
@@ -67,17 +68,36 @@ public class MainActivity extends AppCompatActivity {
         initMap();
     }
     private void initMap() {
+        // //判断当前Activity是否获得了该权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED ||ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_PHONE_STATE,
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                    },
-                    ACCESS_COARSE_LOCATION_REQUEST_CODE);
+            //没有授权,判断权限申请是否曾经被拒绝过
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)
+                    ||ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    ||ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    ||ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE) ) {
+                Toast.makeText(this, "你曾经拒绝过此权限,需要重新获取", Toast.LENGTH_SHORT).show();
+                //申请WRITE_EXTERNAL_STORAGE权限
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_PHONE_STATE,
+                                Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.CALL_PHONE
+                        },
+                        ACCESS_COARSE_LOCATION_REQUEST_CODE);
+            } else {
+                //申请WRITE_EXTERNAL_STORAGE权限
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_PHONE_STATE,
+                                Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.CALL_PHONE
+                        },
+                        ACCESS_COARSE_LOCATION_REQUEST_CODE);
+            }
         }else {
             getLocate();
 
@@ -218,6 +238,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+//        mLocationClient.unRegisterLocationListener(myListener);//取消注册的位置监听，以免内存泄露
+//        mLocationClient.stop();// 退出时销毁定位
         super.onDestroy();
         unbinder.unbind();
     }

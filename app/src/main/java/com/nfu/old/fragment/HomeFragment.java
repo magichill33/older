@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -515,7 +516,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                 dialog.dismiss();
                 // 调用打掉话界面
-                AppUtils.call(getContext(),currNumber);
+
+                    AppUtils.call(getContext(),currNumber);
+
+
             }
         });
         ContactCallDailog dialog = builder.create();

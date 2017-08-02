@@ -96,6 +96,7 @@ public class MyLocationListener implements BDLocationListener {
             e.printStackTrace();
         }*/
         LogUtil.d("MyLocationListener ======> current loction info latitude = "+location.getLatitude() + "  | lontitude =" +location.getLongitude() +" |cityname ="+Constant.CITYNAME);
+        mLocationClient.unRegisterLocationListener(this);//取消注册的位置监听，以免内存泄露
         mLocationClient.stop();
     }
 

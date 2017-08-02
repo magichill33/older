@@ -44,7 +44,7 @@ public class ServiceFragment extends Fragment {
 
     private String[] from = { "image", "title" };
     private int[] to = { R.id.item_pic, R.id.item_pic_title};
-    String[] titles = new String[] { "超级商场", "餐饮", "家政服务", "社区便利店"
+    String[] titles = new String[] { "百货购物", "餐饮", "家政服务", "社区便利店"
             , "医药医疗" ,"日间照料","养老机构","生活照料","文化娱乐","幸福彩虹"};
     Integer[] images = { R.drawable.service_item_pic_chaojishichang_selected, R.drawable.service_item_pic_canyin_unselected,
             R.drawable.service_item_pic_jiazhengfuwu_unselected, R.drawable.service_item_pic_shequ_unselected,
@@ -61,8 +61,8 @@ public class ServiceFragment extends Fragment {
      * 超市商场7764,餐饮7765,家政服务7768,生活照料7770,医药医疗7774,
      * 日间照料7775,养老机构7778,文化娱乐7779,社区便利店7814,幸福彩虹7877
      */
-    Integer[] serviceTypeId ={7764,7765,7768,7770,7774,
-                                7775,7778,7779,7814,7877};
+    Integer[] serviceTypeId ={7764,7765,7768,7814,7774,
+                                7775,7778,7770,7779,7877};
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
