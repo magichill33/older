@@ -34,6 +34,7 @@ public class TurnPicModel extends BaseInfo {
 
         private String picTitle;
         private String picurl;
+        private String id;
 
         public String getPicTitle() {
             return picTitle;
@@ -51,11 +52,20 @@ public class TurnPicModel extends BaseInfo {
             this.picurl = picurl;
         }
 
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
         @Override
         public String toString() {
             return "StrResultBean{" +
                     "picTitle='" + picTitle + '\'' +
                     ", picurl='" + picurl + '\'' +
+                    ", id='" + id + '\'' +
                     '}';
         }
     }

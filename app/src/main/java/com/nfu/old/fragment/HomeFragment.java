@@ -31,6 +31,8 @@ import com.nfu.old.R;
 import com.nfu.old.adapter.HotAdPagerAdapter;
 import com.nfu.old.config.NfuResource;
 import com.nfu.old.manager.ApiManager;
+import com.nfu.old.model.NewsListModel;
+import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.TurnPicModel;
 import com.nfu.old.utils.AppUtils;
 import com.nfu.old.utils.LogUtil;
@@ -275,8 +277,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     LogUtil.i("HomeFragment--->loadData--->onResponse--->" + response);
                     TurnPicModel turnPicModel = new Gson().fromJson(response, TurnPicModel.class);
                     LogUtil.i("HomeFragment--->loadData--->TurnPicModel--->" + turnPicModel);
-                    List<TurnPicModel.StrResultBean> pics = turnPicModel.getStrResult();
-                    ArrayList<ImageView> ads = new ArrayList<ImageView>();
+                    final List<TurnPicModel.StrResultBean> pics = turnPicModel.getStrResult();
+                    final ArrayList<ImageView> ads = new ArrayList<ImageView>();
                     if (pics != null && pics.size() > 0 && !NfuResource.getInstance().isUseDefPic()) {
                         for (int i = 0; i < pics.size(); i++) {
                             ImageView imageView = new ImageView(getContext());
@@ -300,7 +302,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         @Override
                         public void viewPagerItemOnClickListener(int position) {
                             LogUtil.d("viewPagerItemOnClickListener:position:" + position);
-
+                            TurnPicModel.StrResultBean model = pics.get(position);
+                            gotoDetailFragment(model.getId());
                         }
                     });
 
@@ -322,6 +325,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+    }
+
+    private void gotoDetailFragment(String id){
+        ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onResponse::"+response);
+                NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
+                NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
+                gotoDetailFragment(model1);
+            }
+        });
+    }
+
+    private void gotoDetailFragment(NewsModel newsModel){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title","媒体报道");
+        bundle.putSerializable("news",newsModel);
+        newsDetailFragment.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, newsDetailFragment);
+        fragmentTransaction.commit();
     }
 
     public void startAdTimer() {
