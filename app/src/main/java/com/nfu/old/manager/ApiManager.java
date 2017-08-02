@@ -38,9 +38,9 @@ public class ApiManager {
      * @param iRecordCount 记录总数，第一页传0，第二次调用传上一次服务器返回的数据
      * @param sortBy 排序，可选{@link ApiConfig#sortByASC} {@link ApiConfig#sortByDESC}
      */
-    public void getNewsList(String dictionID, int pageSize, int currentPage, int iRecordCount, String sortBy,Callback callback){
+    public void getNewsList(String dictionID, int pageSize, int currentPage, int iRecordCount,String strOrderBy, String sortBy,Callback callback){
         String url = ConnectUrl.getNewsList + "&dictionid=" + dictionID + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage
-                + "&iRecordCount=" + iRecordCount + "&strOrderBy=createdate&strSortBy=" + sortBy;
+                + "&iRecordCount=" + iRecordCount + "&strOrderBy="+strOrderBy+"&strSortBy=" + sortBy;
         LogUtil.i("ApiManager--->getNewsList--->url::"+url);
         NetUtil.doGet(url,null,callback);
     }

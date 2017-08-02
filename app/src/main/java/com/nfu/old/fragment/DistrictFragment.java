@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,10 @@ public class DistrictFragment extends BaseFragment {
     TextView tv_title;
     @BindView(R.id.policy_recyclerview)
     XRecyclerView policy_recyclerview;
+    @BindView(R.id.nfu_activity_search_layout_et)
+    EditText edQuery;
+    @BindView(R.id.nfu_activity_search_layout_et_clean)
+    ImageView mCleanTextIv;
 
     private final static int REFRESH_TYPE = 1001;
     private final static int LOADMORE_TYPE = 1002;
@@ -59,6 +64,10 @@ public class DistrictFragment extends BaseFragment {
 
     private int p_currentPage = 0;
     private int p_iRecordCount = 0;
+
+    private String searchStr;
+    private static final int TEXTCHANGE = 99;
+    private static final int SEARCH_ALL = 100;
 
     @Nullable
     @Override
@@ -70,11 +79,23 @@ public class DistrictFragment extends BaseFragment {
     }
 
 
-
+    private Handler msgHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case TEXTCHANGE:
+                    getNormalListByKey(searchStr,p_currentPage,p_iRecordCount,REFRESH_TYPE);
+                    break;
+                case SEARCH_ALL:
+                    getNormalList(0,0,REFRESH_TYPE);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void loadData() {
-        ApiManager.getInstance().getNewsList("1007", PAGESIZE, 0, 0, "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList("1007", PAGESIZE, 0, 0,"createdate",  "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onError::"+e);
@@ -115,13 +136,23 @@ public class DistrictFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 LogUtil.i("policy_recyclerview--->onRefresh");
-                getNormalList(0,0,REFRESH_TYPE);
+                if (TextUtils.isEmpty(searchStr)){
+                    getNormalList(0,0,REFRESH_TYPE);
+                }else {
+                    getNormalListByKey(searchStr,0,0,REFRESH_TYPE);
+                }
+
             }
 
             @Override
             public void onLoadMore() {
-                LogUtil.i("policy_recyclerview--->onRefresh");
-                getNormalList(p_currentPage,p_iRecordCount,LOADMORE_TYPE);
+                LogUtil.i("policy_recyclerview--->onLoadMore");
+                if (TextUtils.isEmpty(searchStr)){
+                    getNormalList(p_currentPage,p_iRecordCount,LOADMORE_TYPE);
+                }else {
+                    getNormalListByKey(searchStr,p_currentPage,p_iRecordCount,LOADMORE_TYPE);
+                }
+
             }
         });
 
@@ -133,7 +164,53 @@ public class DistrictFragment extends BaseFragment {
             }
         });
 
+        mCleanTextIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edQuery.setText("");
+            }
+        });
 
+        edQuery.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                msgHandler.removeMessages(TEXTCHANGE);
+                p_iRecordCount = 0;
+                p_currentPage = 0;
+
+
+                if ("".equals(s.toString())) {
+                    mCleanTextIv.setVisibility(View.INVISIBLE);
+                    searchStr = "";
+                    policyListAdapter.setNewsData(null);
+
+                    Message message = msgHandler.obtainMessage();
+                    message.what = SEARCH_ALL;
+                    message.obj = s.toString();
+                    msgHandler.sendMessageDelayed(message, 500);
+                } else {
+                    searchStr = s.toString();
+
+                    policyListAdapter.setNewsData(null);
+                    mCleanTextIv.setVisibility(View.VISIBLE);
+                    Message message = msgHandler.obtainMessage();
+                    message.what = TEXTCHANGE;
+                    message.obj = s.toString();
+                    msgHandler.sendMessageDelayed(message, 500);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void gotoDetailFragment(String id){
@@ -169,11 +246,54 @@ public class DistrictFragment extends BaseFragment {
     }
 
 
+    private void getNormalListByKey(String key,int currentPage, int iRecordCount,final int type){
+        ApiManager.getInstance().getNewsListByKey("1007",key, PAGESIZE, currentPage, iRecordCount,"createdate",  "desc", new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::"+e);
+                if (type == REFRESH_TYPE){
+                    policy_recyclerview.refreshComplete();
+                }else {
+                    policy_recyclerview.loadMoreComplete();
 
+                }
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::"+response);
+                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::"+newsListModel);
+                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::"+newsModels);
+                if (type == REFRESH_TYPE){
+                    if (newsListModel!=null){
+                        p_currentPage = newsModels.getCurrentPage();
+                        p_currentPage++;
+                        p_iRecordCount = newsModels.getRecordCount();
+                    }
+                    policyListAdapter.setNewsData(newsModels.getData());
+                    policy_recyclerview.refreshComplete();
+                }else {
+
+                    if (newsListModel!=null){
+                        if (p_currentPage<=newsModels.getCurrentPage()){
+                            p_currentPage = newsModels.getCurrentPage();
+                            p_currentPage++;
+                            p_iRecordCount = newsModels.getRecordCount();
+                            policyListAdapter.addNewsData(newsModels.getData());
+                        }
+                        policy_recyclerview.loadMoreComplete();
+                    }
+                }
+
+            }
+        });
+    }
 
 
     private void getNormalList(int currentPage, int iRecordCount,final int type){
-        ApiManager.getInstance().getNewsList("1007", PAGESIZE, currentPage, iRecordCount, "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList("1007", PAGESIZE, currentPage, iRecordCount,"createdate",  "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::"+e);
