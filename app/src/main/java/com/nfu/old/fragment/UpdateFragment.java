@@ -5,9 +5,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.nfu.old.BuildConfig;
 import com.nfu.old.R;
+import com.nfu.old.config.NfuResource;
+import com.nfu.old.utils.ToastUtil;
 import com.nfu.old.view.ButtonExtendM;
 
 import butterknife.BindView;
@@ -21,6 +26,12 @@ public class UpdateFragment extends BaseFragment{
     ButtonExtendM btnBack;
     @BindView(R.id.top_title)
     TextView tv_title;
+    @BindView(R.id.current_version)
+    TextView current_version;
+    @BindView(R.id.release_date)
+    TextView release_date;
+    @BindView(R.id.check_update_btn)
+    Button check_update_btn;
 
     @Nullable
     @Override
@@ -39,6 +50,26 @@ public class UpdateFragment extends BaseFragment{
 
     @Override
     protected void initView() {
+        tv_title.setText(R.string.update_str);
+        current_version.setText("当前版本：V"+getASVersionName());
+//        release_date.setText("发布日期："+getASVersionName());
 
+        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+        check_update_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShortToast(getActivity(),"当前已为最新版本！");
+            }
+        });
+    }
+
+    public String getASVersionName(){
+//        int versionCode = BuildConfig.VERSION_CODE;
+       return BuildConfig.VERSION_NAME;
     }
 }

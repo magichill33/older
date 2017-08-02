@@ -98,5 +98,6 @@
 
  <!--   升级页面-->
     <dimen name="update_top_height">194dp</dimen>
+    <dimen name="update_logo_icon">100dp</dimen>
 
 </resources>

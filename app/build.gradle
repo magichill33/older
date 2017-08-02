@@ -14,10 +14,10 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("D:\\hongwu\\key\\older.jks")
-            storePassword "tjyl1234"
-            keyAlias "taiji"
-            keyPassword "tjyl1234"
+//            storeFile file("D:\\hongwu\\key\\older.jks")
+//            storePassword "tjyl1234"
+//            keyAlias "taiji"
+//            keyPassword "tjyl1234"
         }
         release {
             /*     storeFile file("E:\\ly\\old\\jks")

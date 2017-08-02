@@ -3,6 +3,7 @@ package com.nfu.old.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.nfu.old.R;
 import com.nfu.old.config.NfuResource;
+import com.nfu.old.fragment.BaseFragment;
 import com.nfu.old.model.NewsModel;
 import com.nfu.old.utils.ToastUtil;
 import com.nfu.old.view.ButtonExtendM;
@@ -143,10 +145,21 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             case R.id.card_view5:
                 break;
             case R.id.card_view6:
+                UpdateFragment updateFragment = new UpdateFragment();
+                gotoFragment(updateFragment);
                 break;
             case R.id.card_view7:
                 break;
 
         }
+    }
+    private void gotoFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(this);
+        fragmentTransaction.add(R.id.activity_main_content_frameLayout , fragment);
+//        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
