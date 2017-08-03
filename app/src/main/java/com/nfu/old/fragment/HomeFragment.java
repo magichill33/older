@@ -275,52 +275,57 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onResponse(String response, int id) {
                 if(getContext()!=null){
                     LogUtil.i("HomeFragment--->loadData--->onResponse--->" + response);
-                    TurnPicModel turnPicModel = new Gson().fromJson(response, TurnPicModel.class);
-                    LogUtil.i("HomeFragment--->loadData--->TurnPicModel--->" + turnPicModel);
-                    final List<TurnPicModel.StrResultBean> pics = turnPicModel.getStrResult();
-                    final ArrayList<ImageView> ads = new ArrayList<ImageView>();
-                    if (pics != null && pics.size() > 0 && !NfuResource.getInstance().isUseDefPic()) {
-                        for (int i = 0; i < pics.size(); i++) {
+                    try {
+                        TurnPicModel turnPicModel = new Gson().fromJson(response, TurnPicModel.class);
+                        LogUtil.i("HomeFragment--->loadData--->TurnPicModel--->" + turnPicModel);
+                        final List<TurnPicModel.StrResultBean> pics = turnPicModel.getStrResult();
+                        final ArrayList<ImageView> ads = new ArrayList<ImageView>();
+                        if (pics != null && pics.size() > 0 && !NfuResource.getInstance().isUseDefPic()) {
+                            for (int i = 0; i < pics.size(); i++) {
+                                ImageView imageView = new ImageView(getContext());
+                                Glide.with(HomeFragment.this).load(pics.get(i).getPicurl()).apply(options).into(imageView);
+                                ads.add(imageView);
+                            }
+
+                            if (ads.size() == 2) {
+                                pointPagerIndicator.setIsTwoPage(true);
+                            } else {
+                                Log.e("HomeFragment", "pointPagerIndicator **** pointPagerIndicator..." +pointPagerIndicator);
+                                pointPagerIndicator.setIsTwoPage(false);
+                            }
+                        } else {
                             ImageView imageView = new ImageView(getContext());
-                            Glide.with(HomeFragment.this).load(pics.get(i).getPicurl()).apply(options).into(imageView);
+                            Glide.with(getContext()).load(R.drawable.def_turn).into(imageView);
                             ads.add(imageView);
                         }
 
-                        if (ads.size() == 2) {
-                            pointPagerIndicator.setIsTwoPage(true);
+                        HotAdPagerAdapter adPagerAdapter = new HotAdPagerAdapter(new HotAdPagerAdapter.AdItemOnClickListener() {
+                            @Override
+                            public void viewPagerItemOnClickListener(int position) {
+                                LogUtil.d("viewPagerItemOnClickListener:position:" + position);
+                                TurnPicModel.StrResultBean model = pics.get(position);
+                                gotoDetailFragment(model.getId());
+                            }
+                        });
+
+
+                        adPagerAdapter.setData(ads);
+                        mViewPager.setAdapter(adPagerAdapter);
+                        pointPagerIndicator.setViewPager(mViewPager);
+                        if (pics != null && pics.size() != 0) {
+                            int mid = adPagerAdapter.getCount() / 2;
+                            pointPagerIndicator.setCurrentItem(mid - mid / pics.size(), false);
+                        }
+
+                        if (ads.size() < 2) {
+                            pointPagerIndicator.setVisibility(View.INVISIBLE);
                         } else {
-                            Log.e("HomeFragment", "pointPagerIndicator **** pointPagerIndicator..." +pointPagerIndicator);
-                            pointPagerIndicator.setIsTwoPage(false);
+                            startAdTimer();
                         }
-                    } else {
-                        ImageView imageView = new ImageView(getContext());
-                        Glide.with(getContext()).load(R.drawable.def_turn).into(imageView);
-                        ads.add(imageView);
+                    }catch (Exception e){
+                        LogUtil.i("HomeFragment--->loadData--->Exception--->"+e);
                     }
 
-                    HotAdPagerAdapter adPagerAdapter = new HotAdPagerAdapter(new HotAdPagerAdapter.AdItemOnClickListener() {
-                        @Override
-                        public void viewPagerItemOnClickListener(int position) {
-                            LogUtil.d("viewPagerItemOnClickListener:position:" + position);
-                            TurnPicModel.StrResultBean model = pics.get(position);
-                            gotoDetailFragment(model.getId());
-                        }
-                    });
-
-
-                    adPagerAdapter.setData(ads);
-                    mViewPager.setAdapter(adPagerAdapter);
-                    pointPagerIndicator.setViewPager(mViewPager);
-                    if (pics != null && pics.size() != 0) {
-                        int mid = adPagerAdapter.getCount() / 2;
-                        pointPagerIndicator.setCurrentItem(mid - mid / pics.size(), false);
-                    }
-
-                    if (ads.size() < 2) {
-                        pointPagerIndicator.setVisibility(View.INVISIBLE);
-                    } else {
-                        startAdTimer();
-                    }
                 }
             }
         });
