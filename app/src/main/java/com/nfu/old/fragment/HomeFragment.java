@@ -69,8 +69,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     LinearLayout ll_rights;
     @BindView(R.id.ll_announcement)
     LinearLayout ll_announcement;
-    @BindView(R.id.ll_socialwork)
-    LinearLayout ll_socialwork;
+    @BindView(R.id.ll_oldservice)
+    LinearLayout ll_oldservice;
     @BindView(R.id.ll_dynamic)
     LinearLayout ll_dynamic;
     /**
@@ -224,7 +224,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ll_transaction_query.setOnClickListener(this);
         ll_rights.setOnClickListener(this);
         ll_announcement.setOnClickListener(this);
-        ll_socialwork.setOnClickListener(this);
+        ll_oldservice.setOnClickListener(this);
         ll_dynamic.setOnClickListener(this);
 
         ll_msg_first.setOnClickListener(this);
@@ -414,7 +414,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 DistrictFragment districtFragment = new DistrictFragment();
                 gotoFragment(districtFragment);
                 break;
-            case R.id.ll_socialwork:
+            case R.id.ll_oldservice:
+
+                ServiceFragment serviceFragment = new ServiceFragment();
+                gotoFragment(serviceFragment);
+
                 break;
             case R.id.ll_msg_first:
                 ContactMsgWindow msgWindow = new ContactMsgWindow(getContext(), 1);

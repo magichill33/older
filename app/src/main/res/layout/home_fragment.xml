@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/rl_top"
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_title_bar_height"
             android:background="@color/base_red_color"
             android:gravity="center_vertical">
+
             <ImageView
                 android:id="@+id/activity_main_call_ib"
                 android:layout_width="@dimen/consult_hotline_icon"
@@ -26,24 +28,24 @@
                 android:id="@+id/activity_main_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18"
-
                 android:layout_centerHorizontal="true"
-                android:text="@string/top_bar_home_title"/>
+                android:text="@string/top_bar_home_title"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18" />
 
             <ImageView
                 android:id="@+id/activity_main_setting_ib"
                 android:layout_width="@dimen/consult_hotline_icon"
                 android:layout_height="@dimen/consult_hotline_icon"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/top_bar_setting_bg"
-                android:layout_marginRight="@dimen/magin_15"/>
+                android:layout_marginRight="@dimen/magin_15"
+                android:src="@drawable/top_bar_setting_bg" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/consult_viewpager_heigth"
-            >
+            android:layout_height="@dimen/consult_viewpager_heigth">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/home_fragment_viewpager"
@@ -51,17 +53,18 @@
                 android:layout_height="match_parent">
 
             </android.support.v4.view.ViewPager>
+
             <com.nfu.old.view.PointPagerIndicator
                 android:id="@+id/nfu_hot_list_ad_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 app:point_spacing="@dimen/magin_8"
                 app:select_point_color="@color/doc_color"
                 app:select_point_size="@dimen/consult_viewpager_point_width"
                 app:unselect_point_color="@color/white"
-                app:unselect_point_size="@dimen/consult_viewpager_point_width"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"/>
+                app:unselect_point_size="@dimen/consult_viewpager_point_width" />
         </RelativeLayout>
 
         <View
@@ -104,8 +107,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/home_fragment_policy_str"
                             android:layout_marginTop="-2dp"
+                            android:text="@string/home_fragment_policy_str"
                             android:textColor="@color/base_red_color"
                             android:textSize="@dimen/text_size_18" />
                     </LinearLayout>
@@ -130,8 +133,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_fragment_query_str"
                         android:layout_marginTop="-2dp"
+                        android:text="@string/home_fragment_query_str"
                         android:textColor="@color/base_red_color"
                         android:textSize="@dimen/text_size_18" />
 
@@ -161,8 +164,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/home_fragment_maintain_str"
                             android:layout_marginTop="-2dp"
+                            android:text="@string/home_fragment_maintain_str"
                             android:textColor="@color/base_red_color"
                             android:textSize="@dimen/text_size_18" />
                     </LinearLayout>
@@ -198,16 +201,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="-2dp"
                             android:text="@string/home_fragment_notice_str"
                             android:textColor="@color/base_red_color"
-                            android:layout_marginTop="-2dp"
                             android:textSize="@dimen/text_size_18" />
                     </LinearLayout>
 
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_socialwork"
+                    android:id="@+id/ll_oldservice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -224,8 +227,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_fragment_friendship_str"
                         android:layout_marginTop="-2dp"
+                        android:text="@string/home_fragment_oldservice_str"
                         android:textColor="@color/base_red_color"
                         android:textSize="18sp" />
 
@@ -234,19 +237,21 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    >
 
                     <LinearLayout
                         android:id="@+id/ll_dynamic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/magin_42"
+                        android:clickable="true"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/imageView"
                             android:layout_width="@dimen/home_center_icon"
                             android:layout_height="@dimen/home_center_icon"
                             android:scaleType="centerInside"
@@ -255,12 +260,43 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/home_fragment_district_str"
                             android:layout_marginTop="-2dp"
+                            android:text="@string/home_fragment_old_consult_str"
                             android:textColor="@color/base_red_color"
                             android:textSize="@dimen/text_size_18" />
                     </LinearLayout>
                 </RelativeLayout>
+                <!--  <RelativeLayout
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1">
+
+                      <LinearLayout
+                          android:id="@+id/ll_dynamic"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:clickable="true"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="@dimen/magin_42"
+                          android:gravity="center_horizontal"
+                          android:orientation="vertical">
+
+                          <ImageView
+                              android:id="@+id/imageView"
+                              android:layout_width="@dimen/home_center_icon"
+                              android:layout_height="@dimen/home_center_icon"
+                              android:scaleType="centerInside"
+                              android:src="@drawable/error" />
+
+                          <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="@string/home_fragment_district_str"
+                              android:layout_marginTop="-2dp"
+                              android:textColor="@color/base_red_color"
+                              android:textSize="@dimen/text_size_18" />
+                      </LinearLayout>
+                  </RelativeLayout>-->
             </LinearLayout>
         </LinearLayout>
 
@@ -274,7 +310,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="紧急呼救电话"
+                android:text="最新资讯"
                 android:textColor="@color/base_red_color"
                 android:textSize="@dimen/text_size_15" />
 
@@ -300,6 +336,14 @@
             android:layout_height="@dimen/home_call_line_bottom"
             android:orientation="vertical">
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_call_line_bottom"
+            android:orientation="vertical"
+            android:visibility="gone">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_call_line_bottom_first"
@@ -313,11 +357,11 @@
 
                     <LinearLayout
                         android:id="@+id/ll_msg_first"
-                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/magin_15"
                         android:layout_marginTop="@dimen/magin_12"
+                        android:clickable="true"
                         android:orientation="vertical">
 
                         <TextView
@@ -333,8 +377,8 @@
                             android:id="@+id/contact_msg_first_number_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_top_2"
                             android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/padding_top_2"
                             android:text="13688888888"
                             android:textColor="#010101"
                             android:textSize="@dimen/text_size_15" />
@@ -344,10 +388,10 @@
                         android:id="@+id/iv_call_first"
                         android:layout_width="@dimen/home_call_line_bottom_icon"
                         android:layout_height="@dimen/home_call_line_bottom_icon"
-                        android:clickable="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/magin_15"
+                        android:clickable="true"
                         android:src="@drawable/home_telphone_bg" />
                 </RelativeLayout>
 
@@ -364,11 +408,11 @@
 
                     <LinearLayout
                         android:id="@+id/ll_msg_second"
-                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/magin_15"
                         android:layout_marginTop="@dimen/magin_12"
+                        android:clickable="true"
                         android:orientation="vertical">
 
                         <TextView
@@ -395,10 +439,10 @@
                         android:id="@+id/iv_call_second"
                         android:layout_width="@dimen/home_call_line_bottom_icon"
                         android:layout_height="@dimen/home_call_line_bottom_icon"
-                        android:clickable="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
+                        android:clickable="true"
                         android:src="@drawable/home_telphone_bg" />
                 </RelativeLayout>
             </LinearLayout>
@@ -421,11 +465,11 @@
 
                     <LinearLayout
                         android:id="@+id/ll_msg_third"
-                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/magin_15"
                         android:layout_marginTop="@dimen/magin_12"
+                        android:clickable="true"
                         android:orientation="vertical">
 
                         <TextView
@@ -452,10 +496,10 @@
                         android:id="@+id/iv_call_third"
                         android:layout_width="@dimen/home_call_line_bottom_icon"
                         android:layout_height="@dimen/home_call_line_bottom_icon"
-                        android:clickable="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/magin_15"
+                        android:clickable="true"
                         android:src="@drawable/home_telphone_bg" />
                 </RelativeLayout>
 
@@ -472,11 +516,11 @@
 
                     <LinearLayout
                         android:id="@+id/ll_msg_fourth"
-                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/magin_15"
                         android:layout_marginTop="@dimen/magin_12"
+                        android:clickable="true"
                         android:orientation="vertical">
 
                         <TextView
@@ -503,10 +547,10 @@
                         android:id="@+id/iv_call_fourth"
                         android:layout_width="@dimen/home_call_line_bottom_icon"
                         android:layout_height="@dimen/home_call_line_bottom_icon"
-                        android:clickable="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/text_size_15"
+                        android:clickable="true"
                         android:src="@drawable/home_telphone_bg" />
                 </RelativeLayout>
             </LinearLayout>

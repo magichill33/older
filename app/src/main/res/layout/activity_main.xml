@@ -17,63 +17,70 @@
         android:layout_height="0.5dp"
         android:background="#950101"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_bar_height">
+        android:layout_height="@dimen/bottom_bar_height"
+        android:orientation="horizontal">
+
         <com.nfu.old.view.ButtonExtendM
             android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/magin_32"
             android:layout_centerVertical="true"
-            nfu:imgHeight = "@dimen/bottom_bar_icon"
-            nfu:scType = "CENTER"
+
+            android:layout_toEndOf="@+id/btn_service"
+            android:layout_toRightOf="@+id/btn_service"
+            android:layout_weight="1"
+            nfu:buttonType="check"
+            nfu:drec="iconUp"
             nfu:iconDrawable="@drawable/bottom_bar_home_unselect"
             nfu:iconDrawablePress="@drawable/bottom_bar_home_selected"
-            nfu:nfuTextColor = "@color/home_item_color"
-            nfu:textColorPress="@color/base_red_color"
-            nfu:nfuTextSize = "@dimen/text_size_12"
-            nfu:buttonType="check"
+            nfu:imgHeight="@dimen/bottom_bar_icon"
+            nfu:nfuTextColor="@color/home_item_color"
+            nfu:nfuTextSize="@dimen/text_size_12"
+            nfu:scType="CENTER"
             nfu:spacing="@dimen/padding_top_2"
             nfu:text="首页"
-            nfu:drec="iconUp"
-            />
+            nfu:textColorPress="@color/base_red_color" />
+
         <com.nfu.old.view.ButtonExtendM
             android:id="@+id/btn_consult"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            nfu:imgHeight = "@dimen/bottom_bar_icon"
-            nfu:scType = "CENTER"
+            android:layout_alignTop="@+id/btn_home"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            nfu:buttonType="check"
+            nfu:drec="iconUp"
             nfu:iconDrawable="@drawable/bottom_bar_consult_unselect"
             nfu:iconDrawablePress="@drawable/bottom_bar_consult_selected"
-            nfu:nfuTextColor = "@color/home_item_color"
-            nfu:textColorPress="@color/base_red_color"
-            nfu:nfuTextSize = "@dimen/text_size_12"
-            nfu:buttonType="check"
+            nfu:imgHeight="@dimen/bottom_bar_icon"
+            nfu:nfuTextColor="@color/home_item_color"
+            nfu:nfuTextSize="@dimen/text_size_12"
+            nfu:scType="CENTER"
             nfu:spacing="@dimen/padding_top_2"
             nfu:text="咨询"
-            nfu:drec="iconUp"
-            />
+            nfu:textColorPress="@color/base_red_color" />
+
         <com.nfu.old.view.ButtonExtendM
             android:id="@+id/btn_service"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/magin_32"
             android:layout_centerVertical="true"
-            nfu:imgHeight = "@dimen/bottom_bar_icon"
-            nfu:scType = "CENTER"
+            android:layout_marginRight="@dimen/magin_32"
+            android:visibility="gone"
+            nfu:buttonType="check"
+            nfu:drec="iconUp"
             nfu:iconDrawable="@drawable/bottom_bar_service_unselect"
             nfu:iconDrawablePress="@drawable/bottom_bar_service_selected"
-            nfu:nfuTextColor = "@color/home_item_color"
-            nfu:textColorPress="@color/base_red_color"
-            nfu:nfuTextSize = "@dimen/text_size_12"
-            nfu:buttonType="check"
+            nfu:imgHeight="@dimen/bottom_bar_icon"
+            nfu:nfuTextColor="@color/home_item_color"
+            nfu:nfuTextSize="@dimen/text_size_12"
+            nfu:scType="CENTER"
             nfu:spacing="@dimen/padding_top_2"
             nfu:text="服务"
-            nfu:drec="iconUp"
-            />
+            nfu:textColorPress="@color/base_red_color" />
         <!--<RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -147,5 +154,5 @@
                     android:textSize="12sp"/>
             </LinearLayout>
         </RelativeLayout>-->
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
