@@ -35,7 +35,7 @@ import okhttp3.Call;
  * Created by Administrator on 2017-7-27.
  */
 
-public class TransactionFragment extends BaseFragment implements View.OnClickListener{
+public class TransactionFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.btn_back)
     ButtonExtendM btnBack;
     @BindView(R.id.top_title)
@@ -50,7 +50,7 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bindView(inflater, R.layout.transaction_fragment,container);
+        bindView(inflater, R.layout.transaction_fragment, container);
         initView();
         loadData();
         return rootView;
@@ -75,7 +75,7 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
         btn_schedule.setOnClickListener(this);
     }
 
-    private void gotoDetailFragment(Fragment fragment){
+    private void gotoDetailFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
@@ -85,26 +85,30 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.card_item:
                 ApiManager.getInstance().getBusinessConditions("6654", new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        LogUtil.i("TransactionFragment--->getBusinessConditions--->onError::"+e);
+                        LogUtil.i("TransactionFragment--->getBusinessConditions--->onError::" + e);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        LogUtil.i("TransactionFragment--->getBusinessConditions--->onResponse::"+response);
-                        NewsListModel models = new Gson().fromJson(response,NewsListModel.class);
-                        LogUtil.i("TransactionFragment--->getBusinessConditions--->NewsListModel::"+models);
-                        Transaction transaction = new Gson().fromJson(models.getStrResult(),Transaction.class);
-                        LogUtil.i("TransactionFragment--->getBusinessConditions--->Transaction::"+transaction);
-                        TransactionDetailFragment detailFragment = new TransactionDetailFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("model",transaction);
-                        detailFragment.setArguments(bundle);
-                        gotoDetailFragment(detailFragment);
+                        try {
+                            LogUtil.i("TransactionFragment--->getBusinessConditions--->onResponse::" + response);
+                            NewsListModel models = new Gson().fromJson(response, NewsListModel.class);
+                            LogUtil.i("TransactionFragment--->getBusinessConditions--->NewsListModel::" + models);
+                            Transaction transaction = new Gson().fromJson(models.getStrResult(), Transaction.class);
+                            LogUtil.i("TransactionFragment--->getBusinessConditions--->Transaction::" + transaction);
+                            TransactionDetailFragment detailFragment = new TransactionDetailFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("model", transaction);
+                            detailFragment.setArguments(bundle);
+                            gotoDetailFragment(detailFragment);
+                        } catch (Exception e) {
+                            LogUtil.i("TransactionFragment--->loadData--->Exception--->" + e);
+                        }
                     }
                 });
                 break;
@@ -118,7 +122,7 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-    private void showTipDialog(){
+    private void showTipDialog() {
         NfuCustomDialog.Builder builder = new NfuCustomDialog.Builder(getContext());
         builder.setMessage("目前业务只支持银行柜台办理");
         builder.setPositiveButton("返回", new DialogInterface.OnClickListener() {
@@ -133,8 +137,8 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
         // 获得代表当前window属性的对象
         WindowManager.LayoutParams params = window.getAttributes();
 
-        params.width = DensityUtil.dip2px(getContext(),276.8f);
-        params.height = DensityUtil.dip2px(getContext(),160.5f);
+        params.width = DensityUtil.dip2px(getContext(), 276.8f);
+        params.height = DensityUtil.dip2px(getContext(), 160.5f);
         // 方式一：设置属性
         window.setAttributes(params);
         dialog.show();

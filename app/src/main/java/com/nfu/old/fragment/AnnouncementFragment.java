@@ -76,21 +76,21 @@ public class AnnouncementFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bindView(inflater,R.layout.announcement_fragment,container);
+        bindView(inflater, R.layout.announcement_fragment, container);
         initView();
         loadData();
         return rootView;
     }
 
-    private Handler msgHandler = new Handler(){
+    private Handler msgHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case TEXTCHANGE:
-                    getNewsListByKey(searchStr,n_currentPage,n_iRecordCount,LOADMORE_TYPE);
+                    getNewsListByKey(searchStr, n_currentPage, n_iRecordCount, LOADMORE_TYPE);
                     break;
                 case SEARCH_ALL:
-                    getNormalList(0,0,REFRESH_TYPE);
+                    getNormalList(0, 0, REFRESH_TYPE);
                     break;
             }
         }
@@ -99,25 +99,30 @@ public class AnnouncementFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        ApiManager.getInstance().getNewsList("1001", PAGESIZE, 0, 0,"createdate", "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList("1001", PAGESIZE, 0, 0, "createdate", "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->onError::"+e);
+                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->onError::" + e);
 
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->onResponse::"+response);
-                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->newsListModel::"+newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->NewsModels::"+newsModels);
-                newsListAdapter.setNewsData(newsModels.getData());
-                if (newsListModel!=null){
-                    n_currentPage = newsModels.getCurrentPage();
-                    n_currentPage++;
-                    n_iRecordCount = newsModels.getRecordCount();
+                try {
+
+                    LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->onResponse::" + response);
+                    NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                    LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->newsListModel::" + newsListModel);
+                    NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                    LogUtil.i("AnnouncementFragment--->loadData--->getNewsList--->NewsModels::" + newsModels);
+                    newsListAdapter.setNewsData(newsModels.getData());
+                    if (newsListModel != null) {
+                        n_currentPage = newsModels.getCurrentPage();
+                        n_currentPage++;
+                        n_iRecordCount = newsModels.getRecordCount();
+                    }
+                } catch (Exception e) {
+                    LogUtil.i("AnnouncementFragment--->loadData--->Exception--->" + e);
                 }
             }
         });
@@ -147,10 +152,10 @@ public class AnnouncementFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 LogUtil.i("news_recyclerview--->onRefresh");
-                if (TextUtils.isEmpty(searchStr)){
-                    getNormalList(0,0,REFRESH_TYPE);
-                }else{
-                    getNewsListByKey(searchStr,0,0,REFRESH_TYPE);
+                if (TextUtils.isEmpty(searchStr)) {
+                    getNormalList(0, 0, REFRESH_TYPE);
+                } else {
+                    getNewsListByKey(searchStr, 0, 0, REFRESH_TYPE);
                 }
 
             }
@@ -158,10 +163,10 @@ public class AnnouncementFragment extends BaseFragment {
             @Override
             public void onLoadMore() {
                 LogUtil.i("news_recyclerview--->onLoadMore");
-                if (TextUtils.isEmpty(searchStr)){
-                    getNormalList(n_currentPage,n_iRecordCount,LOADMORE_TYPE);
-                }else {
-                    getNewsListByKey(searchStr,n_currentPage,n_iRecordCount,LOADMORE_TYPE);
+                if (TextUtils.isEmpty(searchStr)) {
+                    getNormalList(n_currentPage, n_iRecordCount, LOADMORE_TYPE);
+                } else {
+                    getNewsListByKey(searchStr, n_currentPage, n_iRecordCount, LOADMORE_TYPE);
                 }
 
             }
@@ -216,48 +221,47 @@ public class AnnouncementFragment extends BaseFragment {
         });
     }
 
-    private void gotoDetailFragment(String id){
+    private void gotoDetailFragment(String id) {
         ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::" + e);
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->onResponse::"+response);
-                NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
-                NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
-                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
+                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->onResponse::" + response);
+                NewsListModel listModel = new Gson().fromJson(response, NewsListModel.class);
+                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsListModel::" + listModel);
+                NewsModel model1 = new Gson().fromJson(listModel.getStrResult(), NewsModel.class);
+                LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsModel::" + model1);
                 gotoDetailFragment(model1);
             }
         });
     }
 
 
-
-    private void gotoDetailFragment(NewsModel newsModel){
+    private void gotoDetailFragment(NewsModel newsModel) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title","通知公告");
-        bundle.putSerializable("news",newsModel);
+        bundle.putString("title", "通知公告");
+        bundle.putSerializable("news", newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, newsDetailFragment);
         fragmentTransaction.commit();
     }
 
-    private void getNewsListByKey(String keyword, int currentPage, int iRecordCount, final int type){
+    private void getNewsListByKey(String keyword, int currentPage, int iRecordCount, final int type) {
         ApiManager.getInstance().getNewsListByKey("1001", keyword, PAGESIZE, currentPage, iRecordCount, "createdate", "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("PolicyFragment--->initView--->getNewsListByKey--->onError::"+e);
-                if (type == REFRESH_TYPE){
+                LogUtil.i("PolicyFragment--->initView--->getNewsListByKey--->onError::" + e);
+                if (type == REFRESH_TYPE) {
                     news_recyclerview.refreshComplete();
-                }else {
+                } else {
                     news_recyclerview.loadMoreComplete();
 
                 }
@@ -265,24 +269,24 @@ public class AnnouncementFragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("PolicyFragment--->initView--->getNewsListByKey--->onResponse::"+response);
-                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("PolicyFragment--->loadData--->getNewsListByKey--->newsListModel::"+newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("PolicyFragment--->loadData--->getNewsListByKey--->NewsModels::"+newsModels);
+                LogUtil.i("PolicyFragment--->initView--->getNewsListByKey--->onResponse::" + response);
+                NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                LogUtil.i("PolicyFragment--->loadData--->getNewsListByKey--->newsListModel::" + newsListModel);
+                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                LogUtil.i("PolicyFragment--->loadData--->getNewsListByKey--->NewsModels::" + newsModels);
 
-                if (type == REFRESH_TYPE){
-                    if (newsListModel!=null){
+                if (type == REFRESH_TYPE) {
+                    if (newsListModel != null) {
                         n_currentPage = newsModels.getCurrentPage();
                         n_currentPage++;
                         n_iRecordCount = newsModels.getRecordCount();
                     }
                     newsListAdapter.setNewsData(newsModels.getData());
                     news_recyclerview.refreshComplete();
-                }else {
+                } else {
 
-                    if (newsListModel!=null){
-                        if (n_currentPage<=newsModels.getCurrentPage()){
+                    if (newsListModel != null) {
+                        if (n_currentPage <= newsModels.getCurrentPage()) {
                             n_currentPage = newsModels.getCurrentPage();
                             n_currentPage++;
                             n_iRecordCount = newsModels.getRecordCount();
@@ -296,14 +300,14 @@ public class AnnouncementFragment extends BaseFragment {
     }
 
 
-    private void getNormalList(int currentPage, int iRecordCount,final int type){
-        ApiManager.getInstance().getNewsList("1001", PAGESIZE, currentPage, iRecordCount,"createdate", "desc", new StringCallback() {
+    private void getNormalList(int currentPage, int iRecordCount, final int type) {
+        ApiManager.getInstance().getNewsList("1001", PAGESIZE, currentPage, iRecordCount, "createdate", "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::"+e);
-                if (type == REFRESH_TYPE){
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::" + e);
+                if (type == REFRESH_TYPE) {
                     news_recyclerview.refreshComplete();
-                }else {
+                } else {
                     news_recyclerview.loadMoreComplete();
 
                 }
@@ -311,23 +315,23 @@ public class AnnouncementFragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::"+response);
-                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::"+newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::"+newsModels);
-                if (type == REFRESH_TYPE){
-                    if (newsListModel!=null){
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::" + response);
+                NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::" + newsListModel);
+                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::" + newsModels);
+                if (type == REFRESH_TYPE) {
+                    if (newsListModel != null) {
                         n_currentPage = newsModels.getCurrentPage();
                         n_currentPage++;
                         n_iRecordCount = newsModels.getRecordCount();
                     }
                     newsListAdapter.setNewsData(newsModels.getData());
                     news_recyclerview.refreshComplete();
-                }else {
+                } else {
 
-                    if (newsListModel!=null){
-                        if (n_currentPage<=newsModels.getCurrentPage()){
+                    if (newsListModel != null) {
+                        if (n_currentPage <= newsModels.getCurrentPage()) {
                             n_currentPage = newsModels.getCurrentPage();
                             n_currentPage++;
                             n_iRecordCount = newsModels.getRecordCount();

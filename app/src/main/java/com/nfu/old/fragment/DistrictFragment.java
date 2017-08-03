@@ -72,22 +72,22 @@ public class DistrictFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bindView(inflater,R.layout.district_fragment,container);
+        bindView(inflater, R.layout.district_fragment, container);
         initView();
         loadData();
         return rootView;
     }
 
 
-    private Handler msgHandler = new Handler(){
+    private Handler msgHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case TEXTCHANGE:
-                    getNormalListByKey(searchStr,p_currentPage,p_iRecordCount,REFRESH_TYPE);
+                    getNormalListByKey(searchStr, p_currentPage, p_iRecordCount, REFRESH_TYPE);
                     break;
                 case SEARCH_ALL:
-                    getNormalList(0,0,REFRESH_TYPE);
+                    getNormalList(0, 0, REFRESH_TYPE);
                     break;
             }
         }
@@ -95,24 +95,28 @@ public class DistrictFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        ApiManager.getInstance().getNewsList("1007", PAGESIZE, 0, 0,"createdate",  "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList("1007", PAGESIZE, 0, 0, "createdate", "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onError::"+e);
+                LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onError::" + e);
 
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onResponse::"+response);
-                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("PolicyFragment--->loadData--->getNewsList--->newsListModel::"+newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("PolicyFragment--->loadData--->getNewsList--->NewsModels::"+newsModels);
-                p_currentPage = newsModels.getCurrentPage();
-                p_currentPage++;
-                p_iRecordCount = newsModels.getRecordCount();
-                policyListAdapter.setNewsData(newsModels.getData());
+                try {
+                    LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onResponse::" + response);
+                    NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                    LogUtil.i("PolicyFragment--->loadData--->getNewsList--->newsListModel::" + newsListModel);
+                    NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                    LogUtil.i("PolicyFragment--->loadData--->getNewsList--->NewsModels::" + newsModels);
+                    p_currentPage = newsModels.getCurrentPage();
+                    p_currentPage++;
+                    p_iRecordCount = newsModels.getRecordCount();
+                    policyListAdapter.setNewsData(newsModels.getData());
+                } catch (Exception e) {
+                    LogUtil.i("PolicyFragment--->loadData--->Exception--->" + e);
+                }
             }
         });
     }
@@ -131,15 +135,15 @@ public class DistrictFragment extends BaseFragment {
         policy_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         policy_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         policy_recyclerview.setAdapter(policyListAdapter);
-       // policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
+        // policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
         policy_recyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 LogUtil.i("policy_recyclerview--->onRefresh");
-                if (TextUtils.isEmpty(searchStr)){
-                    getNormalList(0,0,REFRESH_TYPE);
-                }else {
-                    getNormalListByKey(searchStr,0,0,REFRESH_TYPE);
+                if (TextUtils.isEmpty(searchStr)) {
+                    getNormalList(0, 0, REFRESH_TYPE);
+                } else {
+                    getNormalListByKey(searchStr, 0, 0, REFRESH_TYPE);
                 }
 
             }
@@ -147,10 +151,10 @@ public class DistrictFragment extends BaseFragment {
             @Override
             public void onLoadMore() {
                 LogUtil.i("policy_recyclerview--->onLoadMore");
-                if (TextUtils.isEmpty(searchStr)){
-                    getNormalList(p_currentPage,p_iRecordCount,LOADMORE_TYPE);
-                }else {
-                    getNormalListByKey(searchStr,p_currentPage,p_iRecordCount,LOADMORE_TYPE);
+                if (TextUtils.isEmpty(searchStr)) {
+                    getNormalList(p_currentPage, p_iRecordCount, LOADMORE_TYPE);
+                } else {
+                    getNormalListByKey(searchStr, p_currentPage, p_iRecordCount, LOADMORE_TYPE);
                 }
 
             }
@@ -213,32 +217,32 @@ public class DistrictFragment extends BaseFragment {
         });
     }
 
-    private void gotoDetailFragment(String id){
+    private void gotoDetailFragment(String id) {
         ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::"+e);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onError::" + e);
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onResponse::"+response);
-                NewsListModel listModel = new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
-                NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
-                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->onResponse::" + response);
+                NewsListModel listModel = new Gson().fromJson(response, NewsListModel.class);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::" + listModel);
+                NewsModel model1 = new Gson().fromJson(listModel.getStrResult(), NewsModel.class);
+                LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::" + model1);
                 gotoDetailFragment(model1);
             }
         });
     }
 
-    private void gotoDetailFragment(NewsModel newsModel){
+    private void gotoDetailFragment(NewsModel newsModel) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title","区县动态");
-        bundle.putSerializable("news",newsModel);
+        bundle.putString("title", "区县动态");
+        bundle.putSerializable("news", newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.activity_main_content_frameLayout, newsDetailFragment);
@@ -246,14 +250,14 @@ public class DistrictFragment extends BaseFragment {
     }
 
 
-    private void getNormalListByKey(String key,int currentPage, int iRecordCount,final int type){
-        ApiManager.getInstance().getNewsListByKey("1007",key, PAGESIZE, currentPage, iRecordCount,"createdate",  "desc", new StringCallback() {
+    private void getNormalListByKey(String key, int currentPage, int iRecordCount, final int type) {
+        ApiManager.getInstance().getNewsListByKey("1007", key, PAGESIZE, currentPage, iRecordCount, "createdate", "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::"+e);
-                if (type == REFRESH_TYPE){
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::" + e);
+                if (type == REFRESH_TYPE) {
                     policy_recyclerview.refreshComplete();
-                }else {
+                } else {
                     policy_recyclerview.loadMoreComplete();
 
                 }
@@ -261,23 +265,23 @@ public class DistrictFragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::"+response);
-                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::"+newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::"+newsModels);
-                if (type == REFRESH_TYPE){
-                    if (newsListModel!=null){
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::" + response);
+                NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::" + newsListModel);
+                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::" + newsModels);
+                if (type == REFRESH_TYPE) {
+                    if (newsListModel != null) {
                         p_currentPage = newsModels.getCurrentPage();
                         p_currentPage++;
                         p_iRecordCount = newsModels.getRecordCount();
                     }
                     policyListAdapter.setNewsData(newsModels.getData());
                     policy_recyclerview.refreshComplete();
-                }else {
+                } else {
 
-                    if (newsListModel!=null){
-                        if (p_currentPage<=newsModels.getCurrentPage()){
+                    if (newsListModel != null) {
+                        if (p_currentPage <= newsModels.getCurrentPage()) {
                             p_currentPage = newsModels.getCurrentPage();
                             p_currentPage++;
                             p_iRecordCount = newsModels.getRecordCount();
@@ -292,14 +296,14 @@ public class DistrictFragment extends BaseFragment {
     }
 
 
-    private void getNormalList(int currentPage, int iRecordCount,final int type){
-        ApiManager.getInstance().getNewsList("1007", PAGESIZE, currentPage, iRecordCount,"createdate",  "desc", new StringCallback() {
+    private void getNormalList(int currentPage, int iRecordCount, final int type) {
+        ApiManager.getInstance().getNewsList("1007", PAGESIZE, currentPage, iRecordCount, "createdate", "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::"+e);
-                if (type == REFRESH_TYPE){
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::" + e);
+                if (type == REFRESH_TYPE) {
                     policy_recyclerview.refreshComplete();
-                }else {
+                } else {
                     policy_recyclerview.loadMoreComplete();
 
                 }
@@ -307,23 +311,23 @@ public class DistrictFragment extends BaseFragment {
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::"+response);
-                NewsListModel newsListModel =  new Gson().fromJson(response,NewsListModel.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::"+newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(),NewsModels.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::"+newsModels);
-                if (type == REFRESH_TYPE){
-                    if (newsListModel!=null){
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::" + response);
+                NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::" + newsListModel);
+                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::" + newsModels);
+                if (type == REFRESH_TYPE) {
+                    if (newsListModel != null) {
                         p_currentPage = newsModels.getCurrentPage();
                         p_currentPage++;
                         p_iRecordCount = newsModels.getRecordCount();
                     }
                     policyListAdapter.setNewsData(newsModels.getData());
                     policy_recyclerview.refreshComplete();
-                }else {
+                } else {
 
-                    if (newsListModel!=null){
-                        if (p_currentPage<=newsModels.getCurrentPage()){
+                    if (newsListModel != null) {
+                        if (p_currentPage <= newsModels.getCurrentPage()) {
                             p_currentPage = newsModels.getCurrentPage();
                             p_currentPage++;
                             p_iRecordCount = newsModels.getRecordCount();
