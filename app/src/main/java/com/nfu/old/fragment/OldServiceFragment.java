@@ -69,6 +69,12 @@ public class OldServiceFragment extends BaseFragment {
             }
         });
         oldservice_recyclerview.setAdapter(policyListAdapter);
+        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
     }
 
 
