@@ -416,8 +416,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.ll_oldservice:
 
-                ServiceFragment serviceFragment = new ServiceFragment();
-                gotoFragment(serviceFragment);
+                OldServiceFragment oldServiceFragment = new OldServiceFragment();
+                gotoFragment(oldServiceFragment);
 
                 break;
             case R.id.ll_msg_first:
