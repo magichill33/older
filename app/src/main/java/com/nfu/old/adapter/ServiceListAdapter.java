@@ -1,6 +1,7 @@
 package com.nfu.old.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.nfu.old.R;
+import com.nfu.old.activity.RoutePlanActivity;
 import com.nfu.old.config.NfuResource;
 import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.ServiceModel;
@@ -21,6 +23,7 @@ import com.nfu.old.utils.DensityUtil;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static android.R.attr.targetActivity;
 import static com.nfu.old.R.id.loction_tv;
 
 /**
@@ -156,6 +159,15 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     // 调用打掉话界面
                     AppUtils.call(v.getContext(),newsModelList.get(getAdapterPosition()).getShopTelephone());
+                }
+            });
+            //条用百度地图进行导航
+            location.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext,RoutePlanActivity.class);
+
+                    mContext.startActivity(intent);
                 }
             });
 

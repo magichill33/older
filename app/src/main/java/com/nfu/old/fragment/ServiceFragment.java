@@ -1,29 +1,21 @@
 package com.nfu.old.fragment;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.Toast;
 
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.nfu.old.Constant;
 import com.nfu.old.R;
 import com.nfu.old.adapter.ServiceAdapter;
 import com.nfu.old.model.ServiceModels;
-import com.nfu.old.utils.map.MyLocationListener;
+import com.nfu.old.map.MyLocationListener;
 import com.nfu.old.view.ButtonExtendM;
 
 import butterknife.BindView;

@@ -20,7 +20,7 @@
             android:layout_marginTop="@dimen/magin_10"
             android:layout_marginBottom="@dimen/magin_30"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/headphone" />
+            android:src="@drawable/logo" />
         <TextView
             android:id="@+id/current_version"
             android:layout_width="match_parent"

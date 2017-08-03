@@ -286,10 +286,13 @@ public class ServiceListFragment extends BaseFragment {
               /*  nearbylistAdapter.setNewsData(serviceModels.getData());
                 nearby_iRecordCount = serviceModels.getRecordCount();
                 nearby_currentPage= serviceModels.getCurrentPage();*/
-                alllistAdapter.setNewsData(serviceModels.getData());
-                all_iRecordCount = serviceModels.getRecordCount();
-                all_currentPage = serviceModels.getCurrentPage();
-                all_currentPage++;
+              if(serviceModels!=null){
+                  alllistAdapter.setNewsData(serviceModels.getData());
+                  all_iRecordCount = serviceModels.getRecordCount();
+                  all_currentPage = serviceModels.getCurrentPage();
+                  all_currentPage++;
+              }
+
             }
         });
 

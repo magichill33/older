@@ -1,12 +1,9 @@
-package com.nfu.old.utils.map;
+package com.nfu.old.map;
 
 import com.google.gson.Gson;
 import com.nfu.old.Constant;
 import com.nfu.old.model.MapInfo;
-import com.nfu.old.model.ServiceModels;
 import com.nfu.old.utils.LogUtil;
-
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,8 +11,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import static com.baidu.location.d.j.n;
 
 /**
  * Created by Administrator on 2017/8/1.

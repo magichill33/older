@@ -18,7 +18,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
 
-
     <!--百度定位相关权限-->
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -46,7 +45,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="xseR6PcWO1uq8m9hjR6dKbGgceqAyBvf" />
+            android:value="a4IcFGYIYm02xOQGuzBFT9KELqdIuvFG" />
 
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
@@ -58,7 +57,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.RoutePlanActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/demo_name_route"
+            android:screenOrientation="portrait" >
+        </activity>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
     </application>

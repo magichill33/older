@@ -1,7 +1,5 @@
-package com.nfu.old.utils.map;
+package com.nfu.old.map;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -9,10 +7,8 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.Poi;
 import com.nfu.old.Constant;
-import com.nfu.old.model.MapInfo;
 import com.nfu.old.utils.LogUtil;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

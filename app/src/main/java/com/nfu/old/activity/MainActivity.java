@@ -21,17 +21,14 @@ import com.nfu.old.R;
 import com.nfu.old.fragment.ConsultFragment;
 import com.nfu.old.fragment.HomeFragment;
 import com.nfu.old.fragment.ServiceFragment;
-import com.nfu.old.utils.map.MyLocationListener;
+import com.nfu.old.map.MyLocationListener;
 import com.nfu.old.view.ButtonExtendM;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
