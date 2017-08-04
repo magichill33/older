@@ -72,7 +72,7 @@ public class ServiceFragment extends Fragment {
     }
 
     private void initView() {
-        tv_title.setText(R.string.top_bar_service_title);
+        tv_title.setText(R.string.oldservice_thrid_top_title);
         loctionBtn.setVisibility(View.VISIBLE);
         loctionBtn.setText(Constant.CITYNAME);
         loctionBtn.setOnClickListener(new ButtonExtendM.OnClickListener() {
@@ -162,7 +162,7 @@ public class ServiceFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ServiceListFragment serviceListFragment = new ServiceListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title","服务查询");
+        bundle.putString("title","养老助残服务商");
          bundle.putInt("serviceTypeId",serviceTypeId);
         serviceListFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);

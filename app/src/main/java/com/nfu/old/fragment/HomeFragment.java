@@ -71,8 +71,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     LinearLayout ll_announcement;
     @BindView(R.id.ll_oldservice)
     LinearLayout ll_oldservice;
-    @BindView(R.id.ll_dynamic)
-    LinearLayout ll_dynamic;
+    @BindView(R.id.ll_oldconsult)
+    LinearLayout ll_oldconsult;
     /**
      * 修改电话信息
      */
@@ -225,7 +225,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ll_rights.setOnClickListener(this);
         ll_announcement.setOnClickListener(this);
         ll_oldservice.setOnClickListener(this);
-        ll_dynamic.setOnClickListener(this);
+        ll_oldconsult.setOnClickListener(this);
 
         ll_msg_first.setOnClickListener(this);
         ll_msg_second.setOnClickListener(this);
@@ -415,9 +415,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 AnnouncementFragment announcementragment = new AnnouncementFragment();
                 gotoFragment(announcementragment);
                 break;
-            case R.id.ll_dynamic:
-                DistrictFragment districtFragment = new DistrictFragment();
-                gotoFragment(districtFragment);
+            case R.id.ll_oldconsult:
+//                DistrictFragment districtFragment = new DistrictFragment();
+//                gotoFragment(districtFragment);
+                OldConsultFragment oldConsultFragment = new OldConsultFragment();
+                gotoFragment(oldConsultFragment);
                 break;
             case R.id.ll_oldservice:
 

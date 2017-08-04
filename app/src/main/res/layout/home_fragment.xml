@@ -241,7 +241,7 @@
                     >
 
                     <LinearLayout
-                        android:id="@+id/ll_dynamic"
+                        android:id="@+id/ll_oldconsult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
