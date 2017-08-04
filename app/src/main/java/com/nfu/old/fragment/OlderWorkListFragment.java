@@ -24,6 +24,7 @@ import com.nfu.old.adapter.OldListAdapter;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
+import com.nfu.old.model.OldWorkInfo;
 import com.nfu.old.model.OlderModel;
 import com.nfu.old.model.OlderModels;
 import com.nfu.old.utils.LogUtil;
@@ -55,7 +56,6 @@ public class OlderWorkListFragment extends BaseFragment {
     private final static int REFRESH_TYPE = 1001;
     private final static int LOADMORE_TYPE = 1002;
     private static final int PAGESIZE = 10;
-    private int typeId = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +72,6 @@ public class OlderWorkListFragment extends BaseFragment {
         if (bundle!=null){
             String title = bundle.getString("title");
             tv_title.setText(title);
-            typeId = bundle.getInt("typeId");
         }
         getNormalList();
     }
@@ -81,13 +80,7 @@ public class OlderWorkListFragment extends BaseFragment {
     protected void initView() {
 
         news_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        oldListAdapter = new OldListAdapter(getContext(), null, new OldListAdapter.IOnDetailListener() {
-            @Override
-            public void onDetailListener(OlderModel model) {
-
-                //gotoDetailFragment(model.getId());
-            }
-        });
+        oldListAdapter = new OldListAdapter(getContext(), null, null);
         news_recyclerview.setAdapter(oldListAdapter);
         // policy_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
 
@@ -107,22 +100,20 @@ public class OlderWorkListFragment extends BaseFragment {
         ApiManager.getInstance().getCityInstitutions(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("OlderListFragment--->loadData--->getNewsList--->onError::" + e);
+                LogUtil.i("OlderWorkListFragment--->loadData--->getNewsList--->onError::" + e);
 
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("OlderListFragment--->loadData--->getNewsList--->onResponse::" + response);
+                LogUtil.i("OlderWorkListFragment--->loadData--->getNewsList--->onResponse::" + response);
                 try {
-                    NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
-                    LogUtil.i("OlderListFragment--->loadData--->getNewsList--->newsListModel::" + newsListModel);
-                    OlderModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), OlderModels.class);
-                    LogUtil.i("OlderListFragment--->loadData--->getNewsList--->NewsModels::" + newsModels);
-                    oldListAdapter.setNewsData(newsModels.getData());
+                    OldWorkInfo newsListModel = new Gson().fromJson(response, OldWorkInfo.class);
+                    LogUtil.i("OlderWorkListFragment--->loadData--->getNewsList--->newsListModel::" + newsListModel);
+                    oldListAdapter.setNewsData(newsListModel.getStrResult());
 
                 } catch (Exception e) {
-                    LogUtil.i("OlderListFragment--->loadData--->Exception--->"+e);
+                    LogUtil.i("OlderWorkListFragment--->loadData--->Exception--->"+e);
                 }
 
             }
@@ -134,16 +125,16 @@ public class OlderWorkListFragment extends BaseFragment {
         ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                LogUtil.i("OlderListFragment--->initView--->getNewsDetail--->onError::" + e);
+                LogUtil.i("OlderWorkListFragment--->initView--->getNewsDetail--->onError::" + e);
             }
 
             @Override
             public void onResponse(String response, int id) {
-                LogUtil.i("OlderListFragment--->initView--->getNewsDetail--->onResponse::" + response);
+                LogUtil.i("OlderWorkListFragment--->initView--->getNewsDetail--->onResponse::" + response);
                 NewsListModel listModel = new Gson().fromJson(response, NewsListModel.class);
-                LogUtil.i("OlderListFragment--->initView--->getNewsDetail--->NewsListModel::" + listModel);
+                LogUtil.i("OlderWorkListFragment--->initView--->getNewsDetail--->NewsListModel::" + listModel);
                 NewsModel model1 = new Gson().fromJson(listModel.getStrResult(), NewsModel.class);
-                LogUtil.i("OlderListFragment--->initView--->getNewsDetail--->NewsModel::" + model1);
+                LogUtil.i("OlderWorkListFragment--->initView--->getNewsDetail--->NewsModel::" + model1);
                 gotoDetailFragment(model1);
             }
         });

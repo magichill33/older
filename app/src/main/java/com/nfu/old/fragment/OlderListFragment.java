@@ -120,13 +120,7 @@ public class OlderListFragment extends BaseFragment {
     protected void initView() {
 
         news_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        oldListAdapter = new OldListAdapter(getContext(), null, new OldListAdapter.IOnDetailListener() {
-            @Override
-            public void onDetailListener(OlderModel model) {
-
-                //gotoDetailFragment(model.getId());
-            }
-        });
+        oldListAdapter = new OldListAdapter(getContext(), null, null);
         news_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         news_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         news_recyclerview.setAdapter(oldListAdapter);

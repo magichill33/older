@@ -44,7 +44,6 @@
                 android:textColor="@color/base_red_color"
                 android:layout_marginRight="@dimen/magin_10"
                 android:layout_above="@id/rl_line"
-                android:layout_marginBottom="@dimen/magin_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="标题"/>
@@ -58,7 +57,6 @@
                 android:layout_alignLeft="@id/tv_title"
                 android:layout_marginRight="@dimen/magin_10"
                 android:layout_below="@id/rl_line"
-                android:layout_marginTop="@dimen/magin_5"
                 android:layout_centerVertical="true"
                 android:text="电话："/>
            <!-- <TextView

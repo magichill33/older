@@ -71,12 +71,12 @@ public class OldConsultFragment extends BaseFragment {
                     olderListFragment.setArguments(bundle);
                     gotoFragment(olderListFragment);
                 }else if ("市级老龄工作机构".equals(title)){
-                    OlderListFragment olderListFragment = new OlderListFragment();
+                    OlderWorkListFragment olderWorkListFragment = new OlderWorkListFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("typeId",3);
                     bundle.putString("title",mTitles[2]);
-                    olderListFragment.setArguments(bundle);
-                    gotoFragment(olderListFragment);
+                    olderWorkListFragment.setArguments(bundle);
+                    gotoFragment(olderWorkListFragment);
                 }
             }
         });

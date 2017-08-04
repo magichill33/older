@@ -94,7 +94,7 @@ public class OldListAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
 
                     if (iOnDetailListener!=null){
-                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()));
+                        iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()-1));
                     }
                 }
             });

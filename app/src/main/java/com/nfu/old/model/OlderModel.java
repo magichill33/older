@@ -39,4 +39,13 @@ public class OlderModel {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    @Override
+    public String toString() {
+        return "OlderModel{" +
+                "id='" + id + '\'' +
+                ", institutionsName='" + institutionsName + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
 }
