@@ -22,7 +22,7 @@
             android:padding="15dp"
             android:divider="#00ffff"
             android:dividerHeight="1px"
-            android:background="@color/background_floating_material_dark">
+            android:background="@color/white">
     </ListView>
 
 </LinearLayout>

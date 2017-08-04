@@ -53,11 +53,19 @@ import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteLine;
 import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.nfu.old.Constant;
 import com.nfu.old.R;
 import com.nfu.old.map.RouteLineAdapter;
+import com.nfu.old.model.ServiceModel;
+import com.nfu.old.utils.LogUtil;
+import com.nfu.old.view.ButtonExtendM;
 
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -66,6 +74,12 @@ import java.util.List;
  */
 public class RoutePlanActivity extends Activity implements BaiduMap.OnMapClickListener,
         OnGetRoutePlanResultListener {
+    Unbinder unbinder;
+    @BindView(R.id.btn_back)
+    ButtonExtendM btnBack;
+    @BindView(R.id.top_title)
+    TextView tv_title;
+
 
     // 浏览路线节点相关
     Button mBtnPre = null; // 上一个节点
@@ -95,13 +109,37 @@ public class RoutePlanActivity extends Activity implements BaiduMap.OnMapClickLi
     String startNodeStr = "紫檀大厦";
     String endNodeStr = "百度科技园";
     boolean hasShownDialogue = false;
-
+    ServiceModel serviceModel;
+    PlanNode  stNode;
+    PlanNode  enNode;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routeplan);
-        CharSequence titleLable = "路线规划功能";
-        setTitle(titleLable);
+        unbinder = ButterKnife.bind(this);
+        initView();
+        initData();
+
+    }
+
+    private void initData() {
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            serviceModel=(ServiceModel)bundle.getSerializable("servicemodel");
+        }
+
+        LogUtil.d("RoutePlanActivity--->initData--->::latitude =" + serviceModel.getLatitude() + " |lontitude =" +serviceModel.getLongitude());
+        LatLng loc_start = new LatLng(Constant.latitude, Constant.lontitude);
+        LatLng loc_end= new LatLng(Double.valueOf(serviceModel.getLatitude()), Double.valueOf(serviceModel.getLongitude()));
+        stNode = PlanNode.withLocation(loc_start);
+        enNode = PlanNode.withLocation(loc_end);
+    }
+
+    private void initView() {
+//        CharSequence titleLable = "路线规划功能";
+//        setTitle(titleLable);
         // 初始化地图
+        tv_title.setText("路线规划导航");
         mMapView = (MapView) findViewById(R.id.map);
         mBaidumap = mMapView.getMap();
         mBtnPre = (Button) findViewById(R.id.pre);
@@ -113,6 +151,12 @@ public class RoutePlanActivity extends Activity implements BaiduMap.OnMapClickLi
         // 初始化搜索模块，注册事件监听
         mSearch = RoutePlanSearch.newInstance();
         mSearch.setOnGetRoutePlanResultListener(this);
+        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              finish();
+            }
+        });
     }
 
     /**
@@ -133,9 +177,7 @@ public class RoutePlanActivity extends Activity implements BaiduMap.OnMapClickLi
 //        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude）;
 //        latitude : 39.918082
 //        lontitude : 116.547534
-        LatLng loc_start = new LatLng(39.918082, 116.547534);
-        PlanNode  stNode = PlanNode.withLocation(loc_start);
-        PlanNode enNode = PlanNode.withCityNameAndPlaceName("北京", endNodeStr);
+
 
         // 实际使用中请对起点终点城市进行正确的设定
 

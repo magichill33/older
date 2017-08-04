@@ -2,12 +2,14 @@ package com.nfu.old.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -133,7 +135,8 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
     private class MyViewHolder1 extends RecyclerView.ViewHolder{
         TextView list_item_shopname,list_item_shoptype_tv,list_item_shoptelephone_tv,list_item_shopmanager_tv,list_item_businessaddress,loction_tv;
-        ImageView shoppic,jinru,call,location;
+        ImageView shoppic,jinru,call;
+        LinearLayout location;
 
         public MyViewHolder1(View itemView) {
             super(itemView);
@@ -153,7 +156,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
              shoppic = (ImageView)itemView.findViewById(R.id.list_item_shoppic);
              jinru = (ImageView)itemView.findViewById(R.id.list_item_jinru);
              call = (ImageView)itemView.findViewById(R.id.list_item_call);
-             location = (ImageView)itemView.findViewById(R.id.loction_icon);
+             location = (LinearLayout)itemView.findViewById(R.id.loction_icon);
             call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -166,7 +169,10 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext,RoutePlanActivity.class);
-
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("servicemodel", newsModelList.get(getAdapterPosition()));
+//                    intent.putExtra("servicemodel", newsModelList.get(getAdapterPosition());
+                    intent.putExtras(bundle);
                     mContext.startActivity(intent);
                 }
             });
