@@ -72,7 +72,7 @@
 
    <!-- 咨询页面-->
     <dimen name="consult_hotline_icon">24dp</dimen>
-    <dimen name="consult_viewpager_heigth">188dp</dimen>
+    <dimen name="consult_viewpager_heigth">158dp</dimen>
     <dimen name="consult_viewpager_point_width">10.7dp</dimen>
     <dimen name="consult_item">74dp</dimen>
     <dimen name="consult_item_icon">38dp</dimen>

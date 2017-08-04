@@ -43,8 +43,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     CardView cardView3;
     @BindView(R.id.card_view4)
     CardView cardView4;
-    @BindView(R.id.card_view5)
-    CardView cardView5;
+
     @BindView(R.id.card_view6)
     CardView cardView6;
     @BindView(R.id.card_view7)
@@ -79,7 +78,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         cardView1.setOnClickListener(this);
         cardView3.setOnClickListener(this);
         cardView4.setOnClickListener(this);
-        cardView5.setOnClickListener(this);
         cardView6.setOnClickListener(this);
         cardView7.setOnClickListener(this);
 
@@ -141,8 +139,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             case R.id.card_view3:
                 break;
             case R.id.card_view4:
-                break;
-            case R.id.card_view5:
                 break;
             case R.id.card_view6:
                 UpdateFragment updateFragment = new UpdateFragment();

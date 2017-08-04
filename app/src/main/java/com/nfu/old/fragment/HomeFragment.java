@@ -34,6 +34,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.nfu.old.R;
 import com.nfu.old.adapter.HotAdPagerAdapter;
 import com.nfu.old.adapter.NewsListAdapter;
+import com.nfu.old.adapter.PolicyListAdapter;
 import com.nfu.old.config.NfuResource;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
@@ -83,16 +84,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.news_recyclerview)
     XRecyclerView news_recyclerview;
 
-    private NewsListAdapter newsListAdapter;
+    private PolicyListAdapter newsListAdapter;
 
     private final static int REFRESH_TYPE = 1001;
     private final static int LOADMORE_TYPE = 1002;
     private int n_currentPage = 0;
     private int n_iRecordCount = 0;
     private static final int PAGESIZE = 5;
-
-    @BindView(R.id.root)
-    ScrollView rootView;
 
     @BindView(R.id.activity_main_call_ib)
     ImageView activity_main_call_ib;
@@ -132,10 +130,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("HomeFragment", "HomeFragment **** onCreateView...");
-        if(rootView== null) {
-            View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-            unbinder = ButterKnife.bind(this, rootView);
-        }
+        View rootView = inflater.inflate(R.layout.home_fragment, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
 
         initPager();
         initEvents();
@@ -229,7 +225,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         news_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         news_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         news_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        newsListAdapter = new NewsListAdapter(getContext(), null, new NewsListAdapter.IOnDetailListener() {
+        newsListAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
                 gotoDetailFragment(model.getId());
@@ -353,8 +349,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         n_currentPage = newsModels.getCurrentPage();
                         n_currentPage++;
                         n_iRecordCount = newsModels.getRecordCount();
+                        newsListAdapter.setNewsData(newsModels.getData());
                     }
-                    newsListAdapter.setNewsData(newsModels.getData());
+
                     news_recyclerview.refreshComplete();
                 } else {
 
@@ -397,7 +394,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title","媒体报道");
+        bundle.putString("title","最新资讯");
         bundle.putSerializable("news",newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
