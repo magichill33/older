@@ -51,7 +51,7 @@ public class OldServiceFragment extends BaseFragment {
     @Override
     protected void initView() {
         String[] mTitles  = {"全市养老服务机构","社区养老服务场所","养老服务商"};
-        int[] mIconId = {R.drawable.consult_qujidongtai_bg,R.drawable.consult_zhengcejiedu,R.drawable.consult_meitibaodao_bg};
+        int[] mIconId = {R.drawable.cityservice,R.drawable.shequ,R.drawable.yanglaofuwufu};
         oldservice_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         policyListAdapter = new ConsultListAdapter(getContext(), mTitles, mIconId,new ConsultListAdapter.IOnDetailListener() {
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -72,7 +73,12 @@ public class OldServiceListAdapter extends RecyclerView.Adapter {
 
 
         String officeHours = oldServiceModel.getOfficeHours();
-        holder1.list_item_officeHours_tv.setText(officeHours);
+        if(!TextUtils.isEmpty(officeHours)){
+            holder1.list_item_officeHours_tv.setText(officeHours);
+        }else {
+            holder1.rl_officeHours.setVisibility(View.GONE);
+        }
+
 
         String address = oldServiceModel.getAddress();
         holder1.list_item_address.setText(address);
@@ -137,6 +143,7 @@ public class OldServiceListAdapter extends RecyclerView.Adapter {
         TextView list_item_institutionName,list_item_contactPhone_tv,list_item_officeHours_tv,list_item_address,loction_tv;
         ImageView shoppic,jinru,call;
         LinearLayout location;
+        RelativeLayout rl_officeHours;
 
         public MyViewHolder1(View itemView) {
             super(itemView);
@@ -194,6 +201,7 @@ public class OldServiceListAdapter extends RecyclerView.Adapter {
             list_item_institutionName = (TextView)itemView.findViewById(R.id.list_item_institutionName);
             list_item_contactPhone_tv = (TextView)itemView.findViewById(R.id.list_item_contactPhone_tv);
             list_item_officeHours_tv = (TextView)itemView.findViewById(R.id.list_item_officeHours_tv);
+            rl_officeHours = (RelativeLayout)itemView.findViewById(R.id.rl_officeHours);
             list_item_address = (TextView)itemView.findViewById(R.id.list_item_address);
             loction_tv = (TextView)itemView.findViewById(R.id.loction_tv);
 //            list_item_institutionName .setEllipsize(TextUtils.TruncateAt.MARQUEE);

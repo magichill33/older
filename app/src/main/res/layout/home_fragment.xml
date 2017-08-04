@@ -217,7 +217,7 @@
                         android:layout_width="@dimen/home_center_icon"
                         android:layout_height="@dimen/home_center_icon"
                         android:scaleType="centerInside"
-                        android:src="@drawable/home_friendship_bg" />
+                        android:src="@drawable/oldservice" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                             android:layout_width="@dimen/home_center_icon"
                             android:layout_height="@dimen/home_center_icon"
                             android:scaleType="centerInside"
-                            android:src="@drawable/error" />
+                            android:src="@drawable/oldconsult" />
 
                         <TextView
                             android:layout_width="wrap_content"
