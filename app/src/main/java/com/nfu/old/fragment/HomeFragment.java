@@ -13,6 +13,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +29,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.nfu.old.R;
 import com.nfu.old.adapter.HotAdPagerAdapter;
+import com.nfu.old.adapter.NewsListAdapter;
 import com.nfu.old.config.NfuResource;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
+import com.nfu.old.model.NewsModels;
 import com.nfu.old.model.TurnPicModel;
 import com.nfu.old.utils.AppUtils;
 import com.nfu.old.utils.LogUtil;
@@ -71,49 +77,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     LinearLayout ll_announcement;
     @BindView(R.id.ll_oldservice)
     LinearLayout ll_oldservice;
-    @BindView(R.id.ll_oldconsult)
-    LinearLayout ll_oldconsult;
-    /**
-     * 修改电话信息
-     */
-    @BindView(R.id.ll_msg_first)
-    LinearLayout ll_msg_first;
-    @BindView(R.id.ll_msg_second)
-    LinearLayout ll_msg_second;
-    @BindView(R.id.ll_msg_third)
-    LinearLayout ll_msg_third;
-    @BindView(R.id.ll_msg_fourth)
-    LinearLayout ll_msg_fourth;
+    @BindView(R.id.ll_dynamic)
+    LinearLayout ll_dynamic;
 
-    @BindView(R.id.contact_msg_first_name_tv)
-    TextView contact_msg_first_name_tv;
-    @BindView(R.id.contact_msg_second_name_tv)
-    TextView contact_msg_second_name_tv;
-    @BindView(R.id.contact_msg_third_name_tv)
-    TextView contact_msg_third_name_tv;
-    @BindView(R.id.contact_msg_fourth_name_tv)
-    TextView contact_msg_fourth_name_tv;
+    @BindView(R.id.news_recyclerview)
+    XRecyclerView news_recyclerview;
 
-    @BindView(R.id.contact_msg_first_number_tv)
-    TextView contact_msg_first_number_tv;
-    @BindView(R.id.contact_msg_second_number_tv)
-    TextView contact_msg_second_number_tv;
-    @BindView(R.id.contact_msg_third_number_tv)
-    TextView contact_msg_third_number_tv;
-    @BindView(R.id.contact_msg_fourth_number_tv)
-    TextView contact_msg_fourth_number_tv;
+    private NewsListAdapter newsListAdapter;
 
-    /**
-     * 拨打电话
-     */
-    @BindView(R.id.iv_call_first)
-    ImageView iv_call_first;
-    @BindView(R.id.iv_call_second)
-    ImageView iv_call_second;
-    @BindView(R.id.iv_call_third)
-    ImageView iv_call_third;
-    @BindView(R.id.iv_call_fourth)
-    ImageView iv_call_fourth;
+    private final static int REFRESH_TYPE = 1001;
+    private final static int LOADMORE_TYPE = 1002;
+    private int n_currentPage = 0;
+    private int n_iRecordCount = 0;
+    private static final int PAGESIZE = 5;
+
     @BindView(R.id.root)
     ScrollView rootView;
 
@@ -160,7 +137,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             unbinder = ButterKnife.bind(this, rootView);
         }
 
-        initData();
         initPager();
         initEvents();
         loadData();
@@ -211,13 +187,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Log.e("HomeFragment", "HomeFragment **** onDetach...");
         super.onDetach();
     }
-    private void initData() {
+    /*private void initData() {
         chageMsg(1);
         chageMsg(2);
         chageMsg(3);
         chageMsg(4);
 
-    }
+    }*/
 
     private void initEvents() {
         ll_policy.setOnClickListener(this);
@@ -225,17 +201,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ll_rights.setOnClickListener(this);
         ll_announcement.setOnClickListener(this);
         ll_oldservice.setOnClickListener(this);
-        ll_oldconsult.setOnClickListener(this);
-
-        ll_msg_first.setOnClickListener(this);
-        ll_msg_second.setOnClickListener(this);
-        ll_msg_third.setOnClickListener(this);
-        ll_msg_fourth.setOnClickListener(this);
-
-        iv_call_first.setOnClickListener(this);
-        iv_call_second.setOnClickListener(this);
-        iv_call_third.setOnClickListener(this);
-        iv_call_fourth.setOnClickListener(this);
+        ll_dynamic.setOnClickListener(this);
 
         activity_main_call_ib.setOnClickListener(this);
         activity_main_setting_ib.setOnClickListener(this);
@@ -259,6 +225,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             }
         });
+
+        news_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        news_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        news_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        newsListAdapter = new NewsListAdapter(getContext(), null, new NewsListAdapter.IOnDetailListener() {
+            @Override
+            public void onDetailListener(NewsModel model) {
+                gotoDetailFragment(model.getId());
+            }
+        });
+        //news_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
+        news_recyclerview.setAdapter(newsListAdapter);
+        news_recyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                LogUtil.i("news_recyclerview--->onRefresh");
+                getNormalList(0, 0, REFRESH_TYPE);
+
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                LogUtil.i("news_recyclerview--->onLoadMore");
+                getNormalList(n_currentPage, n_iRecordCount, LOADMORE_TYPE);
+            }
+        });
+
     }
 
     RequestOptions options = new RequestOptions()
@@ -330,6 +324,53 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        getNormalList(0,0,REFRESH_TYPE);
+
+    }
+
+    private void getNormalList(int currentPage, int iRecordCount, final int type) {
+        ApiManager.getInstance().getAllNewsList(PAGESIZE, currentPage, iRecordCount, "createdate", "desc", new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onError::" + e);
+                if (type == REFRESH_TYPE) {
+                    news_recyclerview.refreshComplete();
+                } else {
+                    news_recyclerview.loadMoreComplete();
+
+                }
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::" + response);
+                NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::" + newsListModel);
+                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::" + newsModels);
+                if (type == REFRESH_TYPE) {
+                    if (newsListModel != null&&newsModels!=null) {
+                        n_currentPage = newsModels.getCurrentPage();
+                        n_currentPage++;
+                        n_iRecordCount = newsModels.getRecordCount();
+                    }
+                    newsListAdapter.setNewsData(newsModels.getData());
+                    news_recyclerview.refreshComplete();
+                } else {
+
+                    if (newsListModel != null) {
+                        if (n_currentPage <= newsModels.getCurrentPage()) {
+                            n_currentPage = newsModels.getCurrentPage();
+                            n_currentPage++;
+                            n_iRecordCount = newsModels.getRecordCount();
+                            newsListAdapter.addNewsData(newsModels.getData());
+                        }
+                        news_recyclerview.loadMoreComplete();
+                    }
+                }
+
+            }
+        });
     }
 
     private void gotoDetailFragment(String id){
@@ -415,76 +456,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 AnnouncementFragment announcementragment = new AnnouncementFragment();
                 gotoFragment(announcementragment);
                 break;
-            case R.id.ll_oldconsult:
-//                DistrictFragment districtFragment = new DistrictFragment();
-//                gotoFragment(districtFragment);
-                OldConsultFragment oldConsultFragment = new OldConsultFragment();
-                gotoFragment(oldConsultFragment);
+            case R.id.ll_dynamic:
+                DistrictFragment districtFragment = new DistrictFragment();
+                gotoFragment(districtFragment);
                 break;
             case R.id.ll_oldservice:
 
                 OldServiceFragment oldServiceFragment = new OldServiceFragment();
                 gotoFragment(oldServiceFragment);
 
-                break;
-            case R.id.ll_msg_first:
-                ContactMsgWindow msgWindow = new ContactMsgWindow(getContext(), 1);
-                msgWindow.show(rootView);
-                msgWindow.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
-                    @Override
-                    public void onCommit() {
-                        chageMsg(1);
-                    }
-                });
-
-                break;
-            case R.id.ll_msg_second:
-                ContactMsgWindow msgWindowSecond = new ContactMsgWindow(getContext(), 2);
-                msgWindowSecond.show(rootView);
-                msgWindowSecond.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
-                    @Override
-                    public void onCommit() {
-                        chageMsg(2);
-                    }
-                });
-                break;
-            case R.id.ll_msg_third:
-                ContactMsgWindow msgWindowThird = new ContactMsgWindow(getContext(), 3);
-                msgWindowThird.show(rootView);
-                msgWindowThird.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
-                    @Override
-                    public void onCommit() {
-                        chageMsg(3);
-                    }
-                });
-                break;
-            case R.id.ll_msg_fourth:
-                ContactMsgWindow msgWindowfourrth = new ContactMsgWindow(getContext(), 4);
-                msgWindowfourrth.show(rootView);
-                msgWindowfourrth.setMsgCallBack(new ContactMsgWindow.MsgCallBack() {
-                    @Override
-                    public void onCommit() {
-                        chageMsg(4);
-
-                    }
-                });
-
-                break;
-            case R.id.iv_call_first:
-                showDialog(1, getCurrNumber(1));
-
-                break;
-            case R.id.iv_call_second:
-                showDialog(2, getCurrNumber(2));
-
-                break;
-            case R.id.iv_call_third:
-                showDialog(3, getCurrNumber(3));
-
-                break;
-
-            case R.id.iv_call_fourth:
-                showDialog(4, getCurrNumber(4));
                 break;
             case R.id.activity_main_call_ib:
                 HotLineFragment hotLineFragment = new HotLineFragment();
@@ -574,7 +554,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void chageMsg(int code) {
+/*    private void chageMsg(int code) {
         switch (code) {
             case 1:
                 String name = SharedPreferencesManager.getString("contacts_msg_first", "name", "儿子");
@@ -602,7 +582,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
         }
-    }
+    }*/
 
     private void gotoFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
