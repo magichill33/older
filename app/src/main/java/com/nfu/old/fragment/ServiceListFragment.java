@@ -93,7 +93,7 @@ public class ServiceListFragment extends BaseFragment {
     private static final int PAGESIZE = 7;
     private String equeryStr = "";
 
-    private String title = "服务查询";
+    private String title = "养老助残服务商";
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -128,7 +128,7 @@ public class ServiceListFragment extends BaseFragment {
             title = bundle.getString("title");
         }
 
-        tv_title.setText(title);
+        tv_title.setText(R.string.oldservice_fragment__title);
 
         fetchQueryDate(equeryStr);
     }
@@ -236,7 +236,7 @@ public class ServiceListFragment extends BaseFragment {
         ArrayList<View> views = new ArrayList<>();
         views.add(nearbyRecyclerView);
         views.add(allRecyclerView);
-        SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views, new String[]{"附近服务机构", "全部服务机构"});
+        SearchAndContributionActivityViewPagerAdapter viewPagerAdapter = new SearchAndContributionActivityViewPagerAdapter(views, new String[]{"附近养老助残服务商", "全部养老助残服务商"});
         mViewPager.setAdapter(viewPagerAdapter);
         mPagerIndicator.setViewPager(mViewPager, 0);
     }

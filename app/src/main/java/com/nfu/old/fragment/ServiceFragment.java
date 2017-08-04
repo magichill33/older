@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.nfu.old.Constant;
 import com.nfu.old.R;
@@ -32,6 +33,11 @@ public class ServiceFragment extends Fragment {
     GridView mGridView;
     @BindView(R.id.fragment_service_location_ib)
     ButtonExtendM loctionBtn;
+    @BindView(R.id.btn_back)
+    ButtonExtendM btn_back;
+    @BindView(R.id.top_title)
+    TextView tv_title;
+
 
 
     private String[] from = { "image", "title" };
@@ -66,6 +72,7 @@ public class ServiceFragment extends Fragment {
     }
 
     private void initView() {
+        tv_title.setText(R.string.oldservice_thrid_top_title);
         loctionBtn.setVisibility(View.VISIBLE);
         loctionBtn.setText(Constant.CITYNAME);
         loctionBtn.setOnClickListener(new ButtonExtendM.OnClickListener() {
@@ -73,6 +80,12 @@ public class ServiceFragment extends Fragment {
             public void onClick(View v) {
                 //调用刷新位置信息
 
+            }
+        });
+        btn_back.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
     }
@@ -149,7 +162,7 @@ public class ServiceFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ServiceListFragment serviceListFragment = new ServiceListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title","服务查询");
+        bundle.putString("title","养老助残服务商");
          bundle.putInt("serviceTypeId",serviceTypeId);
         serviceListFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);

@@ -1,5 +1,6 @@
 package com.nfu.old.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.nfu.old.R;
 import com.nfu.old.config.NfuResource;
@@ -21,6 +23,9 @@ import com.nfu.old.fragment.BaseFragment;
 import com.nfu.old.model.NewsModel;
 import com.nfu.old.utils.ToastUtil;
 import com.nfu.old.view.ButtonExtendM;
+
+import java.io.File;
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 
@@ -43,14 +48,16 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     CardView cardView3;
     @BindView(R.id.card_view4)
     CardView cardView4;
-    @BindView(R.id.card_view5)
-    CardView cardView5;
+
     @BindView(R.id.card_view6)
     CardView cardView6;
     @BindView(R.id.card_view7)
     CardView cardView7;
     @BindView(R.id.switchbutton)
     SwitchButton switchbutton;
+
+    @BindView(R.id.tv_cachesize)
+    TextView tv_cachesize;
 
     @Nullable
     @Override
@@ -66,7 +73,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected void loadData() {
-
+        String size = getCacheSize(getContext());
+        tv_cachesize.setText(size);
     }
 
     @Override
@@ -79,7 +87,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         cardView1.setOnClickListener(this);
         cardView3.setOnClickListener(this);
         cardView4.setOnClickListener(this);
-        cardView5.setOnClickListener(this);
         cardView6.setOnClickListener(this);
         cardView7.setOnClickListener(this);
 
@@ -132,6 +139,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                             @Override
                             public void run() {
                                 cardView1.setEnabled(true);
+                                tv_cachesize.setText("0MB");
                                 ToastUtil.showShortToast(getContext(),"清除图片缓存成功！");
                             }
                         });
@@ -141,8 +149,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             case R.id.card_view3:
                 break;
             case R.id.card_view4:
-                break;
-            case R.id.card_view5:
                 break;
             case R.id.card_view6:
                 UpdateFragment updateFragment = new UpdateFragment();
@@ -161,5 +167,78 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 //        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * 获取Glide造成的缓存大小
+     *
+     * @return CacheSize
+     */
+    public String getCacheSize(Context context) {
+        try {
+            return getFormatSize(getFolderSize(new File(context.getCacheDir() + "/"+ InternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获取指定文件夹内所有文件大小的和
+     *
+     * @param file file
+     * @return size
+     * @throws Exception
+     */
+    private long getFolderSize(File file) throws Exception {
+        long size = 0;
+        try {
+            File[] fileList = file.listFiles();
+            for (File aFileList : fileList) {
+                if (aFileList.isDirectory()) {
+                    size = size + getFolderSize(aFileList);
+                } else {
+                    size = size + aFileList.length();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
+    }
+
+    /**
+     * 格式化单位
+     *
+     * @param size size
+     * @return size
+     */
+    private static String getFormatSize(double size) {
+
+        double kiloByte = size / 1024;
+        if (kiloByte < 1) {
+            return size + "Byte";
+        }
+
+        double megaByte = kiloByte / 1024;
+        if (megaByte < 1) {
+            BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+            return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB";
+        }
+
+        double gigaByte = megaByte / 1024;
+        if (gigaByte < 1) {
+            BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+            return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
+        }
+
+        double teraBytes = gigaByte / 1024;
+        if (teraBytes < 1) {
+            BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+            return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
+        }
+        BigDecimal result4 = new BigDecimal(teraBytes);
+
+        return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
     }
 }

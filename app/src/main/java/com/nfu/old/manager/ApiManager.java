@@ -5,6 +5,9 @@ import com.nfu.old.config.ConnectUrl;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.NetUtil;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import static com.nfu.old.R.id.shopName;
 
 /**
  * Created by wpp.
@@ -52,6 +55,13 @@ public class ApiManager {
         NetUtil.doGet(url,null,callback);
     }
 
+    public void getAllNewsList(int pageSize, int currentPage, int iRecordCount,String strOrderBy, String sortBy,Callback callback){
+        String url = ConnectUrl.getNewsList + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage
+                + "&iRecordCount=" + iRecordCount + "&strOrderBy="+strOrderBy+"&strSortBy=" + sortBy;
+        LogUtil.i("ApiManager--->getNewsList--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
     /**
      * 获取新闻内容
      * @param newsId 新闻id
@@ -74,12 +84,7 @@ public class ApiManager {
         NetUtil.doGet(url,null,callback);
     }
 
-    /**
-     * 接收意见反馈
-     * @param content 反馈内容
-     * @param name 反馈者姓名
-     * @param mobile 反馈者电话
-     */
+
     public void postOpinionFeedBack(String jsonStr,Callback callback){
         String url = ConnectUrl.getOpinionFeedback;
         LogUtil.i("ApiManager--->getOpinionFeedBack--->url::"+url + ",jsonStr::"+jsonStr);
@@ -117,5 +122,33 @@ public class ApiManager {
     public void getXbsFwsDetail(){
 
     }
+    /*
+     养老机构和社区驿站查询
+/*  http://17103938iy.iask.in/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetPublicServiceAgencies&signKey=8002&serviceType=1&iPageSize=10
+   &iCurrentPage=0&iRecordCount=0&insName=安乐祥居老年公寓&longitude=116.1042340&latitude=40.4705390*/
 
+    public void getPublicServiceAgencies(String serviceType, int pageSize, int currentPage, int iRecordCount, String longitude ,String latitude,String insName,Callback callback){
+        String url = ConnectUrl.getPublicServiceAgencies + "&serviceType=" + serviceType + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount +"&longitude="+longitude+"&latitude=" +latitude+ "&insName=" + insName;
+        LogUtil.i("ApiManager--->getPublicServiceAgencies--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
+
+    public void getOldWorkInstitutions(int typeId,int pageSize,int currentPage,int iRecordCount, StringCallback callback){
+        String url = ConnectUrl.getOldWorkInstitutions + "&typeId="+typeId+"&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount;
+        LogUtil.i("ApiManager--->getOldWorkInstitutions--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
+    public void getOldWorkInstitutionsByName(int typeId,int pageSize,int currentPage,int iRecordCount,String insName,StringCallback callback){
+        String url = ConnectUrl.getOldWorkInstitutions + "&typeId="+typeId+"&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount + "&insName=" + insName;
+        LogUtil.i("ApiManager--->getOldWorkInstitutions--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
+    public void getCityInstitutions(StringCallback callback){
+        String url = ConnectUrl.getCityInstitutions;
+        LogUtil.i("ApiManager--->getCityInstitutions--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
 }

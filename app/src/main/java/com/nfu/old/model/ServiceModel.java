@@ -29,6 +29,9 @@ public class ServiceModel implements Serializable {
      * shopId : 服务商编号
      *
      * shopOther : 其他字段
+     * "longitude":"经度",
+     "latitude":"纬度"
+
      *
      */
 
@@ -50,6 +53,25 @@ public class ServiceModel implements Serializable {
     private String shopPic;
     private String shopOther;
     private String distance;
+    private String longitude;
+    private String latitude;
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+
 
     public String getDistance() {
         return distance;
@@ -218,6 +240,8 @@ public class ServiceModel implements Serializable {
                 ", shopPic='" + shopPic + '\'' +
                 ", shopOther='" + shopOther + '\'' +
                 ", distance='" + distance + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", latitude='" + latitude + '\'' +
                 '}';
     }
 }

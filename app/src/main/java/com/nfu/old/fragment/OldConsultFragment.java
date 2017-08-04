@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.nfu.old.R;
 import com.nfu.old.adapter.ConsultListAdapter;
-import com.nfu.old.utils.ToastUtil;
 import com.nfu.old.view.ButtonExtendM;
 
 import butterknife.BindView;
@@ -24,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by user on 2017/8/3.
  */
 
-public class OldServiceFragment extends BaseFragment {
+public class OldConsultFragment extends BaseFragment {
     @BindView(R.id.btn_back)
     ButtonExtendM btnBack;
     @BindView(R.id.top_title)
@@ -44,30 +43,40 @@ public class OldServiceFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        tv_title.setText(R.string.oldservice_top_title);
+        tv_title.setText(R.string.oldconsult_fragment_top_title);
 
     }
 
     @Override
     protected void initView() {
-        String[] mTitles  = {"全市养老服务机构","社区养老服务场所","养老服务商"};
-        int[] mIconId = {R.drawable.cityservice,R.drawable.shequ,R.drawable.yanglaofuwufu};
+        final String[] mTitles  = {"53家老龄委成员单位","16区老龄办电话","市级老龄工作机构"};
+        int[] mIconId = {R.drawable.consult_qujidongtai_bg,R.drawable.consult_zhengcejiedu,R.drawable.consult_meitibaodao_bg};
         oldservice_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         policyListAdapter = new ConsultListAdapter(getContext(), mTitles, mIconId,new ConsultListAdapter.IOnDetailListener() {
 
             @Override
             public void onDetailListener(String title) {
-                if ("全市养老服务机构".equals(title)){
-//                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");\
-                    CityOldServiceFragment cityOldServiceFragment = new CityOldServiceFragment();
-                    gotoFragment(cityOldServiceFragment);
-                }else if ("社区养老服务场所".equals(title)){
-                    CommunityOldServiceFragment communityOldServiceFragment = new CommunityOldServiceFragment();
-                    gotoFragment(communityOldServiceFragment);
-                }else if ("养老服务商".equals(title)){
-//
-                    ServiceFragment serviceFragment = new ServiceFragment();
-                    gotoFragment(serviceFragment);
+                if ("53家老龄委成员单位".equals(title)){
+                    OlderListFragment olderListFragment = new OlderListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",1);
+                    bundle.putString("title",mTitles[0]);
+                    olderListFragment.setArguments(bundle);
+                    gotoFragment(olderListFragment);
+                }else if ("16区老龄办电话".equals(title)){
+                    OlderListFragment olderListFragment = new OlderListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",2);
+                    bundle.putString("title",mTitles[1]);
+                    olderListFragment.setArguments(bundle);
+                    gotoFragment(olderListFragment);
+                }else if ("市级老龄工作机构".equals(title)){
+                    OlderListFragment olderListFragment = new OlderListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",3);
+                    bundle.putString("title",mTitles[2]);
+                    olderListFragment.setArguments(bundle);
+                    gotoFragment(olderListFragment);
                 }
             }
         });

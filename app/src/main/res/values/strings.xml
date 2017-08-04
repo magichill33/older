@@ -44,5 +44,11 @@
 
     <string name="demo_name_route">路径规划功能</string>
     <string name="safeguard_phone_str">65859523</string>
-    <string name="oldservice_fragment_top_title">为老服务</string>
+    <string name="oldservice_thrid_top_title">养老服务商</string>
+    <string name="oldservice_top_title">为老服务</string>
+    <string name="oldservice_second_top_title">社区养老服务场所</string>
+    <string name="oldservice_first_top_title">全市养老服务机构</string>
+
+    <string name="oldconsult_fragment_top_title">养老资讯</string>
+    <string name="oldservice_fragment__title">养老助残服务商"</string>
 </resources>

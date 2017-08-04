@@ -40,7 +40,7 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
                 android:background="@color/white_color"
-                android:hint="请输入商店名称"
+                android:hint="请输入机构名称"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:textColor="@color/color_666"
@@ -68,44 +68,11 @@
                 android:textSize="@dimen/text_size_16" />
         </android.support.v7.widget.CardView>
     </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/news_recyclerview"
         android:layout_marginTop="@dimen/magin_5"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:id="@+id/ll_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="visible">
 
-            <com.nfu.old.view.PagerIndicator
-                android:id="@+id/nfu_activity_search_layout_tab"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/service_list_search_layout_pageind_height"
-                android:background="#fff"
-                app:select_tab_text_color="@color/base_red_color"
-                app:should_tab_expand="true"
-                app:tab_text_size="@dimen/text_size_16"
-                app:underline_color="@color/base_red_color"
-                app:underline_height="@dimen/padding_top_2"
-                app:underline_padding="@dimen/service_list_search_layout_pageind_padding"
-                app:unselect_tab_text_color="@color/content_color" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/nfu_activity_search_layout_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-       <!-- <android.support.v7.widget.RecyclerView
-            android:id="@+id/policy_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_search" />-->
-    </RelativeLayout>
 </LinearLayout>

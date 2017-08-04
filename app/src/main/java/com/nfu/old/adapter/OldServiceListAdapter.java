@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,29 +18,31 @@ import com.bumptech.glide.request.RequestOptions;
 import com.nfu.old.R;
 import com.nfu.old.activity.RoutePlanActivity;
 import com.nfu.old.config.NfuResource;
-import com.nfu.old.model.NewsModel;
-import com.nfu.old.model.ServiceModel;
+import com.nfu.old.model.OldServiceModel;
 import com.nfu.old.utils.AppUtils;
 import com.nfu.old.utils.DensityUtil;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static android.R.attr.targetActivity;
-import static com.nfu.old.R.id.loction_tv;
+import static com.nfu.old.R.id.businessAddress;
+import static com.nfu.old.R.id.shopManager;
+import static com.nfu.old.R.id.shopName;
+import static com.nfu.old.R.id.shopType;
+import static com.nfu.old.R.id.textView;
 
 /**
  * Created by Administrator on 2017-7-26.
  */
 
-public class ServiceListAdapter extends RecyclerView.Adapter {
+public class OldServiceListAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<ServiceModel> newsModelList;
+    private List<OldServiceModel> newsModelList;
     private IOnDetailListener iOnDetailListener;
     private final int WITH_PIC = 10;
     private final int NORMAL = 20;
 
-    public ServiceListAdapter(Context mContext, List<ServiceModel> newsModelList, IOnDetailListener iOnDetailListener) {
+    public OldServiceListAdapter(Context mContext, List<OldServiceModel> newsModelList, IOnDetailListener iOnDetailListener) {
         this.mContext = mContext;
         this.newsModelList = newsModelList;
         this.iOnDetailListener = iOnDetailListener;
@@ -48,7 +51,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
-        View view = LayoutInflater.from(mContext).inflate(R.layout.service_list_item,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.oldservice_list_item,parent,false);
         viewHolder = new MyViewHolder1(view);
         return viewHolder;
     }
@@ -58,26 +61,29 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        //list_item_shopname,list_item_shoptype_tv,list_item_shoptelephone_tv,list_item_shopmanager_tv,list_item_businessaddress,loction_tv;
-        ServiceModel newsModel = newsModelList.get(position);
+        //    TextView list_item_institutionName,list_item_contactPhone_tv,list_item_officeHours_tv,list_item_address;
+        //ImageView shoppic,jinru,call;
+        OldServiceModel oldServiceModel = newsModelList.get(position);
         MyViewHolder1 holder1 = (MyViewHolder1) holder;
-        String shopName = newsModel.getShopName();
-        holder1.list_item_shopname.setText(shopName);
+        String institutionName = oldServiceModel.getInstitutionName();
+        holder1.list_item_institutionName.setText(institutionName);
 
-        String shopType = newsModel.getShopType();
-        holder1.list_item_shoptype_tv.setText(shopType);
+        String contactPhone = oldServiceModel.getContactPhone();
+        holder1.list_item_contactPhone_tv.setText(contactPhone);
 
 
-        String shopManager = newsModel.getShopManager();
-        holder1.list_item_shopmanager_tv.setText(shopManager);
+        String officeHours = oldServiceModel.getOfficeHours();
+        if(!TextUtils.isEmpty(officeHours)){
+            holder1.list_item_officeHours_tv.setText(officeHours);
+        }else {
+            holder1.rl_officeHours.setVisibility(View.GONE);
+        }
 
-        String shopTelephone = newsModel.getShopTelephone();
-        holder1.list_item_shoptelephone_tv.setText(shopTelephone);
 
-        String businessAddress = newsModel.getBusinessAddress();
-        holder1.list_item_businessaddress.setText(businessAddress);
+        String address = oldServiceModel.getAddress();
+        holder1.list_item_address.setText(address);
 
-        String distance = newsModel.getDistance();
+        String distance = oldServiceModel.getDistance();
       //  距您266m
         if(!TextUtils.isEmpty(distance)) {
             int dist = Integer.valueOf(distance);
@@ -103,17 +109,17 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
 //        holder1.loction_tv.setVisibility(View.INVISIBLE);
 
-        if (!NfuResource.getInstance().isUseDefPic()){
-            Glide.with(mContext).load(newsModel.getShopPic()).apply(options).into(holder1.shoppic);
-        }else {
+//        if (!NfuResource.getInstance().isUseDefPic()){
+//            Glide.with(mContext).load(newsModel.getShopPic()).apply(options).into(holder1.shoppic);
+//        }else {
             Glide.with(mContext).load(R.drawable.def_turn).apply(options).into(holder1.shoppic);
-        }
+//        }
     }
 
     @Override
     public int getItemViewType(int position) {
         if (newsModelList!=null){
-            ServiceModel newsModel = newsModelList.get(position);
+            OldServiceModel newsModel = newsModelList.get(position);
           /*  if (TextUtils.isEmpty(newsModel.getPicurl())){
                 return NORMAL;
             }else {
@@ -134,9 +140,10 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
 
 
     private class MyViewHolder1 extends RecyclerView.ViewHolder{
-        TextView list_item_shopname,list_item_shoptype_tv,list_item_shoptelephone_tv,list_item_shopmanager_tv,list_item_businessaddress,loction_tv;
+        TextView list_item_institutionName,list_item_contactPhone_tv,list_item_officeHours_tv,list_item_address,loction_tv;
         ImageView shoppic,jinru,call;
         LinearLayout location;
+        RelativeLayout rl_officeHours;
 
         public MyViewHolder1(View itemView) {
             super(itemView);
@@ -161,7 +168,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     // 调用打掉话界面
-                    AppUtils.call(v.getContext(),newsModelList.get(getAdapterPosition()).getShopTelephone());
+                    AppUtils.call(v.getContext(),newsModelList.get(getAdapterPosition()).getContactPhone());
                 }
             });
             //条用百度地图进行导航
@@ -169,15 +176,19 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext,RoutePlanActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("servicemodel", newsModelList.get(getAdapterPosition()));
-//                    intent.putExtra("servicemodel", newsModelList.get(getAdapterPosition());
-                    intent.putExtras(bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("OldServiceModel", newsModelList.get(getAdapterPosition()));
+//                    intent.putExtra("OldServiceModel", newsModelList.get(getAdapterPosition());
+//                    bundle.putS
+//                    intent.putExtras(bundle);
+                    intent.putExtra("latitude", newsModelList.get(getAdapterPosition()).getLatitude());
+                    intent.putExtra("longitude", newsModelList.get(getAdapterPosition()).getLongitude());
+
                     mContext.startActivity(intent);
                 }
             });
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+       /*     itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -185,23 +196,32 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
                         iOnDetailListener.onDetailListener(newsModelList.get(getAdapterPosition()));
                     }
                 }
-            });
+            });*/
 
+            list_item_institutionName = (TextView)itemView.findViewById(R.id.list_item_institutionName);
+            list_item_contactPhone_tv = (TextView)itemView.findViewById(R.id.list_item_contactPhone_tv);
+            list_item_officeHours_tv = (TextView)itemView.findViewById(R.id.list_item_officeHours_tv);
+            rl_officeHours = (RelativeLayout)itemView.findViewById(R.id.rl_officeHours);
+            list_item_address = (TextView)itemView.findViewById(R.id.list_item_address);
             loction_tv = (TextView)itemView.findViewById(R.id.loction_tv);
-            list_item_shopname = (TextView)itemView.findViewById(R.id.list_item_shopname);
-            list_item_shoptype_tv = (TextView)itemView.findViewById(R.id.list_item_shoptype_tv);
-            list_item_shoptelephone_tv = (TextView)itemView.findViewById(R.id.list_item_shoptelephone_tv);
-            list_item_shopmanager_tv = (TextView)itemView.findViewById(R.id.list_item_shopmanager_tv);
-            list_item_businessaddress = (TextView)itemView.findViewById(R.id.list_item_businessaddress);
+//            list_item_institutionName .setEllipsize(TextUtils.TruncateAt.MARQUEE);
+//            list_item_institutionName .setSingleLine(true);
+//            list_item_institutionName .setMarqueeRepeatLimit(6);
+//            list_item_institutionName.requestFocus();
+//            list_item_address .setEllipsize(TextUtils.TruncateAt.MARQUEE);
+//            list_item_address .setSingleLine(true);
+//            list_item_address .setMarqueeRepeatLimit(6);
+//            list_item_address.requestFocus();
+
         }
     }
 
-    public void setNewsData(List<ServiceModel> newsData){
+    public void setNewsData(List<OldServiceModel> newsData){
         newsModelList = newsData;
         notifyDataSetChanged();
     }
 
-    public void addNewsData(List<ServiceModel> data) {
+    public void addNewsData(List<OldServiceModel> data) {
         if (newsModelList!=null){
             newsModelList.addAll(data);
         }else {
@@ -212,6 +232,6 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
     }
 
     public interface IOnDetailListener{
-        void onDetailListener(ServiceModel model);
+        void onDetailListener(OldServiceModel model);
     }
 }
