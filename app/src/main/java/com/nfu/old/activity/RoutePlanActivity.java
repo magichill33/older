@@ -124,15 +124,21 @@ public class RoutePlanActivity extends Activity implements BaiduMap.OnMapClickLi
 
     private void initData() {
         Bundle bundle=getIntent().getExtras();
+
+        String latitude;
+        String longitude;
         if(bundle!=null){
             serviceModel=(ServiceModel)bundle.getSerializable("servicemodel");
+             latitude=bundle.getString("latitude");
+             longitude=bundle.getString("longitude");
+
+            LogUtil.d("RoutePlanActivity--->initData--->::latitude =" + latitude + " |lontitude =" +longitude);
+            LatLng loc_start = new LatLng(Constant.latitude, Constant.lontitude);
+            LatLng loc_end= new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+            stNode = PlanNode.withLocation(loc_start);
+            enNode = PlanNode.withLocation(loc_end);
         }
 
-        LogUtil.d("RoutePlanActivity--->initData--->::latitude =" + serviceModel.getLatitude() + " |lontitude =" +serviceModel.getLongitude());
-        LatLng loc_start = new LatLng(Constant.latitude, Constant.lontitude);
-        LatLng loc_end= new LatLng(Double.valueOf(serviceModel.getLatitude()), Double.valueOf(serviceModel.getLongitude()));
-        stNode = PlanNode.withLocation(loc_start);
-        enNode = PlanNode.withLocation(loc_end);
     }
 
     private void initView() {
