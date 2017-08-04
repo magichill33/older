@@ -52,6 +52,13 @@ public class ApiManager {
         NetUtil.doGet(url,null,callback);
     }
 
+    public void getAllNewsList(int pageSize, int currentPage, int iRecordCount,String strOrderBy, String sortBy,Callback callback){
+        String url = ConnectUrl.getNewsList + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage
+                + "&iRecordCount=" + iRecordCount + "&strOrderBy="+strOrderBy+"&strSortBy=" + sortBy;
+        LogUtil.i("ApiManager--->getNewsList--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
     /**
      * 获取新闻内容
      * @param newsId 新闻id
@@ -74,12 +81,7 @@ public class ApiManager {
         NetUtil.doGet(url,null,callback);
     }
 
-    /**
-     * 接收意见反馈
-     * @param content 反馈内容
-     * @param name 反馈者姓名
-     * @param mobile 反馈者电话
-     */
+
     public void postOpinionFeedBack(String jsonStr,Callback callback){
         String url = ConnectUrl.getOpinionFeedback;
         LogUtil.i("ApiManager--->getOpinionFeedBack--->url::"+url + ",jsonStr::"+jsonStr);
