@@ -91,8 +91,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private int n_iRecordCount = 0;
     private static final int PAGESIZE = 5;
 
-    @BindView(R.id.root)
-    ScrollView rootView;
+   /* @BindView(R.id.root)
+    ScrollView rootView;*/
 
     @BindView(R.id.activity_main_call_ib)
     ImageView activity_main_call_ib;
@@ -132,10 +132,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e("HomeFragment", "HomeFragment **** onCreateView...");
-        if(rootView== null) {
-            View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-            unbinder = ButterKnife.bind(this, rootView);
-        }
+        View rootView = inflater.inflate(R.layout.home_fragment, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
 
         initPager();
         initEvents();
