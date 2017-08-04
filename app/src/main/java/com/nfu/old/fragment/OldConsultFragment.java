@@ -49,7 +49,7 @@ public class OldConsultFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        String[] mTitles  = {"53家老龄委成员单位","16区老龄办电话","市级老龄工作机构"};
+        final String[] mTitles  = {"53家老龄委成员单位","16区老龄办电话","市级老龄工作机构"};
         int[] mIconId = {R.drawable.consult_qujidongtai_bg,R.drawable.consult_zhengcejiedu,R.drawable.consult_meitibaodao_bg};
         oldservice_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         policyListAdapter = new ConsultListAdapter(getContext(), mTitles, mIconId,new ConsultListAdapter.IOnDetailListener() {
@@ -57,11 +57,19 @@ public class OldConsultFragment extends BaseFragment {
             @Override
             public void onDetailListener(String title) {
                 if ("53家老龄委成员单位".equals(title)){
-//                    ServiceFragment serviceFragment = new ServiceFragment();
-//                    gotoFragment(serviceFragment);
+                    OlderListFragment olderListFragment = new OlderListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",1);
+                    bundle.putString("title",mTitles[0]);
+                    olderListFragment.setArguments(bundle);
+                    gotoFragment(olderListFragment);
                 }else if ("16区老龄办电话".equals(title)){
-//                    PolicyFragment policyFragment = new PolicyFragment();
-//                    gotoFragment(policyFragment);
+                    OlderListFragment olderListFragment = new OlderListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",2);
+                    bundle.putString("title",mTitles[1]);
+                    olderListFragment.setArguments(bundle);
+                    gotoFragment(olderListFragment);
                 }else if ("市级老龄工作机构".equals(title)){
 //                    MediaFragment mediaFragment = new MediaFragment();
 //                    gotoFragment(mediaFragment);

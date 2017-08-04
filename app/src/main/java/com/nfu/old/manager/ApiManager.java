@@ -5,6 +5,7 @@ import com.nfu.old.config.ConnectUrl;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.NetUtil;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import static com.nfu.old.R.id.shopName;
 
@@ -133,4 +134,9 @@ public class ApiManager {
     }
 
 
+    public void getOldWorkInstitutions(int typeId, StringCallback callback){
+        String url = ConnectUrl.getOldWorkInstitutions + "&typeId="+typeId;
+        LogUtil.i("ApiManager--->getOldWorkInstitutions--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
 }

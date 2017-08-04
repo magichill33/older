@@ -101,4 +101,5 @@
     <dimen name="update_top_height">194dp</dimen>
     <dimen name="update_logo_icon">100dp</dimen>
 
+    <dimen name="card_item_height">80dp</dimen>
 </resources>
