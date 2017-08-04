@@ -58,11 +58,12 @@ public class OldServiceFragment extends BaseFragment {
             @Override
             public void onDetailListener(String title) {
                 if ("全市养老服务机构".equals(title)){
-                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");
+//                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");
+
                 }else if ("社区养老服务场所".equals(title)){
 //                    PolicyFragment policyFragment = new PolicyFragment();
 //                    gotoFragment(policyFragment);
-                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");
+//                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");
                 }else if ("养老服务商".equals(title)){
 //
                     ServiceFragment serviceFragment = new ServiceFragment();
