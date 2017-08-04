@@ -44,7 +44,7 @@ public class OldServiceFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        tv_title.setText(R.string.oldservice_thrid_top_title);
+        tv_title.setText(R.string.oldservice_top_title);
 
     }
 
@@ -58,12 +58,12 @@ public class OldServiceFragment extends BaseFragment {
             @Override
             public void onDetailListener(String title) {
                 if ("全市养老服务机构".equals(title)){
-//                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");
-
+//                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");\
+                    CityOldServiceFragment cityOldServiceFragment = new CityOldServiceFragment();
+                    gotoFragment(cityOldServiceFragment);
                 }else if ("社区养老服务场所".equals(title)){
-//                    PolicyFragment policyFragment = new PolicyFragment();
-//                    gotoFragment(policyFragment);
-//                    ToastUtil.showShortToast(getActivity(),"后台正在开发接口中");
+                    CommunityOldServiceFragment communityOldServiceFragment = new CommunityOldServiceFragment();
+                    gotoFragment(communityOldServiceFragment);
                 }else if ("养老服务商".equals(title)){
 //
                     ServiceFragment serviceFragment = new ServiceFragment();

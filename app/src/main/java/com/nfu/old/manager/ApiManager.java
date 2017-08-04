@@ -6,6 +6,8 @@ import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.NetUtil;
 import com.zhy.http.okhttp.callback.Callback;
 
+import static com.nfu.old.R.id.shopName;
+
 /**
  * Created by wpp.
  *
@@ -119,5 +121,16 @@ public class ApiManager {
     public void getXbsFwsDetail(){
 
     }
+    /*
+     养老机构和社区驿站查询
+/*  http://17103938iy.iask.in/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetPublicServiceAgencies&signKey=8002&serviceType=1&iPageSize=10
+   &iCurrentPage=0&iRecordCount=0&insName=安乐祥居老年公寓&longitude=116.1042340&latitude=40.4705390*/
+
+    public void getPublicServiceAgencies(String serviceType, int pageSize, int currentPage, int iRecordCount, String longitude ,String latitude,String insName,Callback callback){
+        String url = ConnectUrl.getPublicServiceAgencies + "&serviceType=" + serviceType + "&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount +"&longitude="+longitude+"&latitude=" +latitude+ "&insName=" + insName;
+        LogUtil.i("ApiManager--->getPublicServiceAgencies--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
 
 }
