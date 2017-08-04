@@ -64,7 +64,7 @@ public class OldListAdapter extends RecyclerView.Adapter {
             title = title.substring(0,15) + "...";
         }
         holder1.tv_title.setText(title);
-        holder1.tv_phone.setText(model.getTelephone());
+        holder1.tv_phone.setText("电话："+model.getTelephone());
     }
 
     @Override

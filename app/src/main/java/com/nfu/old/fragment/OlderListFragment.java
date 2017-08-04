@@ -79,7 +79,7 @@ public class OlderListFragment extends BaseFragment {
 
     private final static int REFRESH_TYPE = 1001;
     private final static int LOADMORE_TYPE = 1002;
-    private static final int PAGESIZE = 7;
+    private static final int PAGESIZE = 10;
     private int typeId = 1;
 
     @Override
@@ -232,7 +232,7 @@ public class OlderListFragment extends BaseFragment {
     }
 
     private void getNormalList(int currentPage, int iRecordCount, final int type) {
-        ApiManager.getInstance().getOldWorkInstitutions(typeId, new StringCallback() {
+        ApiManager.getInstance().getOldWorkInstitutions(typeId,PAGESIZE,currentPage,iRecordCount ,new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("OlderListFragment--->loadData--->getNewsList--->onError::" + e);
@@ -282,7 +282,7 @@ public class OlderListFragment extends BaseFragment {
     }
 
     private void getNormalListByKey(String key,int currentPage, int iRecordCount, final int type) {
-        ApiManager.getInstance().getOldWorkInstitutions(typeId, new StringCallback() {
+        ApiManager.getInstance().getOldWorkInstitutionsByName(typeId,PAGESIZE,currentPage,iRecordCount,key, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("OlderListFragment--->loadData--->getNewsList--->onError::" + e);

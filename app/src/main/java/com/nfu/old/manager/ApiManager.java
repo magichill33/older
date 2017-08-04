@@ -134,9 +134,21 @@ public class ApiManager {
     }
 
 
-    public void getOldWorkInstitutions(int typeId, StringCallback callback){
-        String url = ConnectUrl.getOldWorkInstitutions + "&typeId="+typeId;
+    public void getOldWorkInstitutions(int typeId,int pageSize,int currentPage,int iRecordCount, StringCallback callback){
+        String url = ConnectUrl.getOldWorkInstitutions + "&typeId="+typeId+"&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount;
         LogUtil.i("ApiManager--->getOldWorkInstitutions--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
+    public void getOldWorkInstitutionsByName(int typeId,int pageSize,int currentPage,int iRecordCount,String insName,StringCallback callback){
+        String url = ConnectUrl.getOldWorkInstitutions + "&typeId="+typeId+"&iPageSize=" + pageSize + "&iCurrentPage=" + currentPage + "&iRecordCount=" + iRecordCount + "&insName=" + insName;
+        LogUtil.i("ApiManager--->getOldWorkInstitutions--->url::"+url);
+        NetUtil.doGet(url,null,callback);
+    }
+
+    public void getCityInstitutions(StringCallback callback){
+        String url = ConnectUrl.getCityInstitutions;
+        LogUtil.i("ApiManager--->getCityInstitutions--->url::"+url);
         NetUtil.doGet(url,null,callback);
     }
 }
