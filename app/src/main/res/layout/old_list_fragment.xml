@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/fragment_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/service_list_search_height"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/nfu_activity_search_layout_ll"
+            android:layout_width="@dimen/service_list_search_layout_ll_width"
+            android:layout_height="@dimen/service_list_search_layout_ll_height"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/magin_10"
+            android:layout_marginLeft="@dimen/magin_15"
+            android:layout_marginRight="@dimen/magin_15"
+            android:layout_marginTop="@dimen/magin_10"
+            android:background="@drawable/nfu_search_bg"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/service_list_search_left_icon"
+                android:layout_height="@dimen/service_list_search_left_icon"
+                android:layout_marginLeft="@dimen/magin_8"
+                android:src="@drawable/sousou" />
+
+            <EditText
+                android:id="@+id/nfu_activity_search_layout_et"
+                android:layout_width="@dimen/service_list_search_layout_et"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/magin_3"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white_color"
+                android:hint="请输入机构名称"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/query_cardview"
+            android:layout_width="@dimen/service_list_search_layout_cardview_width"
+            android:layout_height="@dimen/service_list_search_layout_cardview_height"
+            android:layout_marginLeft="@dimen/magin_5"
+            android:layout_marginTop="@dimen/magin_10"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/base_red_color"
+            app:cardCornerRadius="@dimen/magin_10"
+            app:contentPaddingLeft="@dimen/magin_15"
+            app:contentPaddingTop="@dimen/padding_top_2">
+
+            <TextView
+                android:id="@+id/nfu_activity_query_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/service_list_search_layout_cardview_height"
+                android:text="@string/query_btn"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/news_recyclerview"
+        android:layout_marginTop="@dimen/magin_5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>
