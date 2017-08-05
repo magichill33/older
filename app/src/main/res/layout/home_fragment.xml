@@ -13,6 +13,7 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/activity_main_call_ib"
                 android:layout_width="@dimen/consult_hotline_icon"
                 android:layout_height="@dimen/consult_hotline_icon"
