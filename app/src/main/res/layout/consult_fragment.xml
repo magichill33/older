@@ -15,6 +15,7 @@
             android:clickable="true"
             android:layout_width="@dimen/consult_hotline_icon"
             android:layout_height="@dimen/consult_hotline_icon"
+            android:visibility="invisible"
             android:src="@drawable/top_bar_call_bg"
             android:layout_marginLeft="@dimen/magin_15"
             />

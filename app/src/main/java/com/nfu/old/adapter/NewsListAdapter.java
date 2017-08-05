@@ -3,6 +3,7 @@ package com.nfu.old.adapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,9 +53,12 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         NewsModel newsModel = newsModelList.get(position);
         MyViewHolder holder1 = (MyViewHolder) holder;
         String content = newsModel.getContent();
+        content = content.replace("&nbsp"," ");
         if (content.length()>40){
             content = content.substring(0,40);
         }
+
+
         content = content + "...";
         holder1.content.setText(content);
 

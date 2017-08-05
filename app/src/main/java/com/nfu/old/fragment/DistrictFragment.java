@@ -160,7 +160,7 @@ public class DistrictFragment extends BaseFragment {
             }
         });
 
-        tv_title.setText("区县动态");
+        tv_title.setText(getString(R.string.consult_item_qujidongtai));
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -241,7 +241,7 @@ public class DistrictFragment extends BaseFragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", "区县动态");
+        bundle.putString("title", getString(R.string.consult_item_qujidongtai));
         bundle.putSerializable("news", newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);

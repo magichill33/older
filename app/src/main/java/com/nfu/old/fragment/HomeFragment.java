@@ -45,6 +45,7 @@ import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.SharedPreferencesManager;
 import com.nfu.old.view.ContactCallDailog;
 import com.nfu.old.view.ContactMsgWindow;
+import com.nfu.old.view.FullyLinearLayoutManager;
 import com.nfu.old.view.PointPagerIndicator;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -89,7 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private final static int LOADMORE_TYPE = 1002;
     private int n_currentPage = 0;
     private int n_iRecordCount = 0;
-    private static final int PAGESIZE = 5;
+    private static final int PAGESIZE = 10;
 
    /* @BindView(R.id.root)
     ScrollView rootView;*/
@@ -223,8 +224,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-
-        news_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        news_recyclerview.setNestedScrollingEnabled(false);
+        news_recyclerview.setLayoutManager(new FullyLinearLayoutManager(getContext()));
         news_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         news_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         newsListAdapter = new NewsListAdapter(getContext(), null, new NewsListAdapter.IOnDetailListener() {

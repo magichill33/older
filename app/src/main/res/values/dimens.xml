@@ -14,6 +14,7 @@
     <dimen name="magin_42">42.5dp</dimen>
     <dimen name="magin_48">48dp</dimen>
     <dimen name="magin_60">60dp</dimen>
+    <dimen name="magin_70">70dp</dimen>
     <dimen name="magin_65">65dp</dimen>
     <dimen name="magin_80">80dp</dimen>
     <dimen name="magin_100">100dp</dimen>
