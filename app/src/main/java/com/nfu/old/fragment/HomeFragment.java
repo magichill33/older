@@ -33,6 +33,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.nfu.old.R;
 import com.nfu.old.adapter.HotAdPagerAdapter;
+import com.nfu.old.adapter.HotListAdapter;
 import com.nfu.old.adapter.NewsListAdapter;
 import com.nfu.old.config.NfuResource;
 import com.nfu.old.manager.ApiManager;
@@ -68,23 +69,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.nfu_hot_list_ad_indicator)
     PointPagerIndicator pointPagerIndicator;
 
-    @BindView(R.id.ll_policy)
-    LinearLayout ll_policy;
-    @BindView(R.id.ll_transaction_query)
-    LinearLayout ll_transaction_query;
-    @BindView(R.id.ll_rights)
-    LinearLayout ll_rights;
-    @BindView(R.id.ll_announcement)
-    LinearLayout ll_announcement;
-    @BindView(R.id.ll_oldservice)
-    LinearLayout ll_oldservice;
-    @BindView(R.id.ll_oldconsult)
-    LinearLayout ll_oldconsult;
+
 
     @BindView(R.id.news_recyclerview)
     XRecyclerView news_recyclerview;
 
-    private NewsListAdapter newsListAdapter;
+    private HotListAdapter hotListAdapter;
 
     private final static int REFRESH_TYPE = 1001;
     private final static int LOADMORE_TYPE = 1002;
@@ -195,12 +185,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }*/
 
     private void initEvents() {
-        ll_policy.setOnClickListener(this);
-        ll_transaction_query.setOnClickListener(this);
-        ll_rights.setOnClickListener(this);
-        ll_announcement.setOnClickListener(this);
-        ll_oldservice.setOnClickListener(this);
-        ll_oldconsult.setOnClickListener(this);
+
 
         activity_main_call_ib.setOnClickListener(this);
         activity_main_setting_ib.setOnClickListener(this);
@@ -228,14 +213,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         news_recyclerview.setLayoutManager(new FullyLinearLayoutManager(getContext()));
         news_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         news_recyclerview.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        newsListAdapter = new NewsListAdapter(getContext(), null, new NewsListAdapter.IOnDetailListener() {
+        hotListAdapter = new HotListAdapter(getContext(), null, new HotListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
                 gotoDetailFragment(model.getId());
             }
+
+            @Override
+            public void gotoFragment(Fragment fragment) {
+                HomeFragment.this.gotoFragment(fragment);
+            }
+
+
         });
         //news_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
-        news_recyclerview.setAdapter(newsListAdapter);
+        news_recyclerview.setAdapter(hotListAdapter);
         news_recyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -353,7 +345,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         n_currentPage++;
                         n_iRecordCount = newsModels.getRecordCount();
                     }
-                    newsListAdapter.setNewsData(newsModels.getData());
+                    hotListAdapter.setNewsData(newsModels.getData());
                     news_recyclerview.refreshComplete();
                 } else {
 
@@ -362,7 +354,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             n_currentPage = newsModels.getCurrentPage();
                             n_currentPage++;
                             n_iRecordCount = newsModels.getRecordCount();
-                            newsListAdapter.addNewsData(newsModels.getData());
+                            hotListAdapter.addNewsData(newsModels.getData());
                         }
                         news_recyclerview.loadMoreComplete();
                     }
@@ -439,33 +431,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_policy:
-                PolicyFragment policyFragment = new PolicyFragment();
-                gotoFragment(policyFragment);
-                break;
-            case R.id.ll_transaction_query:
-                TransactionFragment transactionFragment = new TransactionFragment();
-                gotoFragment(transactionFragment);
-                break;
-            case R.id.ll_rights:
-                SafeguardFragment safeguardFragment = new SafeguardFragment();
-                gotoFragment(safeguardFragment);
-                break;
-            case R.id.ll_announcement:
-                AnnouncementFragment announcementragment = new AnnouncementFragment();
-                gotoFragment(announcementragment);
-                break;
-            case R.id.ll_oldconsult:
-              //  DistrictFragment districtFragment = new DistrictFragment();
-                OldConsultFragment OldConsultFragment =new OldConsultFragment();
-                gotoFragment(OldConsultFragment);
-                break;
-            case R.id.ll_oldservice:
 
-                OldServiceFragment oldServiceFragment = new OldServiceFragment();
-                gotoFragment(oldServiceFragment);
-
-                break;
             case R.id.activity_main_call_ib:
                 HotLineFragment hotLineFragment = new HotLineFragment();
                 Bundle bundle = new Bundle();

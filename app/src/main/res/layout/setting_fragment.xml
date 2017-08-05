@@ -105,6 +105,7 @@
         android:layout_marginTop="@dimen/magin_5"
         android:background="@color/list_tiem_bg"
         android:clickable="true"
+        android:visibility="gone"
         android:foreground="?android:attr/selectableItemBackground">
 
         <RelativeLayout
@@ -142,6 +143,7 @@
         android:layout_marginTop="@dimen/magin_5"
         android:background="@color/list_tiem_bg"
         android:clickable="true"
+        android:visibility="gone"
         android:foreground="?android:attr/selectableItemBackground">
 
         <RelativeLayout
@@ -253,6 +255,7 @@
         android:layout_marginTop="5dp"
         android:background="@color/list_tiem_bg"
         android:clickable="true"
+        android:visibility="gone"
         android:foreground="?android:attr/selectableItemBackground">
 
         <RelativeLayout
