@@ -128,7 +128,7 @@ public class RoutePlanActivity extends Activity implements BaiduMap.OnMapClickLi
         String latitude;
         String longitude;
         if(bundle!=null){
-            serviceModel=(ServiceModel)bundle.getSerializable("servicemodel");
+//            serviceModel=(ServiceModel)bundle.getSerializable("servicemodel");
              latitude=bundle.getString("latitude");
              longitude=bundle.getString("longitude");
 

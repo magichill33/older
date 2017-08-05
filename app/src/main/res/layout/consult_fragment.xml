@@ -65,7 +65,7 @@
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/policy_recyclerview"
+        android:id="@+id/consult_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
    <!-- <com.nfu.old.view.ConsultItemView

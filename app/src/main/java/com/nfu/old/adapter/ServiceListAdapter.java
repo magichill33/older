@@ -169,10 +169,13 @@ public class ServiceListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext,RoutePlanActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("servicemodel", newsModelList.get(getAdapterPosition()));
-//                    intent.putExtra("servicemodel", newsModelList.get(getAdapterPosition());
-                    intent.putExtras(bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("servicemodel", newsModelList.get(getAdapterPosition()));
+////                    intent.putExtra("servicemodel", newsModelList.get(getAdapterPosition());
+//                    intent.putExtras(bundle);
+                    intent.putExtra("latitude", newsModelList.get(getAdapterPosition()).getLatitude());
+                    intent.putExtra("longitude", newsModelList.get(getAdapterPosition()).getLongitude());
+
                     mContext.startActivity(intent);
                 }
             });
