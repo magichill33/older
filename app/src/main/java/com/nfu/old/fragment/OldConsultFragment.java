@@ -46,8 +46,37 @@ public class OldConsultFragment extends BaseFragment {
         tv_title.setText(R.string.oldconsult_fragment_top_title);
 
     }
-
     @Override
+    protected void initView() {
+        String[] mTitles  = {"区级动态","政策解读","媒体报道"};
+        int[] mIconId = {R.drawable.consult_qujidongtai_bg,R.drawable.consult_zhengcejiedu,R.drawable.consult_meitibaodao_bg};
+        oldservice_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        policyListAdapter = new ConsultListAdapter(getContext(), mTitles, mIconId,new ConsultListAdapter.IOnDetailListener() {
+
+            @Override
+            public void onDetailListener(String title) {
+                if ("区级动态".equals(title)){
+                    DistrictFragment districtFragment = new DistrictFragment();
+                    gotoFragment(districtFragment);
+                }else if ("政策解读".equals(title)){
+                    PolicyFragment policyFragment = new PolicyFragment();
+                    gotoFragment(policyFragment);
+                }else if ("媒体报道".equals(title)){
+                    MediaFragment mediaFragment = new MediaFragment();
+                    gotoFragment(mediaFragment);
+                }
+            }
+        });
+        oldservice_recyclerview.setAdapter(policyListAdapter);
+        btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
+    }
+  /*  @Override
     protected void initView() {
         final String[] mTitles  = {"53家老龄委成员单位","16区老龄办电话","市级老龄工作机构"};
         int[] mIconId = {R.drawable.consult_qujidongtai_bg,R.drawable.consult_zhengcejiedu,R.drawable.consult_meitibaodao_bg};
@@ -87,7 +116,7 @@ public class OldConsultFragment extends BaseFragment {
                 getFragmentManager().popBackStack();
             }
         });
-    }
+    }*/
 
 
     private void gotoFragment(Fragment fragment) {

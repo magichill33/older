@@ -28,6 +28,7 @@ import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.TurnPicModel;
 import com.nfu.old.utils.LogUtil;
+import com.nfu.old.view.ButtonExtendM;
 import com.nfu.old.view.PointPagerIndicator;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -52,8 +53,11 @@ public class ConsultFragment extends Fragment  implements View.OnClickListener {
     ViewPager mViewPager;
     @BindView(R.id.nfu_hot_list_ad_indicator)
     PointPagerIndicator pointPagerIndicator;
-    @BindView(R.id.policy_recyclerview)
-    RecyclerView policy_recyclerview;
+    @BindView(R.id.consult_recyclerview)
+    RecyclerView consult_recyclerview;
+
+
+
 
     @BindView(R.id.fragment_consult_call_ib)
     ImageView activity_main_call_ib;
@@ -90,27 +94,41 @@ public class ConsultFragment extends Fragment  implements View.OnClickListener {
         return rootView;
     }
 
-    private void initView() {
-        String[] mTitles  = {"区级动态","政策解读","媒体报道"};
+
+
+    protected void initView() {
+        final String[] mTitles  = {"53家老龄委成员单位","16区老龄办电话","市级老龄工作机构"};
         int[] mIconId = {R.drawable.consult_qujidongtai_bg,R.drawable.consult_zhengcejiedu,R.drawable.consult_meitibaodao_bg};
-        policy_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        consult_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         policyListAdapter = new ConsultListAdapter(getContext(), mTitles, mIconId,new ConsultListAdapter.IOnDetailListener() {
 
             @Override
             public void onDetailListener(String title) {
-                if ("区级动态".equals(title)){
-                    DistrictFragment districtFragment = new DistrictFragment();
-                    gotoFragment(districtFragment);
-                }else if ("政策解读".equals(title)){
-                    PolicyFragment policyFragment = new PolicyFragment();
-                    gotoFragment(policyFragment);
-                }else if ("媒体报道".equals(title)){
-                    MediaFragment mediaFragment = new MediaFragment();
-                    gotoFragment(mediaFragment);
+                if ("53家老龄委成员单位".equals(title)){
+                    OlderListFragment olderListFragment = new OlderListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",1);
+                    bundle.putString("title",mTitles[0]);
+                    olderListFragment.setArguments(bundle);
+                    gotoFragment(olderListFragment);
+                }else if ("16区老龄办电话".equals(title)){
+                    OlderListFragment olderListFragment = new OlderListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",2);
+                    bundle.putString("title",mTitles[1]);
+                    olderListFragment.setArguments(bundle);
+                    gotoFragment(olderListFragment);
+                }else if ("市级老龄工作机构".equals(title)){
+                    OlderWorkListFragment olderWorkListFragment = new OlderWorkListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("typeId",3);
+                    bundle.putString("title",mTitles[2]);
+                    olderWorkListFragment.setArguments(bundle);
+                    gotoFragment(olderWorkListFragment);
                 }
             }
         });
-        policy_recyclerview.setAdapter(policyListAdapter);
+        consult_recyclerview.setAdapter(policyListAdapter);
 
         activity_main_call_ib.setOnClickListener(this);
         activity_main_setting_ib.setOnClickListener(this);
