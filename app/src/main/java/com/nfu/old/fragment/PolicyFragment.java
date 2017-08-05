@@ -252,7 +252,7 @@ public class PolicyFragment extends BaseFragment {
             }
         });
 
-
+        tv_title.setText(getString(R.string.home_fragment_policy_str));
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
             public void onClick(View v) {
