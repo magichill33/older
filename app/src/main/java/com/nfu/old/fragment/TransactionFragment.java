@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.nfu.old.R;
 import com.nfu.old.manager.ApiManager;
+import com.nfu.old.model.Balance;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
 import com.nfu.old.model.Transaction;
@@ -46,6 +47,10 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
     Button btn_transact;
     @BindView(R.id.btn_schedule)
     Button btn_schedule;
+    @BindView(R.id.btn_balance)
+    Button btn_balance;
+    @BindView(R.id.btn_purchase_record)
+    Button btn_purchase_record;
 
     @Nullable
     @Override
@@ -73,6 +78,8 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
         card_item.setOnClickListener(this);
         btn_transact.setOnClickListener(this);
         btn_schedule.setOnClickListener(this);
+        btn_balance.setOnClickListener(this);
+        btn_purchase_record.setOnClickListener(this);
     }
 
     private void gotoDetailFragment(Fragment fragment) {
@@ -118,6 +125,14 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
             case R.id.btn_schedule:
                 TransactQueryFragment transactQueryFragment = new TransactQueryFragment();
                 gotoDetailFragment(transactQueryFragment);
+                break;
+            case R.id.btn_balance:
+                TransactionBalanceFragment transactionBalanceFragment = new TransactionBalanceFragment();
+                gotoDetailFragment(transactionBalanceFragment);
+                break;
+            case R.id.btn_purchase_record:
+                TransactionRecorderFragment transactionRecorderFragment = new TransactionRecorderFragment();
+                gotoDetailFragment(transactionRecorderFragment);
                 break;
         }
     }

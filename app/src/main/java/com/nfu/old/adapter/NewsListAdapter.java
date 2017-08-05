@@ -53,7 +53,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         NewsModel newsModel = newsModelList.get(position);
         MyViewHolder holder1 = (MyViewHolder) holder;
         String content = newsModel.getContent();
-        content = content.replace("&nbsp"," ");
+        content = content.replace("&nbsp;"," ");
         if (content.length()>40){
             content = content.substring(0,40);
         }

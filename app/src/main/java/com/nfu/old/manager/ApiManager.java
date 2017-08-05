@@ -7,6 +7,9 @@ import com.nfu.old.utils.NetUtil;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.nfu.old.R.id.shopName;
 
 /**
@@ -150,5 +153,27 @@ public class ApiManager {
         String url = ConnectUrl.getCityInstitutions;
         LogUtil.i("ApiManager--->getCityInstitutions--->url::"+url);
         NetUtil.doGet(url,null,callback);
+    }
+
+    public void getOlderExpenseCalendar(String cnum,String page,String pageItemCnt,String btime,String etime,StringCallback callback){
+        String url = ConnectUrl.getOlderExpenseCalendar;
+        LogUtil.i("ApiManager--->getOlderExpenseCalendar--->url::"+url);
+        Map<String,String> params = new HashMap<>();
+        params.put("cnum",cnum);
+        params.put("page",page);
+        params.put("pageItemCnt",pageItemCnt);
+        params.put("btime",btime);
+        params.put("etime",etime);
+        NetUtil.doPost(url,params,callback);
+    }
+
+    public void getOlderBalance(String cnum,String type,StringCallback callback){
+        String url = ConnectUrl.getOlderBalance;
+        LogUtil.i("ApiManager--->getOlderBalance--->url::"+url);
+        Map<String,String> params = new HashMap<>();
+        params.put("cnum",cnum);
+        params.put("type",type);
+
+        NetUtil.doPost(url,params,callback);
     }
 }

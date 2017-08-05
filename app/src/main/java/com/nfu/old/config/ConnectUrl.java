@@ -27,4 +27,7 @@ public interface ConnectUrl {
 
     String getPublicServiceAgencies = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetPublicServiceAgencies&signKey=" + ApiConfig.signKey;
 
+    String getOlderExpenseCalendar = "http://zhika.laoling.bjmzj.gov.cn:8080/healthy/externalApp/trading";  //获取养老消费记录
+    String getOlderBalance = "http://zhika.laoling.bjmzj.gov.cn:8080/healthy/externalApp/balance";  //获取余额
+
 }
