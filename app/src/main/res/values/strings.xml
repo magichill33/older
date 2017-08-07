@@ -20,7 +20,7 @@
 
 
     <string name="home_fragment_old_consult_str">养老资讯</string>
-    <string name="consult_fragment_top_title">资讯</string>
+    <string name="consult_fragment_top_title">咨询</string>
     <string name="consult_item_qujidongtai">区级动态</string>
     <string name="consult_item_zhengcejiedu">政策解读</string>
     <string name="consult_item_meitibaodao">媒体报道</string>

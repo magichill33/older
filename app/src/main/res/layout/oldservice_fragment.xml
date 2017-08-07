@@ -7,6 +7,32 @@
     <include
         android:id="@+id/title_bar"
         layout="@layout/fragment_title_bar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/consult_viewpager_heigth"
+        >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/consult_fragment_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+        </android.support.v4.view.ViewPager>
+        <com.nfu.old.view.PointPagerIndicator
+            android:id="@+id/nfu_hot_list_ad_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:point_spacing="8dp"
+            app:select_point_color="@color/doc_color"
+            app:select_point_size="@dimen/consult_viewpager_point_width"
+            app:unselect_point_color="@color/white"
+            app:unselect_point_size="@dimen/consult_viewpager_point_width"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/oldservice_recyclerview"
         android:layout_width="match_parent"
