@@ -69,7 +69,7 @@ public class TransactionBalanceFragment extends BaseFragment {
             public void onClick(View v) {
                 String cardnum = ed_cardnum.getText().toString();
                 if (!TextUtils.isEmpty(cardnum)){
-                    ApiManager.getInstance().getOlderBalance(cardnum, "2", new StringCallback() {
+                    ApiManager.getInstance().getOlderBalance(cardnum, "1", new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             LogUtil.i("TransactionBalanceFragment--->getOlderBalance--->"+e);
