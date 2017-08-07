@@ -335,30 +335,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response, int id) {
                 LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->onResponse::" + response);
-                NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::" + newsListModel);
-                NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
-                LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::" + newsModels);
-                if (type == REFRESH_TYPE) {
-                    if (newsListModel != null&&newsModels!=null) {
-                        n_currentPage = newsModels.getCurrentPage();
-                        n_currentPage++;
-                        n_iRecordCount = newsModels.getRecordCount();
-                    }
-                    hotListAdapter.setNewsData(newsModels.getData());
-                    news_recyclerview.refreshComplete();
-                } else {
-
-                    if (newsListModel != null) {
-                        if (n_currentPage <= newsModels.getCurrentPage()) {
+                if (getContext()!=null){
+                    NewsListModel newsListModel = new Gson().fromJson(response, NewsListModel.class);
+                    LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->newsListModel::" + newsListModel);
+                    NewsModels newsModels = new Gson().fromJson(newsListModel.getStrResult(), NewsModels.class);
+                    LogUtil.i("AnnouncementFragment--->getNormalList--->getNewsList--->NewsModels::" + newsModels);
+                    if (type == REFRESH_TYPE) {
+                        if (newsListModel != null&&newsModels!=null) {
                             n_currentPage = newsModels.getCurrentPage();
                             n_currentPage++;
                             n_iRecordCount = newsModels.getRecordCount();
-                            hotListAdapter.addNewsData(newsModels.getData());
                         }
-                        news_recyclerview.loadMoreComplete();
+                        hotListAdapter.setNewsData(newsModels.getData());
+                        news_recyclerview.refreshComplete();
+                    } else {
+
+                        if (newsListModel != null) {
+                            if (n_currentPage <= newsModels.getCurrentPage()) {
+                                n_currentPage = newsModels.getCurrentPage();
+                                n_currentPage++;
+                                n_iRecordCount = newsModels.getRecordCount();
+                                hotListAdapter.addNewsData(newsModels.getData());
+                            }
+                            news_recyclerview.loadMoreComplete();
+                        }
                     }
                 }
+
 
             }
         });
