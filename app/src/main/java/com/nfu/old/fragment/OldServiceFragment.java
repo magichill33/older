@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nfu.old.R;
@@ -31,6 +32,8 @@ public class OldServiceFragment extends BaseFragment {
     TextView tv_title;
     @BindView(R.id.oldservice_recyclerview)
     RecyclerView oldservice_recyclerview;
+    @BindView(R.id.rl_vp)
+    RelativeLayout rl_vp;
     private ConsultListAdapter policyListAdapter;
     @Nullable
     @Override
@@ -50,6 +53,7 @@ public class OldServiceFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        rl_vp.setVisibility(View.GONE);
         String[] mTitles  = {"全市养老服务机构","社区养老服务场所","养老服务商"};
         int[] mIconId = {R.drawable.cityservice,R.drawable.shequ,R.drawable.yanglaofuwufu};
         oldservice_recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));

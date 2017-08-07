@@ -8,6 +8,7 @@
         android:id="@+id/title_bar"
         layout="@layout/fragment_title_bar" />
     <RelativeLayout
+        android:id="@+id/rl_vp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/consult_viewpager_heigth"
         >
