@@ -41,6 +41,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/consult_viewpager_heigth"
+        android:visibility="gone"
+
         >
 
         <android.support.v4.view.ViewPager
