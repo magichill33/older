@@ -67,6 +67,11 @@ public class SafeguardDetailFragment extends BaseFragment {
     protected void loadData() {
         Bundle bundle = getArguments();
         type = bundle.getInt("type");
+        if (type == 1){
+            ed_question.setHint(R.string.right_str1);
+        }else {
+            ed_question.setHint(R.string.right_str2);
+        }
     }
 
     @Override

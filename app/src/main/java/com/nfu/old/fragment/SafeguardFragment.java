@@ -45,8 +45,8 @@ public class SafeguardFragment extends BaseFragment implements View.OnClickListe
     Button btn_complain;
     @BindView(R.id.btn_help)
     Button btn_help;
-    @BindView(R.id.btn_phone)
-    Button btn_phone;
+    @BindView(R.id.btn_namelist)
+    Button btn_namelist;
 
     @Nullable
     @Override
@@ -69,7 +69,7 @@ public class SafeguardFragment extends BaseFragment implements View.OnClickListe
     protected void initView() {
         btn_complain.setOnClickListener(this);
         btn_help.setOnClickListener(this);
-        btn_phone.setOnClickListener(this);
+        btn_namelist.setOnClickListener(this);
         tv_title.setText(R.string.home_fragment_maintain_str);
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
@@ -90,8 +90,8 @@ public class SafeguardFragment extends BaseFragment implements View.OnClickListe
             case R.id.btn_complain:
                 gotoDetailFragment(1);
                 break;
-            case R.id.btn_phone:
-                AppUtils.call(getContext(),getString(R.string.safeguard_phone_str));
+            case R.id.btn_namelist:
+                //AppUtils.call(getContext(),getString(R.string.safeguard_phone_str));
                 break;
         }
     }

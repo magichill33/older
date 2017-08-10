@@ -52,4 +52,6 @@
     <string name="oldconsult_fragment_top_title">养老资讯</string>
     <string name="oldservice_fragment__title">养老助残服务商"</string>
     <string name="str_errorinfo">网络异常请稍候重试</string>
+    <string name="right_str1">若您发现有涉嫌侵害老年人权益的人、事件或涉嫌欺诈等虚假信息，请及时举报，共同为老年人筑起安全防线！</string>
+    <string name="right_str2">若您的合法权益受到侵害，可向政府老年维权服务工作站寻求法律帮助！</string>
 </resources>

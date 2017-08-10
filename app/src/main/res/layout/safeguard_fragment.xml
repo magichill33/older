@@ -33,7 +33,7 @@
         android:textColor="@color/white"
         />
     <Button
-        android:id="@+id/btn_phone"
+        android:id="@+id/btn_namelist"
         android:layout_width="match_parent"
         android:layout_height="@dimen/magin_60"
         android:layout_marginTop="50dp"
@@ -41,7 +41,7 @@
         android:layout_marginRight="@dimen/magin_15"
         android:background="@color/base_red_color"
         android:textSize="@dimen/text_size_18"
-        android:text="维权热线"
+        android:text="黑白名单"
         android:textColor="@color/white"
         />
 </LinearLayout>

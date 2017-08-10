@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" 
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
@@ -26,20 +26,49 @@
         <EditText
             android:id="@+id/et_question"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:layout_marginTop="@dimen/magin_10"
             android:layout_marginLeft="@dimen/magin_15"
             android:layout_marginRight="@dimen/magin_15"
             android:gravity="start"
             android:textSize="@dimen/text_size_16"
-            android:hint="问题描述"
+            android:hint="@string/right_str1"
             android:textColor="@color/color_666"
             android:padding="5dp"
             android:background="@drawable/nfu_news_bg"/>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/magin_100"
+            android:layout_marginTop="@dimen/magin_10"
+            android:layout_marginLeft="@dimen/magin_15"
+            android:layout_marginRight="@dimen/magin_15">
+            <ImageView
+                android:id="@+id/iv_img1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/def_turn"
+                android:layout_marginRight="1dp"/>
+            <ImageView
+                android:id="@+id/iv_img2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/def_turn"
+                android:layout_marginRight="1dp"/>
+            <ImageView
+                android:id="@+id/iv_img3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/def_turn"
+                android:layout_weight="1" />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/live_setting_groupname_ll"
-            android:layout_marginTop="@dimen/magin_25"
+            android:layout_marginTop="@dimen/magin_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
@@ -98,12 +127,32 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:background="@color/base_red_color"
-        android:textSize="18sp"
         android:text="提交"
         android:textColor="@color/white"
-        />
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/magin_20"
+        android:layout_marginRight="@dimen/magin_15"
+        android:layout_marginLeft="@dimen/magin_15"
+        android:text="地址：北京丰台区丰台路口东里198号致诚公益律师楼"
+        android:textColor="@color/base_red_color"
+        android:textSize="@dimen/text_size_15" />
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/magin_10"
+        android:layout_marginRight="@dimen/magin_15"
+        android:layout_marginLeft="@dimen/magin_15"
+        android:text="老年维权免费咨询专线：社区服务热线96156或010-83811699"
+        android:textColor="@color/base_red_color"
+        android:textSize="@dimen/text_size_15" />
 </LinearLayout>
