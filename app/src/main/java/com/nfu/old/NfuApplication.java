@@ -36,6 +36,7 @@ public class NfuApplication extends Application {
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 //其他配置
+
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
