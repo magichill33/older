@@ -17,7 +17,7 @@
         android:layout_marginRight="@dimen/magin_15"
         android:background="@color/base_red_color"
         android:textSize="@dimen/text_size_18"
-        android:text="我要投诉"
+        android:text="我要举报"
         android:textColor="@color/white"
         />
     <Button
@@ -29,7 +29,7 @@
         android:layout_marginRight="@dimen/magin_15"
         android:background="@color/base_red_color"
         android:textSize="@dimen/text_size_18"
-        android:text="我要帮助"
+        android:text="我需要帮助"
         android:textColor="@color/white"
         />
     <Button

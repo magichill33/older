@@ -74,7 +74,7 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
                 getFragmentManager().popBackStack();
             }
         });
-        tv_title.setText("办理查询");
+        tv_title.setText(getString(R.string.home_fragment_query_str));
         card_item.setOnClickListener(this);
         btn_transact.setOnClickListener(this);
         btn_schedule.setOnClickListener(this);
@@ -85,8 +85,10 @@ public class TransactionFragment extends BaseFragment implements View.OnClickLis
     private void gotoDetailFragment(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(this);
+        fragmentTransaction.add(R.id.activity_main_content_frameLayout , fragment);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
+//        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, fragment);
         fragmentTransaction.commit();
     }
 

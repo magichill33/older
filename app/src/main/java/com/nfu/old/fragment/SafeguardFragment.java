@@ -29,6 +29,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import butterknife.BindView;
 import okhttp3.Call;
 
+import static android.R.attr.fragment;
+
 /**
  * Created by Administrator on 2017/7/25.
  * 咨询页面
@@ -102,8 +104,10 @@ public class SafeguardFragment extends BaseFragment implements View.OnClickListe
         bundle.putString("title",getString(R.string.home_fragment_maintain_str));
         bundle.putInt("type",type);
         safeguardDetailFragment.setArguments(bundle);
+        fragmentTransaction.hide(this);
+        fragmentTransaction.add(R.id.activity_main_content_frameLayout , safeguardDetailFragment);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, safeguardDetailFragment);
+//        fragmentTransaction.replace(R.id.activity_main_content_frameLayout, safeguardDetailFragment);
         fragmentTransaction.commit();
     }
 }

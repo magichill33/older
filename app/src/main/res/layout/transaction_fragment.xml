@@ -13,6 +13,7 @@
 
     <Button
         android:id="@+id/btn_transact"
+        android:visibility="gone"
         android:layout_marginRight="@dimen/magin_15"
         android:layout_marginLeft="@dimen/magin_15"
         android:layout_marginTop="@dimen/magin_15"
