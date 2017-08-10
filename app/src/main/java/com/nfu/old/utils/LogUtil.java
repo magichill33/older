@@ -11,7 +11,7 @@ public class LogUtil {
 	private static final byte LW = 0x04;
 	private static final byte LE = 0x02;
 	private static final byte LA = 0x01;
-	
+	//
 	private static int sLevel = 0x3f;
 	
 	private static boolean isDisplayLog = true;
