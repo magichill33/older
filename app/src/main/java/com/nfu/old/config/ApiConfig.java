@@ -12,8 +12,10 @@ public interface ApiConfig {
     int signKey = 8002;
     //栏目咨询
     String dictionIDForInformation = "1014";
+    //最新政策
+    String dictionIdForNewsPolicy= "1002";
     //政策解读
-    String dictionIdForPolicy= "1002";
+    String dictionIdForPolicy= "1019";
     //区级动态
     String dictionIdForDynamics = "1007";
     //媒体报道

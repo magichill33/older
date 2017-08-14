@@ -28,6 +28,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.nfu.old.R;
 import com.nfu.old.adapter.PolicyListAdapter;
 import com.nfu.old.adapter.SearchAndContributionActivityViewPagerAdapter;
+import com.nfu.old.config.ApiConfig;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.NewsListModel;
 import com.nfu.old.model.NewsModel;
@@ -123,7 +124,7 @@ public class PolicyFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        ApiManager.getInstance().getNewsList("1002", PAGESIZE, 0, 0, "createdate", "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList(ApiConfig.dictionIdForPolicy, PAGESIZE, 0, 0, "createdate", "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onError::" + e);
@@ -353,7 +354,7 @@ public class PolicyFragment extends BaseFragment {
 
 
     private void getNewsListByKey(String keyword, int currentPage, int iRecordCount, final String strOrderBy, final int type) {
-        ApiManager.getInstance().getNewsListByKey("1002", keyword, PAGESIZE, currentPage, iRecordCount, strOrderBy, "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsListByKey(ApiConfig.dictionIdForPolicy, keyword, PAGESIZE, currentPage, iRecordCount, strOrderBy, "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("PolicyFragment--->initView--->getNewsListByKey--->onError::" + e);
@@ -421,7 +422,7 @@ public class PolicyFragment extends BaseFragment {
 
 
     private void getNewsListNoKey(int currentPage, int iRecordCount, final String strOrderBy, final int type) {
-        ApiManager.getInstance().getNewsList("1002", PAGESIZE, currentPage, iRecordCount, strOrderBy, "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList(ApiConfig.dictionIdForPolicy, PAGESIZE, currentPage, iRecordCount, strOrderBy, "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("PolicyFragment--->initView--->getNewsListNoKey--->onError::" + e);
@@ -488,7 +489,7 @@ public class PolicyFragment extends BaseFragment {
     }
 
     private void getNormalList(int currentPage, int iRecordCount, String strOrderby, final int type) {
-        ApiManager.getInstance().getNewsList("1002", PAGESIZE, currentPage, iRecordCount, strOrderby, "desc", new StringCallback() {
+        ApiManager.getInstance().getNewsList(ApiConfig.dictionIdForPolicy, PAGESIZE, currentPage, iRecordCount, strOrderby, "desc", new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 LogUtil.i("PolicyFragment--->loadData--->getNewsList--->onError::" + e);
