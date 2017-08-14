@@ -12,7 +12,7 @@ public interface ConnectUrl {
     String getNewsList = baseUrl + "/bjllapp/bjllXxfbQuery/bjllXxfbQueryAction.do?method=GetNewsList&signKey=" + ApiConfig.signKey;
     String getNewsDetail = baseUrl + "/bjllapp/bjllXxfbQuery/bjllXxfbQueryAction.do?method=GetNewsDetail&signKey=" + ApiConfig.signKey;
     String getTurnPic = baseUrl + "/bjllapp/bjllXxfbQuery/bjllXxfbQueryAction.do?method=GetTurnPicture&signKey=" + ApiConfig.signKey;
-    String getOpinionFeedback = baseUrl + "/bjllapp/opinionBackManage/opinionBackManageAction.do?method=GetOpinionFeedback";
+    String getOpinionFeedback = baseUrl + "/bjllapp/opinionBackManage/opinionBackManageAction.do?method=GetOldActivist";
     String getBusinessConditions = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetBusinessConditions&signKey=" + ApiConfig.signKey;
     String getXbsFws = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetXbsFws&signKey=" + ApiConfig.signKey;
     String getNearXbsFws = baseUrl + "/bjllapp/bjllFwManage/bjllFwManageAction.do?method=GetNearXbsFws&signKey=" + ApiConfig.signKey;

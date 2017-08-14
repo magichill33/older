@@ -168,6 +168,7 @@ public class SafeguardDetailFragment extends BaseFragment{
                     ToastUtil.showShortToast(getContext(), R.string.feedback_str);
                 }else {
                     btn_submit.setClickable(false);
+                    btn_submit.setText("提交中...");
                     Feedback feedback = new Feedback();
                     feedback.setSignKey(ApiConfig.signKey);
                     feedback.setContacterMobile(ed_phone.getText().toString());
@@ -183,6 +184,7 @@ public class SafeguardDetailFragment extends BaseFragment{
                         public void onError(Call call, Exception e, int id) {
                             LogUtil.i("SafeguardDetailFragment--->postOpinionFeedBack--->onError--->"+e);
                             ToastUtil.showShortToast(getContext(),R.string.feedback_str_error);
+                            btn_submit.setText("提交失败");
                             btn_submit.setClickable(true);
                         }
 
@@ -192,6 +194,7 @@ public class SafeguardDetailFragment extends BaseFragment{
                             //ToastUtil.showShortToast(getContext(),R.string.feedback_str_ok);
                             showTipDialog();
                             btn_submit.setClickable(true);
+                            btn_submit.setText("提交");
                         }
                     });
                 }
@@ -314,7 +317,7 @@ public class SafeguardDetailFragment extends BaseFragment{
     };
 
     private String getImageCode(String path){
-        String code = null;
+        String code = "";
         if (!TextUtils.isEmpty(path)){
             byte[] data = null;
             try {
