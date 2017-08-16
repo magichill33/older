@@ -143,7 +143,7 @@ public class AnnouncementFragment extends BaseFragment {
         newsListAdapter = new NewsListAdapter(getContext(), null, new NewsListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
-                gotoDetailFragment(model.getId());
+                gotoDetailFragment(model.getId(),3);
             }
         });
         //news_recyclerview.addItemDecoration(new MyItemDecoration(getContext(),MyItemDecoration.VERTICAL_LIST));
@@ -221,7 +221,7 @@ public class AnnouncementFragment extends BaseFragment {
         });
     }
 
-    private void gotoDetailFragment(String id) {
+    private void gotoDetailFragment(String id,final  int titleType) {
         ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -235,18 +235,19 @@ public class AnnouncementFragment extends BaseFragment {
                 LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsListModel::" + listModel);
                 NewsModel model1 = new Gson().fromJson(listModel.getStrResult(), NewsModel.class);
                 LogUtil.i("AnnouncementFragment--->initView--->getNewsDetail--->NewsModel::" + model1);
-                gotoDetailFragment(model1);
+                gotoDetailFragment(model1,titleType);
             }
         });
     }
 
 
-    private void gotoDetailFragment(NewsModel newsModel) {
+    private void gotoDetailFragment(NewsModel newsModel,int titleType) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", "通知公告");
+        bundle.putInt("title",3);
+
         bundle.putSerializable("news", newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);

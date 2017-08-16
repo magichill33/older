@@ -110,13 +110,16 @@ public class PolicyFragment extends BaseFragment {
                     getNewsListByKey(searchStr, ctr_currentPage, ctr_iRecordCount, "count", LOADMORE_TYPE);
                     break;
                 case SEARCH_ALL:
-                    if (ll_search.getVisibility() != View.VISIBLE) {
-                        policy_recyclerview.setVisibility(View.GONE);
-                        ll_search.setVisibility(View.VISIBLE);
+                    if(getContext()!=null){
+                        if (ll_search.getVisibility() != View.VISIBLE) {
+                            policy_recyclerview.setVisibility(View.GONE);
+                            ll_search.setVisibility(View.VISIBLE);
+                        }
+
+                        getNewsListNoKey(0, 0, "createdate", LOADMORE_TYPE);
+                        getNewsListNoKey(0, 0, "count", LOADMORE_TYPE);
                     }
 
-                    getNewsListNoKey(0, 0, "createdate", LOADMORE_TYPE);
-                    getNewsListNoKey(0, 0, "count", LOADMORE_TYPE);
                     break;
             }
         }
@@ -161,7 +164,7 @@ public class PolicyFragment extends BaseFragment {
         date_listAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
-                gotoDetailFragment(model.getId());
+                gotoDetailFragment(model.getId(),2);
             }
         });
         dateRecyclerView.setAdapter(date_listAdapter);
@@ -198,7 +201,7 @@ public class PolicyFragment extends BaseFragment {
         ctr_listAdapter = new PolicyListAdapter(getContext(), null, new PolicyListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
-                gotoDetailFragment(model.getId());
+                gotoDetailFragment(model.getId(),2);
             }
         });
         ctrRecyclerView.setAdapter(ctr_listAdapter);
@@ -232,7 +235,7 @@ public class PolicyFragment extends BaseFragment {
             @Override
             public void onDetailListener(NewsModel model) {
 
-                gotoDetailFragment(model.getId());
+                gotoDetailFragment(model.getId(),2);
             }
         });
         policy_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
@@ -320,7 +323,7 @@ public class PolicyFragment extends BaseFragment {
         mPagerIndicator.setViewPager(mViewPager, 0);
     }
 
-    private void gotoDetailFragment(String id) {
+    private void gotoDetailFragment(String id,final int titleType) {
         ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -334,17 +337,17 @@ public class PolicyFragment extends BaseFragment {
                 LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::" + listModel);
                 NewsModel model1 = new Gson().fromJson(listModel.getStrResult(), NewsModel.class);
                 LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::" + model1);
-                gotoDetailFragment(model1);
+                gotoDetailFragment(model1,titleType);
             }
         });
     }
 
-    private void gotoDetailFragment(NewsModel newsModel) {
+    private void gotoDetailFragment(NewsModel newsModel,int titleType) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", "政策解读");
+        bundle.putInt("title",titleType);
         bundle.putSerializable("news", newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);

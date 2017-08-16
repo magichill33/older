@@ -130,7 +130,7 @@ public class MediaFragment extends BaseFragment {
             @Override
             public void onDetailListener(NewsModel model) {
 
-                gotoDetailFragment(model.getId());
+                gotoDetailFragment(model.getId(),5);
             }
         });
         policy_recyclerview.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
@@ -218,7 +218,7 @@ public class MediaFragment extends BaseFragment {
         });
     }
 
-    private void gotoDetailFragment(String id) {
+    private void gotoDetailFragment(String id,final int titleType) {
         ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -232,17 +232,18 @@ public class MediaFragment extends BaseFragment {
                 LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::" + listModel);
                 NewsModel model1 = new Gson().fromJson(listModel.getStrResult(), NewsModel.class);
                 LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::" + model1);
-                gotoDetailFragment(model1);
+                gotoDetailFragment(model1,titleType);
             }
         });
     }
 
-    private void gotoDetailFragment(NewsModel newsModel) {
+    private void gotoDetailFragment(NewsModel newsModel,int titleType) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title", getString(R.string.consult_item_meitibaodao));
+        bundle.putInt("title", titleType);
+
         bundle.putSerializable("news", newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);

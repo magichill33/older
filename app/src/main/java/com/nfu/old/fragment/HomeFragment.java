@@ -216,7 +216,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         hotListAdapter = new HotListAdapter(getContext(), null, new HotListAdapter.IOnDetailListener() {
             @Override
             public void onDetailListener(NewsModel model) {
-                gotoDetailFragment(model.getId());
+                gotoDetailFragment(model.getId(),1);
             }
 
             @Override
@@ -289,7 +289,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             public void viewPagerItemOnClickListener(int position) {
                                 LogUtil.d("viewPagerItemOnClickListener:position:" + position);
                                 TurnPicModel.StrResultBean model = pics.get(position);
-                                gotoDetailFragment(model.getId());
+                                gotoDetailFragment(model.getId(),0);
                             }
                         });
 
@@ -370,7 +370,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private void gotoDetailFragment(String id){
+    private void gotoDetailFragment(String id,final int titleType){
         ApiManager.getInstance().getNewsDetail(id, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -384,17 +384,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsListModel::"+listModel);
                 NewsModel model1 = new Gson().fromJson(listModel.getStrResult(),NewsModel.class);
                 LogUtil.i("PolicyFragment--->initView--->getNewsDetail--->NewsModel::"+model1);
-                gotoDetailFragment(model1);
+
+
+                gotoDetailFragment(model1, titleType);
             }
         });
     }
 
-    private void gotoDetailFragment(NewsModel newsModel){
+    private void gotoDetailFragment(NewsModel newsModel,int titleType){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("title","媒体报道");
+        bundle.putInt("title",titleType);
         bundle.putSerializable("news",newsModel);
         newsDetailFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);

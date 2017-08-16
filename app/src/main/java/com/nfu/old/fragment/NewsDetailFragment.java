@@ -55,10 +55,12 @@ public class NewsDetailFragment extends BaseFragment {
 
     private NewsModel newsModel = null;
     private String title = "媒体报道";
+    int titleType;
+    String[] titles = {"图片新闻", "最新资讯", "政策文件","通知公告","区级动态","媒体报道"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bindView(inflater,R.layout.news_detail_fragment,container);
+        bindView(inflater, R.layout.news_detail_fragment, container);
         initView();
         loadData();
         return rootView;
@@ -67,17 +69,18 @@ public class NewsDetailFragment extends BaseFragment {
     @Override
     protected void loadData() {
         Bundle bundle = getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             newsModel = (NewsModel) bundle.getSerializable("news");
-            title = bundle.getString("title");
+
+            titleType = bundle.getInt("title");
         }
 
-        top_title.setText(title);
-        if (newsModel!=null){
+        top_title.setText(titles[titleType]);
+        if (newsModel != null) {
             tv_title.setText(newsModel.getTitle());
             tv_title.setMovementMethod(ScrollingMovementMethod.getInstance());
             tv_creatdate.setText(newsModel.getCreatedate());
-            wv_content.loadDataWithBaseURL(null,newsModel.getContent(),"text/html","utf-8",null);
+            wv_content.loadDataWithBaseURL(null, newsModel.getContent(), "text/html", "utf-8", null);
         }
     }
 
@@ -87,7 +90,7 @@ public class NewsDetailFragment extends BaseFragment {
         wv_content.getSettings().setUseWideViewPort(true);
         wv_content.getSettings().setLoadWithOverviewMode(true);
         wv_content.getSettings().setBuiltInZoomControls(true);
-       // wv_content.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // wv_content.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         wv_content.getSettings().setSupportZoom(true);
         btnBack.setOnClickListener(new ButtonExtendM.OnClickListener() {
             @Override
