@@ -6,13 +6,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -30,13 +34,21 @@ import com.nfu.old.fragment.ServiceFragment;
 import com.nfu.old.map.MyLocationListener;
 import com.nfu.old.utils.ImageUtils;
 import com.nfu.old.utils.LogUtil;
+import com.nfu.old.utils.PhotoUtils;
+import com.nfu.old.utils.ToastUtil;
 import com.nfu.old.view.ButtonExtendM;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.nfu.old.utils.DeviceUtil.hasSdcard;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -137,14 +149,43 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == ACCESS_COARSE_LOCATION_REQUEST_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission Granted
-                getLocate();
-            } else {
-                // Permission Denied
-                Toast.makeText(this, "访问被拒绝！", Toast.LENGTH_SHORT).show();
+        switch (requestCode) {
+            case ACCESS_COARSE_LOCATION_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    getLocate();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(this, "访问被拒绝！", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case CAMERA_PERMISSIONS_REQUEST_CODE: {//调用系统相机申请拍照权限回调
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (hasSdcard()) {
+                        File fileUri  =  getFileUrl();
+                        imageUri = Uri.fromFile(fileUri);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                            imageUri = FileProvider.getUriForFile(this, "com.zz.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
+                        PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
+                    } else {
+                        ToastUtil.showShortToast(this, "设备没有SD卡！");
+                    }
+                } else {
+
+                    ToastUtil.showShortToast(this, "请允许打开相机！！");
+                }
+                break;
+
+
             }
+            case STORAGE_PERMISSIONS_REQUEST_CODE://调用系统相册申请Sdcard权限回调
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
+                } else {
+
+                    ToastUtil.showShortToast(this, "请允许打操作SDCard！！");
+                }
+                break;
         }
     }
     private void setHomeFragment() {
@@ -241,12 +282,17 @@ public class MainActivity extends AppCompatActivity {
 //        isClick = false;
     }
 
+
     /**
      * 选择图片的返回码
      */
     public final static int SELECT_IMAGE_RESULT_CODE1 = 200;
     public final static int SELECT_IMAGE_RESULT_CODE2 = 300;
     public final static int SELECT_IMAGE_RESULT_CODE3 = 400;
+    private int CODE_CAMERA_REQUEST = 0;
+    private int CODE_GALLERY_REQUEST = 0;
+    private static final int CAMERA_PERMISSIONS_REQUEST_CODE = 0x03;
+    private static final int STORAGE_PERMISSIONS_REQUEST_CODE = 0x04;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -263,6 +309,8 @@ public class MainActivity extends AppCompatActivity {
                     imagePath = ImageUtils.getFilePathByFileUri(this, getFileUri(uri));
                 }
 
+            }else if (IMAGEPATH!=null){
+                imagePath = IMAGEPATH;
             }
 
             if (mOnFragmentResult!=null){
@@ -335,5 +383,59 @@ public class MainActivity extends AppCompatActivity {
 //        mLocationClient.stop();// 退出时销毁定位
         super.onDestroy();
         unbinder.unbind();
+    }
+
+
+    private Uri imageUri;
+    private Uri cropImageUri;
+    private String IMAGEPATH;
+    /**
+     * 自动获取相机权限
+     */
+    public void autoObtainCameraPermission(int requestCode) {
+        CODE_CAMERA_REQUEST = requestCode;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                ToastUtil.showShortToast(this, "您已经拒绝过一次");
+            }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSIONS_REQUEST_CODE);
+        } else {//有权限直接调用系统相机拍照
+            if (hasSdcard()) {
+                File fileUri  =  getFileUrl();
+                IMAGEPATH = fileUri.getAbsolutePath();
+                imageUri = Uri.fromFile(fileUri);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    imageUri = FileProvider.getUriForFile(this, "com.zz.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
+                PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
+            } else {
+                ToastUtil.showShortToast(this, "设备没有SD卡！");
+            }
+        }
+    }
+
+    private File getFileUrl(){
+        //获取与应用相关联的路径
+        String imageFilePath = getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
+        //根据当前时间生成图片的名称
+        String timestamp = "/" + formatter.format(new Date()) + ".jpg";
+        File imageFile = new File(imageFilePath, timestamp);// 通过路径创建保存文件
+        return imageFile;
+    }
+
+    /**
+     * 自动获取sdk权限
+     */
+
+    public void autoObtainStoragePermission(int requestCode) {
+        CODE_GALLERY_REQUEST = requestCode;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSIONS_REQUEST_CODE);
+        } else {
+            PhotoUtils.openPic(this, CODE_GALLERY_REQUEST);
+        }
+
     }
 }
