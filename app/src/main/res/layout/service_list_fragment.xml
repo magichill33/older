@@ -57,6 +57,7 @@
             app:cardBackgroundColor="@color/base_red_color"
             app:cardCornerRadius="@dimen/magin_10"
             app:contentPaddingLeft="@dimen/magin_15"
+
             app:contentPaddingTop="@dimen/padding_top_2">
 
             <TextView

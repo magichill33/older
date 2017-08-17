@@ -38,6 +38,7 @@
             android:layout_marginRight="@dimen/magin_15"
             android:src="@drawable/top_bar_setting_bg" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/consult_viewpager_heigth">
