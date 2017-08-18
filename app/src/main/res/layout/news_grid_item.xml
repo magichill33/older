@@ -60,7 +60,7 @@
                     android:layout_width="@dimen/home_center_icon"
                     android:layout_height="@dimen/home_center_icon"
                     android:scaleType="centerInside"
-                    android:src="@drawable/home_query_bg" />
+                    android:src="@drawable/home_card_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
