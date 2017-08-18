@@ -29,6 +29,7 @@ import com.nfu.old.activity.MainActivity;
 import com.nfu.old.config.ApiConfig;
 import com.nfu.old.manager.ApiManager;
 import com.nfu.old.model.Feedback;
+import com.nfu.old.utils.BitmapAndStringUtils;
 import com.nfu.old.utils.DensityUtil;
 import com.nfu.old.utils.ImageUtils;
 import com.nfu.old.utils.LogUtil;
@@ -175,9 +176,9 @@ public class SafeguardDetailFragment extends BaseFragment{
                     feedback.setContacterName(ed_name.getText().toString());
                     feedback.setOpinionType(type);
                     feedback.setFeedbackContent(ed_question.getText().toString());
-                    feedback.setImgStrFirst(getImageCode(path1));
-                    feedback.setImgStrSecond(getImageCode(path2));
-                    feedback.setImgStrThird(getImageCode(path3));
+                    feedback.setImgStrFirst(BitmapAndStringUtils.convertIconToString(path1));
+                    feedback.setImgStrSecond(BitmapAndStringUtils.convertIconToString(path2));
+                    feedback.setImgStrThird(BitmapAndStringUtils.convertIconToString(path3));
                     String str = new Gson().toJson(feedback);
                     ApiManager.getInstance().postOpinionFeedBack(str, new StringCallback() {
                         @Override
