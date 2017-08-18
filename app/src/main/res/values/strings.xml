@@ -5,7 +5,7 @@
     <string name="bottom_bar_consult_str">咨询</string>
     <string name="bottom_bar_service_str">服务</string>
     <string name="home_fragment_policy_str">政策文件</string>
-    <string name="home_fragment_query_str">卡片业务</string>
+    <string name="home_fragment_query_str">业务查询</string>
     <string name="home_fragment_maintain_str">老年维权</string>
     <string name="home_fragment_notice_str">通知公告</string>
     <string name="home_fragment_oldservice_str">为老服务</string>
