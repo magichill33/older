@@ -2,6 +2,7 @@ package com.nfu.old.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.util.Base64;
 
 import java.io.ByteArrayInputStream;
@@ -29,8 +30,12 @@ public class BitmapAndStringUtils {
     }
 
     public static String convertIconToString(String path){
-        Bitmap bitmap = getimage(path);
-        return convertIconToString(bitmap);
+        if (!TextUtils.isEmpty(path)){
+            Bitmap bitmap = getimage(path);
+            return convertIconToString(bitmap);
+        }else {
+            return "";
+        }
     }
 
     /**
