@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.nfu.old.fragment.HomeFragment;
 import com.nfu.old.fragment.SafeguardFragment;
 import com.nfu.old.fragment.ServiceFragment;
 import com.nfu.old.map.MyLocationListener;
+import com.nfu.old.utils.BitmapAndStringUtils;
 import com.nfu.old.utils.ImageUtils;
 import com.nfu.old.utils.LogUtil;
 import com.nfu.old.utils.PhotoUtils;
@@ -301,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
         String imagePath = "";
         if((requestCode == SELECT_IMAGE_RESULT_CODE1||requestCode == SELECT_IMAGE_RESULT_CODE2||
                 requestCode == SELECT_IMAGE_RESULT_CODE3) && resultCode== RESULT_OK){
-            if(data != null && data.getData() != null){//有数据返回直接使用返回的图片地址
+            /*if(data != null && data.getData() != null){//有数据返回直接使用返回的图片地址
                 Uri uri = data.getData();
                 if(uri.getScheme().equals("content")) {//判断uri地址是以什么开头的
                     imagePath = ImageUtils.getFilePathByFileUri(this, data.getData());
@@ -315,8 +317,25 @@ public class MainActivity extends AppCompatActivity {
 
             if (mOnFragmentResult!=null){
                 mOnFragmentResult.onResult(imagePath,requestCode);
-            }
+            }*/
+            if (data != null && data.getData() != null) {//有数据返回直接使用返回的图片地址
+                Uri uri = data.getData();
+                /*if (uri.getScheme().equals("content")) {//判断uri地址是以什么开头的
+                    imagePath = ImageUtils.getFilePathByFileUri(this, data.getData());
+                } else {
+                    imagePath = ImageUtils.getFilePathByFileUri(this, getFileUri(uri));
+                }*/
+                Bitmap bitmap = PhotoUtils.getBitmapFromUri(uri,this);
+                if (mOnFragmentResult != null) {
+                    mOnFragmentResult.onResult(bitmap, requestCode);
+                }
 
+            } else if (IMAGEPATH != null) {
+                if (mOnFragmentResult != null) {
+                    Bitmap bitmap = BitmapAndStringUtils.getimage(IMAGEPATH);
+                    mOnFragmentResult.onResult(bitmap, requestCode);
+                }
+            }
         }
     }
 
@@ -333,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
      * 回调数据给Fragment的接口
      */
     public interface OnFragmentResult{
-        void onResult(String mImagePath,int requestCode);
+        void onResult(Bitmap bitmap,int requestCode);
     }
 
     public Uri getFileUri(Uri uri){
