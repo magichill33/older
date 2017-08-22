@@ -426,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
                 IMAGEPATH = fileUri.getAbsolutePath();
                 imageUri = Uri.fromFile(fileUri);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    imageUri = FileProvider.getUriForFile(this, "com.zz.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
+                    imageUri = FileProvider.getUriForFile(this, "com.nfu.old.fileprovider", fileUri);//通过FileProvider创建一个content类型的Uri
                 PhotoUtils.takePicture(this, imageUri, CODE_CAMERA_REQUEST);
             } else {
                 ToastUtil.showShortToast(this, "设备没有SD卡！");
